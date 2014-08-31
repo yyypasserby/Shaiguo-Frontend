@@ -1,0 +1,10 @@
+<div class="jumbotron">
+    <input ng-model="query" placeholder="Type sth. to filter..."></input>
+    <h2>Lives</h2>
+    <ul> 
+        <li ng-repeat="live in lives | filter : {name : query}">
+        <a>{{ live.name }}</a>
+        <img src="{{ live.imgSrc }}"></img>
+        </li>
+    </ul>
+</div>
