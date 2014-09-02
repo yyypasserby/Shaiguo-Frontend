@@ -28,7 +28,14 @@
             <li class="{{ whichActive[1] }}" ng-click="changeActive()"><a ng-href="#/lives">Lives</a></li>
             <li class="{{ whichActive[2] }}" ng-click="changeActive()"><a ng-href="#/account">Account</a></li>
         </ul>
-        <h3 class="text-muted">随心直播</h3>
+        <ul class="nav nav-pills">
+            <li>
+            <img src="images/icon_tiny.png"></img>
+            </li>
+            <li>
+            <h3 class="text-muted"></h3>
+            </li>
+        </ul>
       </div>
 
       <div ng-view=""></div>

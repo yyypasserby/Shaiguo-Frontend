@@ -2,7 +2,7 @@
 
 angular.module('livesApp')
 .controller('LivesCtrl', function($scope, $resource) {
-    var url = 'http://localhost:8080/com.nixinger.restTest/rest/:func'; 
+    var url = 'http://localhost:8080/LivesServer/rest/:func'; 
     var liveResource = $resource(url, {func : 'lives'});
     var livesData = liveResource.get(function() {
         console.log(livesData);

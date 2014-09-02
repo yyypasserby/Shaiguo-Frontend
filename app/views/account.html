@@ -1,1 +1,11 @@
-<p>This is the about view.</p>
+<div class="header nav nav-pills">
+    <img src="{{ user.imageSrc }}"></img>
+    <div>
+        <span>Username : {{ user.username }}</span>
+        <a class="btn btn-success">modify</a>
+    </div>
+    <div>
+        <span>Email    : {{ user.email }}</span>
+        <a class="btn btn-success">modify</a>
+    </div>
+</div>
