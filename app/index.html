@@ -23,19 +23,18 @@
     <!-- Add your site or application content here -->
     <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
-            <li class="{{ whichActive[0] }}" ng-click="changeActive()"><a ng-href="#">Home</a></li>
-            <li class="{{ whichActive[1] }}" ng-click="changeActive()"><a ng-href="#/lives">Lives</a></li>
-            <li class="{{ whichActive[2] }}" ng-click="changeActive()"><a ng-href="#/account">Account</a></li>
+        <ul class="nav nav-pills" style="font-size:25px;padding:10px">
+        <li>
+        <img style="margin-left:30px;margin-top:-10px" src="images/icon_small.png"></img>
+        </li>
+            <li class="{{ whichActive[0] }}" ng-click="changeActive()"><a ng-href="#">首页</a></li>
+            <li class="{{ whichActive[1] }}" ng-click="changeActive()"><a ng-href="#/lives">直播</a></li>
+            <li class="{{ whichActive[2] }}" ng-click="changeActive()"><a ng-href="#/account">分类</a></li>
         </ul>
-        <ul class="nav nav-pills">
-            <li>
-            <img src="images/icon_tiny.png"></img>
-            </li>
-            <li>
-            <h3 class="text-muted"></h3>
-            </li>
-        </ul>
+      </div>
+      <div class="navbar navbar-fixed-top" style="background-color:#e9e9e9;min-height:100px;z-index:-1">
+      </div>
+      <div class="navbar navbar-inverse navbar-fixed-top" style="min-height:30px;z-index:-1">
       </div>
 
       <div ng-view=""></div>
