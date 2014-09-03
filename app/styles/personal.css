@@ -1,0 +1,54 @@
+body{
+	background-color: #d8d8d8;
+}
+
+a:hover{cursor: pointer;}
+
+div.newest{
+	float:left;
+	margin-left: 60px;
+	margin-top: 10px;
+	width:380px;
+}
+div.recommend{
+	background-image: url(/images/card_personal.png);
+	background-size:380px 200px;
+	margin-left: 0px;
+	margin-top: 0px;
+	width:380px;
+	height: 200px;
+}
+
+div.caster{
+	float: left;
+	margin-left: 40px;
+	margin-top: 20px;
+}
+div.video{
+	float: right;
+	margin-right: 50px;
+	margin-top: 25px;
+}
+div.right{
+	background-image: url(/images/back_right.png);
+	background-repeat: no-repeat;
+	background-size: 180px 1000px;
+	float: right;
+	margin-left: 10px;
+	margin-right: 60px;
+	width: 180px; 
+	height: 1000px;
+}
+
+div.info{
+	margin-left: 40px;
+	margin-top: 50px;
+}
+div.like{
+	margin-left: 60px;
+	margin-top: 180px;
+}
+.friend{
+	margin-left: 15px;
+	margin-top: 110px;
+}
