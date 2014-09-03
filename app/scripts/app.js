@@ -23,9 +23,9 @@ var app = angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/account', {
-        templateUrl: 'views/account.html',
-        controller: 'AccountCtrl'
+      .when('/personal', {
+        templateUrl: 'views/personal.html',
+        controller: 'PersonalCtrl'
       })
       .when('/lives', {
         templateUrl: 'views/lives.html',
