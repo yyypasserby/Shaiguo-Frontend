@@ -4,45 +4,46 @@
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
+    <!-- bower:css
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-responsive.css" />-->
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/bootstrap.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="livesApp">
+  <body ng-app="livesApp" style="">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills" style="font-size:25px;padding:10px">
-        <li>
-        <img style="margin-left:30px;margin-top:-10px" src="images/icon_small.png"></img>
-        </li>
+        <!--
             <li class="{{ whichActive[0] }}" ng-click="changeActive()"><a ng-href="#">首页</a></li>
             <li class="{{ whichActive[1] }}" ng-click="changeActive()"><a ng-href="#/lives">直播</a></li>
             <li class="{{ whichActive[2] }}" ng-click="changeActive()"><a ng-href="#/account">分类</a></li>
-        </ul>
+            -->
+      <div class="container" style="">
+        <div class="navbar-fixed-top navbar" style="min-width:1000px;background-color:#f1f1f1;">
+          <div class="navbar-fixed-top" style="z-index:-1;background-color:#222;height:20px;">
+          </div>
+          <img class="img-rounded" style="margin-left:80px;margin-top:10px;"src="images/icon_small.png"></img>
+          <form class="pull-right form-search" style="margin:50px;margin-bottom:0px;">
+          <input type="text" class="search-query"placeholder="Search"></input>
+          <button class="btn" style="margin-top:0px;">search</button>
+          </form>
+        </div>
+        <div style="height:100px">
+        </div>
+        
+        <div ng-view=""></div>
       </div>
-      <div class="navbar navbar-fixed-top" style="background-color:#e9e9e9;min-height:100px;z-index:-1">
-      </div>
-      <div class="navbar navbar-inverse navbar-fixed-top" style="min-height:30px;z-index:-1">
-      </div>
-
-      <div ng-view=""></div>
-
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Lives team</p>
-      </div>
-    </div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

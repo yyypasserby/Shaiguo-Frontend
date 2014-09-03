@@ -1,23 +1,24 @@
-<div class="jumbotron" style="background-image:url(images/back1_blur.jpg)")>
-    <div class="row">
-    <div class="row pull-left">
-        <p>
-        <input placeholder="用户名." ng-model="user.username">
-        </input>
-        </p>
-        <p>
-        <input placeholder="密码." ng-model="user.password">
-        </input>
-        </p>
-        <p>
-        <input placeholder="邮箱." ng-model="user.email">
-        </input>
-        </p>
-        </p>
-        <p>
-        <a class="btn btn-lg btn-success" ng-click="signup()">SIGN UP</a>
-        </p>
+<div class="container-fluid img-rounded" style="padding-top:40px;padding-bottom:40px;background-image:url(images/back1_blur.jpg);width:930px;background-repeat:no-repeat">
+    <div class="row-fluid">
+    <div class="span3" style="padding-top:60px;padding-left:20px;">
+    <form style="float:left;">
+        <fieldset>
+            <label>
+            <input type="text" class="input-large" placeholder="Your Username" ng-model="user.username">
+            </label>
+            <label>
+            <input type="password" class="input-large" placeholder="Your Password" ng-model="user.password">
+            </label>
+            <label>
+            <input type="text" class="input-large" placeholder="Your Email" ng-model="user.email">
+            </label>
+            <a type="submit" class="btn btn-primary btn-block">Sign Up</a>
+        </fieldset>
+    </form>
     </div>
-    <img class="pull-right" src="images/back1.jpg"></img>
+    <div class="span1"></div>
+    <div class="span7">
+    <img src="images/back1.jpg" class="" style=""></img>
+    </div>
     </div>
 </div>
