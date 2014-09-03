@@ -8,7 +8,7 @@
  * Controller of the livesApp
  */
 angular.module('livesApp')
-.controller('MainCtrl', function ($scope, $resource) {
+.controller('MainCtrl', function ($scope, $resource, $location) {
     $scope.user={};
     var url = 'http://localhost:8080/LivesServer/rest/:func';
     $scope.signup = function() {
@@ -17,6 +17,9 @@ angular.module('livesApp')
         console.log(userResource);
 
         var result = userResource.save($scope.user, function() {
+            if(result.result === true) {
+                $location.path('/personal');
+            }
             console.log(result);
         });
     };

@@ -2,17 +2,17 @@
 
 angular.module('livesApp')
 .controller('LivesCtrl', function($scope, $resource) {
-    var url = 'http://localhost:8080/LivesServer/rest/:func'; 
-    var liveResource = $resource(url, {func : 'lives'});
-    var livesData = liveResource.get(function() {
+    var url = 'http://localhost:8080/LivesServer/rest/live/:id'; 
+    var liveResource = $resource(url);
+    var livesData = liveResource.query(function() {
         console.log(livesData);
-        $scope.lives = livesData.object;
+        $scope.lives = livesData;
     });
 
     $scope.search = function() {
-        var hello = $resource(url, {func : 'hello'});
-        var data = hello.get(function() {
-            console.log(data.hello);    
+        var live = $resource(url, {id : $scope.query});
+        var data = live.get(function() {
+            console.log(data.livename);    
         });
     };
 });

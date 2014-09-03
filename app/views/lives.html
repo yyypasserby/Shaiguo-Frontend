@@ -3,9 +3,9 @@
     <button ng-click="search()" class="button">search</button>
     <h2>Lives</h2>
     <ul> 
-        <li ng-repeat="live in lives | filter : {name : query}">
-        <a>{{ live.name }}</a>
-        <img src="{{ live.imgSrc }}"></img>
+        <li ng-repeat="live in lives | filter : {livename : query}">
+        <a>{{ live.livename }}</a>
+        <img src="{{ live.liveImgSrc }}"></img>
         </li>
     </ul>
 </div>

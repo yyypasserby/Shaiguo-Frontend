@@ -30,13 +30,16 @@
             <li class="{{ whichActive[2] }}" ng-click="changeActive()"><a ng-href="#/account">分类</a></li>
             -->
       <div class="container" style="">
-        <div class="navbar-fixed-top navbar" style="min-width:1000px;background-color:#f1f1f1;">
+        <div class="navbar-fixed-top navbar" style="min-width:768px;background-color:#f1f1f1;">
           <div class="navbar-fixed-top" style="z-index:-1;background-color:#222;height:20px;">
           </div>
           <img class="img-rounded" style="margin-left:80px;margin-top:10px;"src="images/icon_small.png"></img>
           <form class="pull-right form-search" style="margin:50px;margin-bottom:0px;">
+          <div class="input-append">
           <input type="text" class="search-query"placeholder="Search"></input>
-          <button class="btn" style="margin-top:0px;">search</button>
+          <button class="btn" type="submit">Go!</button>
+          </div>
+          <!--<button class="btn" style="margin-top:0px;">search</button>-->
           </form>
         </div>
         <div style="height:100px">
@@ -46,7 +49,7 @@
       </div>
 
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID
      <script>
        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -55,7 +58,7 @@
 
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
-    </script>
+   </script>-->
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
