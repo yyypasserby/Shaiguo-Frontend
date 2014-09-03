@@ -1,14 +1,10 @@
-<div class="jumbotron">
-    <!--<img src="images/icon_small.png"></img>-->
-<div class="pull-right">
-    <img src="{{ user.imageSrc }}"></img>
-    <div>
-        <span>Username : {{ user.username }}</span>
-        <a class="btn btn-success">modify</a>
-    </div>
-    <div>
-        <span>Email    : {{ user.email }}</span>
-        <a class="btn btn-success">modify</a>
-    </div>
-</div>
+<head>
+	<link rel="stylesheet" href="styles/Account.css">
+</head>
+
+<div class = "Login">
+	<h4>登录晒果</h4>
+	<input ng-model="email" placeholder="邮箱" class = "email"></input></br>
+	<input ng-model="pwd" placeholder="密码" class = "pwd"></input></br>
+	<button type="login" class="l">登录</button>
 </div>

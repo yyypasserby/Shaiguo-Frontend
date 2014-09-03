@@ -1,0 +1,18 @@
+.Login {
+	background-image: url(/images/background.jpg);
+	height:200px;
+	padding-top: 20px;
+	padding-left: 60px;
+}
+.email{
+	width: 150px;
+}
+.pwd{
+	margin-top: 10px;
+	width: 150px;
+}
+.l{
+	margin-top: 10px;
+	width:150px;
+	height: 25px;
+}
