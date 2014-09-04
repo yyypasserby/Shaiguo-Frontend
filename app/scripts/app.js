@@ -31,6 +31,10 @@ var app = angular
         templateUrl: 'views/lives.html',
         controller: 'LivesCtrl'
       })
+      .when('/cast', {
+        templateUrl: 'views/cast.html',
+        controller: 'CastCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

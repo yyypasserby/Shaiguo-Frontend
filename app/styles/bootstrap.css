@@ -2002,13 +2002,13 @@ table {
 }
 
 .table {
-  width: 100%;
-  margin-bottom: 20px;
+  width: 80%;
+  margin-bottom: 10px;
 }
 
 .table th,
 .table td {
-  padding: 8px;
+  padding: 5px;
   line-height: 20px;
   text-align: left;
   vertical-align: top;
@@ -2160,14 +2160,14 @@ table th[class*="span"],
 .table td.span1,
 .table th.span1 {
   float: none;
-  width: 44px;
+  width: 50px;
   margin-left: 0;
 }
 
 .table td.span2,
 .table th.span2 {
   float: none;
-  width: 124px;
+  width: 100px;
   margin-left: 0;
 }
 
