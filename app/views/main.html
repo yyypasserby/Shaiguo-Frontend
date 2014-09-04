@@ -1,88 +1,83 @@
-<div class="container-fluid img-rounded" style="padding-top:40px;padding-bottom:40px;background-image:url({{ background.imageSrc }}_blur.jpg);background-repeat:no-repeat">
-    <div class="row-fluid">
-        <div class="span3" style="padding-top:60px;padding-left:20px;">
-            <form style="float:left;">
-                <fieldset>
-                    <div class="input-prepend">
-                        <span class="add-on"><i class="icon-user"></i></span>
-                        <input type="text" class="input-large" placeholder="Your Username" ng-model="user.username">
-                    </div>
-                    <div class="input-prepend">
-                        <span class="add-on"><i class="icon-lock"></i></span>
-                        <input type="password" class="input-large" placeholder="Your Password" ng-model="user.password">
-                    </div>
-                    <div class="input-prepend">
-                        <span class="add-on"><i class="icon-envelope"></i></span>
-                        <input type="text" class="input-large" placeholder="Your Email" ng-model="user.email">
-                    </div>
-                    <a type="submit" class="btn btn-primary btn-block" ng-click="signup()">Sign Up</a>
-                </fieldset>
-            </form>
-        </div>
-        <div class="span1"></div>
-        <div class="span7">
-            <div ng-controller="IndexImageCarouselCtrl">
-                <carousel interval="indexImageInterval">
-                <slide ng-repeat="slide in indexImageSlides" active="slide.active">
-                <img class="img-rounded" ng-src="{{ slide.imageSrc }}.jpg" style="margin:auto;">
-                <div class="carousel-caption img-rounded">
-                    <h4>{{ slide.caption }}</h4>
-                    <p>{{ slide.introduction }}</p>
-                </div>
-                </slide>
-                </carousel>
+<div class="container">
+    <div class="container-fluid img-rounded" style="padding-top:40px;padding-bottom:40px;background-image:url({{ background.imageSrc }}_blur.jpg);background-repeat:no-repeat">
+        <div class="row-fluid">
+            <div class="span1"></div>
+            <div class="span3" style="">
+                <form style="">
+                    <fieldset>
+                        <input type="text" class="input-lg" style="" class="input-block-level" placeholder="Your Username" ng-model="user.username">
+                        <input type="password" class="input-block-level" placeholder="Your Password" ng-model="user.password">
+                        <input type="text" class="input-block-level" placeholder="Your Email" ng-model="user.email">
+                        <a type="submit" class="btn btn-primary btn-block" ng-click="signup()">Sign Up</a>
+                    </fieldset>
+                </form>
             </div>
+            <div class="span1"></div>
+            <div class="span6">
+                <div ng-controller="IndexImageCarouselCtrl">
+                    <carousel interval="indexImageInterval">
+                    <slide ng-repeat="slide in indexImageSlides" active="slide.active">
+                    <img class="img-rounded" ng-src="{{ slide.imageSrc }}.jpg" style="margin:auto;">
+                    <div class="carousel-caption img-rounded">
+                        <h4>{{ slide.caption }}</h4>
+                        <p>{{ slide.introduction }}</p>
+                    </div>
+                    </slide>
+                    </carousel>
+                </div>
+            </div>
+            <div class="span1"></div>
         </div>
     </div>
-</div>
-<hr></hr>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span4">
-            <h4>Categories</h3>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-        </div>
-        <div class="span4">
-            <h4>Castings</h3>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
+    <hr></hr>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span4">
+                <h4>Categories</h3>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+            </div>
+            <div class="span4">
+                <h4>Castings</h3>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
 
-        </div>
-        <div class="span4">
-            <h4>Casters</h3>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-            <p>
-            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
+            </div>
+            <div class="span4">
+                <h4>Casters</h3>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+                <p>
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+            </div>
         </div>
     </div>
 </div>

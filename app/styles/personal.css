@@ -1,62 +1,29 @@
 body{
-	background-color: #d8d8d8;
 	box-shadow: 2px 2px 10px #909090;
 	padding-top: 0px;
 }
 
-a:hover{cursor: pointer;}
-
-div.total{
-	overflow:auto;
-	background-color: #f1f1f1;
-}
-div.newest{
-	overflow: :auto;
-	float:left;
-	margin-left: 60px;
-	margin-top: 10px;
-}
-div.recommend{
-	overflow: auto;
-	background-image: url(/images/card_personal.png);
-	background-size:550px 350px;
-	background-repeat: no-repeat;
-	margin-left: 0px;
-	margin-top: 20px;
+img.people-head {
+    height:50px;
+    width:50px;
 }
 
-div.caster{
-	float: left;
-	margin-left: 60px;
-	margin-top: 60px;
-}
-div.video{
-	float: right;
-	margin-left: 50px;
-	margin-right: 50px;
-	margin-bottom: 50px;
-	margin-top: 35px;
-}
-div.right{
-	background-image: url(/images/back_right.png);
-	background-repeat: no-repeat;
-	background-size: 250px 1200px;
-	float: right;
-	margin-left: 10px;
-	margin-right: 60px;
-	width: 250px; 
-	height:1200px;
+span.label.label-bigger {
+    font-size:16px;
+    padding:7px 9px;
+    margin:11px 0px 0px 0px;
 }
 
-div.info{
-	margin-left: 60px;
-	margin-top: 80px;
+span.badge.badge-bigger {
+    font-size:16px;
+    padding:7px 9px;
 }
-div.like{
-	margin-left: 60px;
-	margin-top: 200px;
-}
-.friend{
-	margin-left: 60px;
-	margin-top: 150px;
+
+div.message {
+   /* background-image:url(images/card_personal.png);*/
+    padding:10px;
+    background-size:cover;
+    padding-bottom:0px;
+    padding-right:20px;
+    box-shadow: 0px 1px 1px #222;
 }
