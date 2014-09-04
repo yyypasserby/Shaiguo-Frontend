@@ -7,36 +7,16 @@ body{
 a:hover{cursor: pointer;}
 
 div.total{
-	overflow:auto;
+	overflow: auto;
 	background-color: #f1f1f1;
 }
-div.newest{
-	overflow: :auto;
-	float:left;
-	margin-left: 60px;
-	margin-top: 10px;
-}
-div.recommend{
-	overflow: auto;
-	background-image: url(/images/card_personal.png);
-	background-size:550px 350px;
-	background-repeat: no-repeat;
-	margin-left: 0px;
-	margin-top: 20px;
+div.apply{
+	float: left;
+	margin-left: 70px;
+	margin-top: 40px;
+	width:500px;
 }
 
-div.caster{
-	float: left;
-	margin-left: 60px;
-	margin-top: 60px;
-}
-div.video{
-	float: right;
-	margin-left: 50px;
-	margin-right: 50px;
-	margin-bottom: 50px;
-	margin-top: 35px;
-}
 div.right{
 	background-image: url(/images/back_right.png);
 	background-repeat: no-repeat;

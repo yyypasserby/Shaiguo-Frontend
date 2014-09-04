@@ -8,7 +8,7 @@
  * Controller of the livesApp
  */
 angular.module('livesApp')
-  .controller('PersonalCtrl', function ($scope) {
+  .controller('CastCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
