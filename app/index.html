@@ -14,8 +14,9 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/normalize.css">
-    <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="styles/bootstrap/css/normalize.css">
+    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css">
+
     <!-- endbuild -->
   </head>
   <body ng-app="livesApp" style="">
@@ -46,7 +47,13 @@
         </div>
         
         <div ng-view=""></div>
-      </div>
+        <div class="footer">
+            <h4>
+            <hr></hr>
+            <small class="">Produced by ShaiGuo Team</small>
+            </h4>
+        </div>
+    </div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID
@@ -72,13 +79,13 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/json3/lib/json3.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

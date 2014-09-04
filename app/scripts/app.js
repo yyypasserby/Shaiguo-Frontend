@@ -10,12 +10,13 @@
  */
 var app = angular
   .module('livesApp', [
-    'ngAnimate',
+//    'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -52,8 +53,6 @@ app.run(function($rootScope, $location) {
             $rootScope.whichActive[i] = '';
         }
         $rootScope.whichActive[count] = 'active';
-
-        console.log(count);
     });
     //$rootScope.changeActive = function() {
     //    var path = $location.path();
