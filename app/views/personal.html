@@ -6,10 +6,10 @@
     <div class="row-fluid">
         <div class="span8">
             <div class="thumbnail media message" ng-repeat="message in messages">
-                <a class="pull-left" style="margin-top:10px;margin-left:5px;">
+                <div class="pull-left span2" style="margin-top:10px;margin-left:5px;">
                     <img class="media-object img-rounded" ng-src="images/{{ message.username }}.png"></img>
-                    <span class="">{{ message.username }}</span>
-                </a>
+                    <h5 class="">{{ message.username }}</h5>
+                </div>
                 <div class="media-body">
                     <h3 class="media-heading">{{ message.heading }}</h3>
                     <img class="img-rounded" ng-src="images/{{ message.thumbnail }}.jpg"></img>
@@ -21,13 +21,16 @@
         </div>
         <div class="span4">
             <div class="thumbnail">
-            <div class="media" style="padding:20px">
-                <img class="pull-left" src="images/icon_tiny.png" style="width:40%;">
+            <div class="media" style="padding:20px;padding-top:0px">
+                <img class="pull-left" ng-src="images/{{ user.username }}.png" style="width:40%;margin-top:10px;">
                 <div class="media-body">
-                    <h3>Corey</h3>
+                    <h4>{{ user.username }}</h4>
                     <p>
-                    Corey@shaiguo.com
+                    {{ user.email }}
                     </p>
+                    <button class="btn btn-primary">
+                        personal center
+                    </button>
                 </div>
                 <hr></hr>
                 <p style="">
@@ -42,13 +45,13 @@
         </div>
         <hr></hr>
         <div class="thumbnail">
-            <div class="media" style="padding:10px">
+            <div class="media" style="padding:10px" ng-repeat="friend in friends">
                 <a class="pull-left">
-                    <img class="media-object people-head" src="images/icon_small.png">
+                    <img class="media-object people-head" ng-src="images/{{ friend.username }}.png">
                     </img>
                 </a>
                 <div class="media-body" style="padding:5px">
-                    <h4 class="media-heading">Media heading</h4>
+                    <h4 class="media-heading">{{ friend.username }}</h4>
                 </div>
             </div>
         </div>
