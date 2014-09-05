@@ -1,0 +1,47 @@
+<div class="container">
+    <input type="text" ng-model="query" placeholder="Type sth. to filter..."></input>
+    <tabset>
+    <tab heading="Lives">
+    <div class="container">
+        <div class="span3 thumbnail" style="margin-left:5px;" ng-repeat="live in lives | filter : {'livename' : query}">
+            <img ng-src="images/{{ live.liveImageSrc }}.jpg">
+            <h6 class="muted">{{ live.livename }}</h6>
+            <p></p>
+        </div>
+    </div>
+    </tab>
+    <tab heading="Users">
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users | filter : {'username' : query}">
+                    <td>{{ user.hotRate }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </tab>
+    <tab heading="Caches">
+    <div class="container">
+        <div class="thumbnail" ng-repeat="result in cachedVideos">
+            <h2>{{ result.username }}</h2>
+            <hr></hr>
+            <div class="thumbnail span3" ng-repeat="video in result.cachedvideos">
+            <img ng-src="images/{{ video.videoname }}">
+            <h6 class="">{{ video.videoname }}</h6>
+            <h6 class="muted">{{ video.duration }}</h6>
+            </div>
+        </div>
+    </div>
+    </tab>
+    </tabset>
+</div>
