@@ -1,6 +1,34 @@
 <head>
     <link rel="stylesheet" href="styles/personal.css">
 </head>
+<script type="text/ng-template" id="UserSettings.html">
+    <div class="modal-header">
+        <h3 class="modal-title">User Settings</h3>
+    </div>
+    <div class="modal-body">
+        <div class="thumbnail media">
+            <img class="pull-left" ng-src="images/{{ settings.username }}.png"><img>
+            <div class="media-body">
+                <h4>
+                <button class="btn btn-primary">Upload headImage</button>
+                </h4>
+                <p>
+                <span class="span5 uneditable-input">Your Image Location</span>
+                </p>
+            </div>
+        </div>
+        <dl class="dl-horizontal">
+            <dt class="lead" style="margin-bottom:0px">Username</dt>
+            <dd><input type="text" placeholder="{{settings.username}}"></input></dd>
+            <dt class="lead">Email</dt>
+            <dd><input type="email" placeholder="{{ settings.email }}"></input></dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
 
 <div class="container-fluid" style="margin-top:20px;">
     <div class="row-fluid">
@@ -28,7 +56,7 @@
                     <p>
                     {{ user.email }}
                     </p>
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" ng-click="open()">
                         personal center
                     </button>
                 </div>

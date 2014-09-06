@@ -23,14 +23,32 @@
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-        <!-- Add your site or application content here -->
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                <div class="nav-collapse collapse container">
+                    <ul class="nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#personal">Person</a></li>
+                    <li><a href="#search">Search</a></li>
+                    </ul>
+                    <div class="pull-right form-search" style="margin-top:9px">
+                    <div class="input-append" style="height:25px;">
+                        <input type="text" style="height:15px" class="search-query" placeholder="Search"></input>
+                        <button class="btn" style="height:25px;padding:2px 10px" type="submit">Go!</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div style="height:10px;background-color:#fff">
+                </div>
+            </div>
+        <div class="">
+            <img style="position:fixed;margin-left:70px;z-index:1031;"ng-src="images/icon_small.png">
+            </img>
+        </div>
+        <div style="height:50px">
+        </div>
         <!--
-        <li class="{{ whichActive[0] }}" ng-click="changeActive()"><a ng-href="#">首页</a></li>
-        <li class="{{ whichActive[1] }}" ng-click="changeActive()"><a ng-href="#/lives">直播</a></li>
-        <li class="{{ whichActive[2] }}" ng-click="changeActive()"><a ng-href="#/account">分类</a></li>
-        -->
-        <div class="container" style="">
         <div>
             <div class="navbar-fixed-top navbar" style="min-width:768px;background-color:#f1f1f1;box-shadow: 2px 3px 7px #909090;">
                 <div class="navbar-fixed-top" style="z-index:-1;background-color:#222;height:20px;">
@@ -41,20 +59,23 @@
                         <input type="text" class="search-query"placeholder="Search"></input>
                         <button class="btn" type="submit">Go!</button>
                     </div>
-                    <!--<button class="btn" style="margin-top:0px;">search</button>-->
+                    <button class="btn" style="margin-top:0px;">search</button>
                 </form>
             </div>
             <div style="height:105px">
             </div>
         </div>
+        -->
 
-        <div ng-view=""></div>
+        <div class="container" style="">
+            <div ng-view=""></div>
 
-        <div class="footer">
-            <h4>
-                <hr></hr>
-                <small class="">Produced by ShaiGuo Team</small>
-            </h4>
+            <div class="footer">
+                <h4>
+                    <hr></hr>
+                    <small class="">Produced by ShaiGuo Team</small>
+                </h4>
+            </div>
         </div>
     </div>
 

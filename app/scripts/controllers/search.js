@@ -15,10 +15,11 @@ angular.module('livesApp')
         $scope.users = userData;
     });
 
+    $scope.cachedVideos = [];
     var cachedVideoResource = $resource(url, {func : 'cached', key : 'yyypasserby'});
     var cachedVideoData = cachedVideoResource.query(function() {
-        cachedVideoData.forEach(function(item) {
-        });
+        $scope.cachedVideos = cachedVideoData;
+        console.log(cachedVideoData);
     });
     $scope.search = function() {
         var live = $resource(url, {id : $scope.query});
