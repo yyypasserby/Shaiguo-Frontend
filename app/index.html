@@ -23,30 +23,31 @@
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-            <div class="navbar navbar-inverse navbar-fixed-top">
-                <div class="navbar-inner">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
                 <div class="nav-collapse collapse container">
                     <ul class="nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#personal">Person</a></li>
-                    <li><a href="#search">Search</a></li>
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#personal">Person</a></li>
+                        <li><a href="#search">Search</a></li>
+                        <li><a href="#castroom">Castroom</a></li>
                     </ul>
                     <div class="pull-right form-search" style="margin-top:9px">
-                    <div class="input-append" style="height:25px;">
-                        <input type="text" style="height:15px" class="search-query" placeholder="Search"></input>
-                        <button class="btn" style="height:25px;padding:2px 10px" type="submit">Go!</button>
+                        <div class="input-append" style="height:25px;">
+                            <input type="text" style="height:15px" class="search-query" placeholder="Search"></input>
+                            <button class="btn" style="height:25px;padding:2px 10px" type="submit">Go!</button>
+                        </div>
                     </div>
-                    </div>
-                </div>
-                </div>
-                <div style="height:10px;background-color:#fff">
                 </div>
             </div>
-        <div class="">
+            <div style="height:10px;background-color:#fff">
+            </div>
+        </div>
+        <!--<div class="">
             <img style="position:fixed;margin-left:70px;z-index:1031;"ng-src="images/icon_small.png">
             </img>
-        </div>
-        <div style="height:50px">
+        </div>-->
+        <div style="height:55px">
         </div>
         <!--
         <div>
@@ -67,16 +68,16 @@
         </div>
         -->
 
-        <div class="container" style="">
-            <div ng-view=""></div>
+        <div ng-view=""></div>
 
+        <!--<div class="container" style="">
             <div class="footer">
                 <h4>
                     <hr></hr>
                     <small class="">Produced by ShaiGuo Team</small>
                 </h4>
             </div>
-        </div>
+        </div>-->
     </div>
 
 
@@ -111,6 +112,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -120,6 +122,7 @@
     <script src="scripts/controllers/personal.js"></script>
     <script src="scripts/controllers/search.js"></script>
     <script src="scripts/controllers/cast.js"></script>
+    <script src="scripts/controllers/castroom.js"></script>
     <!-- endbuild -->
 </body>
 </html>

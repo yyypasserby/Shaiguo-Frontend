@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ui.utils'
 ])
 .config(function ($routeProvider) {
     $routeProvider
@@ -35,6 +36,10 @@ angular
       .when('/cast', {
         templateUrl: 'views/cast.html',
         controller: 'CastCtrl'
+      })
+      .when('/castroom', {
+        templateUrl: 'views/castroom.html',
+        controller: 'CastroomCtrl'
       })
       .otherwise({
         redirectTo: '/'
