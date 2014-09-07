@@ -1,5 +1,6 @@
 <head>
     <link rel="stylesheet" href="styles/personal.css">
+
 </head>
 <script type="text/ng-template" id="UserSettings.html">
     <div class="modal-header">
@@ -29,6 +30,41 @@
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
     </div>
 </script>
+
+<script type="text/ng-template" id="UserFavor.html">
+    <div class="modal-header">
+        <h3 class="modal-title">User Favor</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label for="favor_to_cast">你想播放的直播</label>
+                <div class="checkbox form-control input-lg">
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">美女</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                    <label><input type="checkbox">网游</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
 
 <div class="container-fluid" style="margin-top:20px;">
     <div class="row-fluid">
@@ -61,6 +97,10 @@
                     </button>
                 </div>
                 <hr></hr>
+                <button class="btn btn-primary" ng-click="open2()">
+                        personal favor
+                    </button>
+                <button type="button" class=" btn btn-primary" data-toggle="modal" data-target="#myModal">favor</button>
                 <p style="">
                 <span class="label label-bigger" style="">music</span>
                 <span class="label label-bigger label-success">music</span>

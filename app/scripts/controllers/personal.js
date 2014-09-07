@@ -25,6 +25,23 @@ var UserSettingsInstanceCtrl = function ($scope, $modalInstance, settings) {
     };
 };
 
+var UserFavorInstanceCtrl = function ($scope, $modalInstance, settings) {
+
+    $scope.settings = settings;
+    console.log($scope.settings);
+    $scope.selected = {
+        item: $scope.settings[0]
+    };
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.settings);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
+
 angular.module('livesApp')
 .controller('PersonalCtrl', function ($scope, $resource, $modal) {
     var url = 'http://localhost:8080/LivesServer/rest/:func';
@@ -47,6 +64,21 @@ angular.module('livesApp')
         var modalInstance = $modal.open({
             templateUrl: 'UserSettings.html',
             controller: UserSettingsInstanceCtrl,
+            resolve: {
+                settings: function () {
+                    return $scope.user;
+                }
+            }
+        });
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        });
+    };
+
+    $scope.open2 = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'UserFavor.html',
+            controller: UserFavorInstanceCtrl,
             resolve: {
                 settings: function () {
                     return $scope.user;

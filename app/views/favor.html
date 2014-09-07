@@ -1,0 +1,84 @@
+<head>
+	<style>
+		.span3{
+			cursor:pointer;
+			height:80px;
+			overflow: hidden;
+		}
+		.span5{
+			margin-top: 6px;
+			padding-left: 10px;
+			text-align:center;
+			font-size: large;
+			font-weight: bold;
+			font-family: 微软雅黑;
+		}
+		.span7{
+			margin-top: 6px;
+			padding-left: 15px;
+		}
+		img{
+			width:70px;
+			height: 70px;
+		}
+		.attention{
+			display: none;
+			position: relative;
+			bottom:23px;
+			background-color: white;
+			opacity: 1;
+			margin-left: 80px;
+			margin-top: 70px;
+			padding-left: 40px;
+		}
+	</style>
+	
+</head>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".span3").mouseover(function(){
+	    $(this).css("box-shadow","2px 2px 5px");
+	  });
+	});
+	$(document).ready(function(){
+	  $(".span3").mouseleave(function(){
+	    $(this).css("box-shadow","0px 0px 0px");
+	  });
+	});
+	
+	/*$(document).ready(function(){
+		$(".span3").click(function(){
+		    $(".attention").toggle("fast");
+		  });
+		});*/
+	$(document).ready(function(){
+	  $(".span3").click(function(){
+	  	var value = $(".span3").attr("value");
+	    if(value == "0"){
+	    	$(".attention").show("fast");
+	    	$(".span3").attr("value","1");
+	    }
+	    else{
+	    	$(".attention").hide("fast");
+	    	$(".span3").attr("value","0");
+	    }
+	  });
+	});
+</script>
+
+<div class="container" style="margin-top:60px;">
+	<div class="row-fluid">
+	 	<div class="span6"><h3>你作为主播想分享的直播类型:<h3></div>
+	 	<div class="span4"><button class="btn btn-info" style="float:right">下一步</button></div>
+	 	<div class="span2"><button class="btn btn-warning" href="#personal">跳 过</button></div>
+	</div>
+	</br>
+		<div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" value="0">
+			<div class="row-fluid">
+				<div class="span5"><img ng-src="images/{{cata.image}}.png"></img></div>
+				<div class="span7"><h4>{{cata.name}}</h4>{{cata.attention}}</div>
+				<div class="attention"><i class="icon-ok" style="margin-right:10px;"></i>已关注</div>
+			</div>
+		</div>
+</div>

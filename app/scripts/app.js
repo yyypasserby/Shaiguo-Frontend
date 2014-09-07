@@ -36,6 +36,10 @@ angular
         templateUrl: 'views/cast.html',
         controller: 'CastCtrl'
       })
+      .when('/favor', {
+        templateUrl: 'views/favor.html',
+        controller: 'PersonalCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
