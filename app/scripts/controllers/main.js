@@ -10,7 +10,7 @@
 angular.module('livesApp')
 .controller('MainCtrl', function ($scope, $resource, $location) {
     $scope.user={};
-    $scope.background = { imageSrc : '' };
+    $scope.background = { imgSrc : '' };
     var url = 'http://localhost:8080/LivesServer/rest/:func';
     $scope.signup = function() {
         console.log($scope.user);  
@@ -27,6 +27,22 @@ angular.module('livesApp')
 });
 
 angular.module('livesApp')
+.directive('backImg', function() {
+    return function(scope, element)  {
+        element.css({
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+        });
+        scope.$on('indexImageChanged', function(event, data) {
+            var url = data + '.jpg';
+            element.css({
+                'background-image': 'url(' + url + ')'
+            });
+        });
+    };   
+});
+
+angular.module('livesApp')
 .controller('IndexImageCarouselCtrl', function($scope, $resource) {
     $scope.indexImageInterval = 5000;
     $scope.indexImageSlides = [];
@@ -35,10 +51,14 @@ angular.module('livesApp')
     var slides = slidesResource.query(function() {
         $scope.indexImageSlides = slides;
     });
+
     $scope.$watch(function () {
         return slides.filter(function(s) { return s.active; })[0];
     }, function() {
         var slide = slides.filter(function(s) { return s.active; })[0];
-        $scope.background.imageSrc = slide.imageSrc;
+        if(slide.imgSrc === null) {
+            return;
+        }
+        $scope.$emit('indexImageChanged', slide.imgSrc + '_blur');
     });
 });

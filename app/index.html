@@ -37,6 +37,14 @@
                             <input type="text" style="height:15px" class="search-query" placeholder="Search"></input>
                             <button class="btn" style="height:25px;padding:2px 10px" type="submit">Go!</button>
                         </div>
+                        <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-click="openNotificationCenter()">
+                        <i class="icon-bell icon-white"></i>
+                        </a>
+                        <a ng-click="openLoginModal()"class="btn btn-small btn-primary" style="margin-left:5px;margin-top:0px;">
+                        <i class="icon-user icon-white"></i>
+                        <span>Log In</span>
+                        </a>
+
                     </div>
                 </div>
             </div>
@@ -124,5 +132,36 @@
     <script src="scripts/controllers/cast.js"></script>
     <script src="scripts/controllers/castroom.js"></script>
     <!-- endbuild -->
+    <script type="text/ng-template" id="UserLogin.html">
+        <div class="modal-body">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:24.5px">Sign in</span>
+                <a class="btn btn-success pull-right" ng-click="signUp()">Sign Up</a>
+            </div>
+            <dl class="dl-horizontal">
+                <dt class="lead" style="margin-bottom:0px">Username</dt>
+                <dd>
+                <span>
+                    <input type="text" ng-model="user.username" placeholder="" ng-minlength=6 ng-maxlength=20>
+                    </input>
+                </span>
+                </dd>
+                <dt class="lead" style="margin-bottom:0px">Password</dt>
+                <dd>
+                <span class="control-group">
+                    <input type="password" ng-model="user.password" placeholder="" ng-minlength=6 ng-maxlength=20>
+                    </input>
+                    <div class="control-group error">
+                        <span class="help-block">{{ errorMessage }}</span>
+                    </div>
+                </span>
+                </dd>
+            </dl>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="signIn()">Sign In</button>
+                <button class="btn" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+    </script>
 </body>
 </html>

@@ -1,23 +1,23 @@
 <div class="container">
-    <div class="container-fluid img-rounded" style="padding-top:40px;padding-bottom:40px;background-image:url({{ background.imageSrc }}_blur.jpg);background-repeat:no-repeat">
+    <div back-img class="container-fluid img-rounded" style="padding-top:50px;padding-bottom:30px;">
         <div class="row-fluid">
             <div class="span1"></div>
             <div class="span3" style="">
-                <form style="">
+                <div style="">
                     <fieldset>
                         <input type="text" style="height:35px;margin-bottom:12px;" class="input-block-level" placeholder="Your Username" ng-model="user.username">
                         <input type="password" style="height:35px;margin-bottom:12px;" class="input-block-level" placeholder="Your Password" ng-model="user.password">
                         <input type="email" style="height:35px;margin-bottom:12px;" class="input-block-level" placeholder="Your Email" ng-model="user.email">
                         <a type="submit" class="btn btn-large btn-success btn-block" ng-click="signup()">Sign Up</a>
                     </fieldset>
-                </form>
+                </div>
             </div>
             <div class="span1"></div>
             <div class="span6">
                 <div ng-controller="IndexImageCarouselCtrl">
                     <carousel interval="indexImageInterval">
                     <slide ng-repeat="slide in indexImageSlides" active="slide.active">
-                    <img class="img-rounded" ng-src="{{ slide.imageSrc }}.jpg" style="margin:auto;">
+                    <img class="img-rounded" ng-src="{{ slide.imgSrc }}.jpg" style="margin:auto;">
                     <div class="carousel-caption img-rounded">
                         <h4>{{ slide.caption }}</h4>
                         <p>{{ slide.introduction }}</p>
