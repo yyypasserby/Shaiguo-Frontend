@@ -1,3 +1,98 @@
+<head>
+    <style>
+        .catagory{
+            font-size:150%;
+            font-weight:bold;
+            font-family:微软雅黑;
+            margin-left:20px;
+            margin-right:20px;
+        }
+        .play{
+            cursor: pointer;
+            overflow: hidden;
+            height: 210px;
+            width: 280px;
+            background-color: #ebebee;
+            margin-bottom: 10px;
+        }
+        .play img{
+            margin-bottom:5px; 
+            width:280px;
+            height:180px;
+        }
+        .cover_cata{
+            position: relative;
+            bottom: 218px;
+            display: none;
+        }
+        .cover_video{
+            position: relative;
+            bottom: 225px;
+            display: none;
+        }
+        a{
+            cursor: pointer;
+        }
+        .span4{
+            margin-right: 20px;
+        }
+        .span5{
+            width: 90px;
+        }
+        .span5 img{
+            height: 90px;
+            width: 90px;
+            cursor: pointer;
+        }
+        .video_name{
+            width: 140px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+        }
+    </style>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".play").mouseover(function(){
+                $(this).css("box-shadow","2px 3px 5px")
+                $(this.getElementsByClassName('cover_cata')).fadeIn("fast");
+            });
+        });
+        $(document).ready(function(){
+            $(".play").mouseleave(function(){
+                $(this).css("box-shadow","0px 0px 0px")
+                $(this.getElementsByClassName('cover_cata')).fadeOut("fast");
+            });
+        });
+        $(document).ready(function(){
+            $(".play").mouseover(function(){
+                $(this).css("box-shadow","2px 3px 5px")
+                $(this.getElementsByClassName('cover_video')).fadeIn("fast");
+            });
+        });
+        $(document).ready(function(){
+            $(".play").mouseleave(function(){
+                $(this).css("box-shadow","0px 0px 0px")
+                $(this.getElementsByClassName('cover_video')).fadeOut("fast");
+            });
+        });
+        $(document).ready(function(){
+            $(".caster").mouseover(function(){
+                $(this).css("box-shadow","2px 3px 5px")
+            });
+        });
+        $(document).ready(function(){
+            $(".caster").mouseleave(function(){
+                $(this).css("box-shadow","0px 0px 0px")
+            });
+        });
+    </script>
+</head>
+
+
+
 <div class="container">
     <div class="container-fluid img-rounded" style="padding-top:40px;padding-bottom:40px;background-image:url({{ background.imageSrc }}_blur.jpg);background-repeat:no-repeat">
         <div class="row-fluid">
@@ -29,54 +124,91 @@
             <div class="span1"></div>
         </div>
     </div>
+</div>
     <hr></hr>
+<div class="container" style="width:1000px;">
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span4">
-                <h4>Categories</h3>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
+                <div class="span9"><span class="label label-info" 
+                    style="height:23px;font-size:200%;padding-top:12px;margin-bottom:10px;">热门分类</span></div>
+                <div class="span3" style="padding-top:20px;"><a style="font-color:blue;">更多...</a></div>
+                <div class="play">
+                    <img src="images/catagory/football.png">
+                    <p><span class="catagory">足球</span><span style="margin-right:20px;">15个正在直播</span>4万人关注</p>
+                    <div class="cover_cata"><img src="images/play.png"></div>
+                </div>
+                <div class="play">
+                    <img src="images/catagory/game.png">
+                    <p><span class="catagory">游戏</span><span style="margin-right:20px;">15个正在直播</span>4万人关注</p>
+                    <div class="cover_cata"><img src="images/play.png"></div>
+                </div>
             </div>
             <div class="span4">
-                <h4>Castings</h3>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
+                <div class="span9"><span class="label label-info" 
+                    style="height:23px;font-size:200%;padding-top:12px;margin-bottom:10px;">热门直播</span></div>
+                <div class="span3" style="padding-top:20px;"><a style="font-color:blue;">更多...</a></div>
+                <div class="play">
+                    <img src="images/game.png">
+                    <div class="row-fluid">
+                        <div><p class="span6 video_name">DOTA2的正确打开方式</p></div>
+                        <div class="span6 level"><i  style="margin-left:30px;" class="icon-forward"></i><span>2,348</span>
+                            <i class="icon-fire"></i><span>148</span></div>
+                    </div>
+                    <div class="cover_video"><img src="images/play.png"></div>
+                </div>
+                <div class="play">
+                    <img src="images/chinavoice.png">
+                    <div class="row-fluid">
+                        <div><p class="span6 video_name">中国好声音 汪峰专场</p></div>
+                        <div class="span6 level"><i  style="margin-left:30px;" class="icon-forward"></i><span>2,241</span>
+                            <i class="icon-fire"></i><span>123</span></div>
+                    </div>
+                    <div class="cover_video"><img src="images/play.png"></div>
+                </div>
 
             </div>
-            <div class="span4">
-                <h4>Casters</h3>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                </p>
+            <div class="span3">
+                <div class="row-fluid">
+                    <div class="span9"><span class="label label-info" 
+                        style="height:23px;font-size:200%;padding-top:12px;margin-bottom:10px;">热门主播</span></div>
+                    <div class="span3" style="padding-top:20px;"><a style="font-color:blue;">更多...</a></div>
+                </div>
+                <div class="row-fluid caster" style="width:250px;height:90px;margin-bottom:10px;">
+                    <div class="span5"><img src="images/cater/yaoyao.png"></div>
+                    <div class="span7" style="height:100px;"><a><h4 style="height:10px;">yaoyao</h4></a>
+                        <p style="height:20px;"><span class="label label-warning" style="margin:7px;">游戏</span><i class="icon-eye-open"> </i> 2345</p>
+                        <button class="btn btn-success" style="font-weight:bold;font-family:幼圆;height:25px;text-align:centre;margin-left:10px;padding-bottom:10px;">+ 关注</button>
+                    </div>
+                </div>
+                <div class="row-fluid caster" style="width:250px;height:90px;margin-bottom:10px;">
+                    <div class="span5"><img src="images/cater/duoduo.png"></div>
+                    <div class="span7" style="height:100px;"><a><h4 style="height:10px;">duoduo</h4></a>
+                        <p style="height:18px;"><span class="label label-warning" style="margin:7px;">娱乐</span><i class="icon-eye-open"> </i> 2178</p>
+                        <button class="btn btn-success" style="font-weight:bold;font-family:幼圆;height:25px;text-align:centre;margin-left:10px;padding-bottom:10px;">+ 关注</button>
+                    </div>
+                </div>
+                <div class="row-fluid caster" style="width:250px;height:90px;margin-bottom:10px;">
+                    <div class="span5"><img src="images/cater/dudu.png"></div>
+                    <div class="span7" style="height:100px;"><a><h4 style="height:10px;">dudu</h4></a>
+                        <p style="height:18px;"><span class="label label-warning" style="margin:7px;">科技</span><i class="icon-eye-open"> </i> 2048</p>
+                        <button class="btn btn-success" style="font-weight:bold;font-family:幼圆;height:25px;text-align:centre;margin-left:10px;padding-bottom:10px;">+ 关注</button>
+                    </div>
+                </div>
+                <div class="row-fluid caster" style="width:250px;height:90px;margin-bottom:10px;">
+                    <div class="span5"><img src="images/cater/cancan.png"></div>
+                    <div class="span7" style="height:100px;"><a><h4 style="height:10px;">cancan</h4></a>
+                        <p style="height:18px;"><span class="label label-warning" style="margin:7px;">搞笑</span><i class="icon-eye-open"> </i> 1999</p>
+                        <button class="btn btn-success" style="font-weight:bold;font-family:幼圆;height:25px;text-align:centre;margin-left:10px;padding-bottom:10px;">+ 关注</button>
+                    </div>
+                </div>
+                <div class="row-fluid caster" style="width:250px;height:90px;margin-bottom:10px;">
+                    <div class="span5"><img src="images/cater/yanyan.png"></div>
+                    <div class="span7" style="height:100px;"><a><h4 style="height:10px;">yanyan</h4></a>
+                        <p style="height:18px;"><span class="label label-warning" style="margin:7px;">动漫</span><i class="icon-eye-open"> </i> 1999</p>
+                        <button class="btn btn-success" style="font-weight:bold;font-family:幼圆;height:25px;text-align:centre;margin-left:10px;padding-bottom:10px;">+ 关注</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -40,6 +40,10 @@ angular
         templateUrl: 'views/favor.html',
         controller: 'PersonalCtrl'
       })
+      .when('/favor2', {
+        templateUrl: 'views/favor2.html',
+        controller: 'PersonalCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

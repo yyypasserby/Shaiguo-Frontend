@@ -33,6 +33,24 @@ var UserFavorInstanceCtrl = function ($scope, $modalInstance, settings) {
         item: $scope.settings[0]
     };
 
+    $(document).ready(function(){
+      $(".favor").mouseover(function(){
+        $(this).css("box-shadow","2px 2px 5px");
+      });
+    });
+    $scope.attention = function(){
+        var value = $(".favor").attr("value");
+        
+        if(value == "0"){
+            $(".attention").show("fast");
+            $(".favor").attr("value","1");
+        }
+        else{
+            $(".attention").hide("fast");
+            $(".favor").attr("value","0");
+        }
+      };
+
     $scope.ok = function () {
         $modalInstance.close($scope.settings);
     };
@@ -89,6 +107,18 @@ angular.module('livesApp')
             $scope.selected = selectedItem;
         });
     };
+
+    jQuery(document).ready(function() {   
+        var a = $("#floatbox").offset();   
+        $(window).scroll(function() {   
+            var b = $(window).scrollTop();   
+            if (b > a.top + 5) {   
+                $("#divfloat").addClass("fixed")   
+            } else {   
+                $("#divfloat").removeClass("fixed")   
+            }   
+        });   
+    });   
 });
 
 
