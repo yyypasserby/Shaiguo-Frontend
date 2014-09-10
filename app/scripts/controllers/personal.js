@@ -22,6 +22,41 @@ var UserSettingsInstanceCtrl = function ($scope, $modalInstance, settings) {
     };
 };
 
+var UserFavorInstanceCtrl = function ($scope, $modalInstance, settings) {
+
+    $scope.settings = settings;
+    console.log($scope.settings);
+    $scope.selected = {
+        item: $scope.settings[0]
+    };
+
+    $(document).ready(function(){
+      $(".favor").mouseover(function(){
+        $(this).css("box-shadow","2px 2px 5px");
+      });
+    });
+    $scope.attention = function(){
+        var value = $(".favor").attr("value");
+        
+        if(value == "0"){
+            $(".attention").show("fast");
+            $(".favor").attr("value","1");
+        }
+        else{
+            $(".attention").hide("fast");
+            $(".favor").attr("value","0");
+        }
+      };
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.settings);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
+
 angular.module('livesApp')
 .controller('PersonalCtrl', function ($scope, $modal, Resource, AUTH_EVENTS, Session, AuthService) {
     var pageLoader = {};
@@ -65,6 +100,33 @@ angular.module('livesApp')
             $scope.selected = selectedItem;
         });
     };
+
+    $scope.open2 = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'UserFavor.html',
+            controller: UserFavorInstanceCtrl,
+            resolve: {
+                settings: function () {
+                    return $scope.user;
+                }
+            }
+        });
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        });
+    };
+
+    jQuery(document).ready(function() {   
+        var a = $("#floatbox").offset();   
+        $(window).scroll(function() {   
+            var b = $(window).scrollTop();   
+            if (b > a.top + 5) {   
+                $("#divfloat").addClass("fixed")   
+            } else {   
+                $("#divfloat").removeClass("fixed")   
+            }   
+        });   
+    });   
 });
 
 

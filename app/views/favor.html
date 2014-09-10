@@ -1,0 +1,124 @@
+<head>
+	<style>
+		.span3{
+			cursor:pointer;
+			height:80px;
+			overflow: hidden;
+			margin-right: 30px;
+			border-color: #5590f3;
+			border-width: 2px;
+		}
+		.span4{
+			margin-top: 6px;
+			text-align:center;
+			padding-left: 8px;
+			font-size: large;
+			font-weight: bold;
+			font-family: 微软雅黑;
+		}
+		.span6{
+			margin-top: 6px;
+			padding-left: 10px;
+		}
+		img{
+			width:70px;
+			height: 70px;
+		}
+		.attention{
+			display: none;
+			position: relative;
+			bottom:23px;
+			background-color: white;
+			opacity: 1;
+			margin-left: 120px;
+			margin-top: 70px;
+			padding-left: 10px;
+		}
+	</style>
+	
+</head>
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".thumbnail").mouseover(function(){
+	    $(this).css("box-shadow","3px 3px 5px #5590f3");
+	  });
+	});
+	$(document).ready(function(){
+	  $(".thumbnail").mouseleave(function(){
+	    $(this).css("box-shadow","0px 0px 0px");
+	  });
+	});
+	$(document).ready(function(){
+	  $(".thumbnail").click(function(){
+	  	var value = $(this).attr("value");
+	    if(value == "0"){
+	    	$(this.getElementsByClassName('attention')).show("fast");
+	    	$(this).attr("value","1");
+	    }
+	    if(value == "1"){
+	    	$(this.getElementsByClassName('attention')).hide("fast");
+	    	$(this).attr("value","0");
+	    }
+	  });
+	});
+</script>
+
+<div class="container" style="margin-top:60px;">
+	<div class="row-fluid">
+	 	<div class="span5"><h3 style="color:#011a43;">你作为主播想分享的直播类型:<h3></div>
+	 	<div class="span4"><a href="#/favor2"><button class="btn btn-info" style="float:right">下一步</button></div>
+	 	<div class="span2" style="margin-top:6px;"><a href="#/personal"><button class="btn btn-warning">跳 过</button></a></div>
+	 	<div class="span1"></div>
+	</div>
+	</br>
+	<div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" value="0">
+		<div class="row-fluid">
+			<div class="span2" style="background-color:#5eccf3;height:80px;"></div>
+			<div class="span4"><img ng-src="images/football.png"></img></div>
+			<div class="span6"><h4>liaoyuqian</h4>15wan关注</div>
+			<div class="attention" style="font-color:#1712f0;font-weight:bold;">
+				<img src="images/tick.png" style="width:23px;height:20px;margin-right:10px;">
+				已关注</div>
+		</div>
+	</div>
+	<div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" value="0">
+		<div class="row-fluid">
+			<div class="span2" style="background-color:#5eccf3;height:80px;"></div>
+			<div class="span4"><img ng-src="images/football.png"></img></div>
+			<div class="span6"><h4>liaoyuqian</h4>15wan关注</div>
+			<div class="attention" style="font-color:#1712f0;font-weight:bold;">
+				<img src="images/tick.png" style="width:23px;height:20px;margin-right:10px;">
+				已关注</div>
+		</div>
+	</div>
+	<div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" value="0">
+		<div class="row-fluid">
+			<div class="span2" style="background-color:#5eccf3;height:80px;"></div>
+			<div class="span4"><img ng-src="images/football.png"></img></div>
+			<div class="span6"><h4>liaoyuqian</h4>15wan关注</div>
+			<div class="attention" style="font-color:#1712f0;font-weight:bold;">
+				<img src="images/tick.png" style="width:23px;height:20px;margin-right:10px;">
+				已关注</div>
+		</div>
+	</div>
+	<div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" value="0">
+		<div class="row-fluid">
+			<div class="span2" style="background-color:#5eccf3;height:80px;"></div>
+			<div class="span4"><img ng-src="images/football.png"></img></div>
+			<div class="span6"><h4>liaoyuqian</h4>15wan关注</div>
+			<div class="attention" style="font-color:#1712f0;font-weight:bold;">
+				<img src="images/tick.png" style="width:23px;height:20px;margin-right:10px;">
+				已关注</div>
+		</div>
+	</div>
+	<div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" value="0">
+		<div class="row-fluid">
+			<div class="span2" style="background-color:#5eccf3;height:80px;"></div>
+			<div class="span4"><img ng-src="images/football.png"></img></div>
+			<div class="span6"><h4>liaoyuqian</h4>15wan关注</div>
+			<div class="attention" style="font-color:#1712f0;font-weight:bold;">
+				<img src="images/tick.png" style="width:23px;height:20px;margin-right:10px;">
+				已关注</div>
+		</div>
+	</div>
+</div>

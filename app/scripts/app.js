@@ -21,7 +21,7 @@ var app = angular
 ])
 .config(function ($routeProvider) {
     $routeProvider
-    .when('/', {
+      .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
@@ -41,10 +41,17 @@ var app = angular
         templateUrl: 'views/castroom.html',
         controller: 'CastroomCtrl'
       })
+      .when('/favor', {
+        templateUrl: 'views/favor.html',
+        controller: 'PersonalCtrl'
+      })
+      .when('/favor2', {
+        templateUrl: 'views/favor2.html',
+        controller: 'PersonalCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
-      //$httpProvider.defaults.headers.common.access_token = 'hehe';
 });
 
 app.constant('USER_ROLES', {
