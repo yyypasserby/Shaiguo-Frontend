@@ -1,30 +1,23 @@
 'use strict';
 
 angular.module('livesApp')
-.controller('SearchCtrl', function($scope, $resource) {
-    var url = 'http://localhost:8080/LivesServer/rest/search/:func'; 
-    var liveResource = $resource(url, {func : 'live' , key : 'DOTA2'});
-    var livesData = liveResource.query(function() {
+.controller('SearchCtrl', function($scope, Resource) {
+    var searchResource = Resource.getResource('search/:category');
+    var livesData = searchResource.query({category: 'live', content: $scope.search.content},
+    function() {
         console.log(livesData);
         $scope.lives = livesData;
     });
     
-    var userResource = $resource(url, {func : 'user', key : 'yyypasserby'});
-    var userData = userResource.query(function() {
+    var userData = searchResource.query({category: 'user', content: $scope.search.content}, 
+    function() {
         console.log(userData);
         $scope.users = userData;
     });
 
-    $scope.cachedVideos = [];
-    var cachedVideoResource = $resource(url, {func : 'cached', key : 'yyypasserby'});
-    var cachedVideoData = cachedVideoResource.query(function() {
-        $scope.cachedVideos = cachedVideoData;
-        console.log(cachedVideoData);
+    var cachedData = searchResource.query({category: 'cached', content: $scope.search.content}, 
+    function() {
+        console.log(cachedData);
+        $scope.cachedVideos = cachedData;
     });
-    $scope.search = function() {
-        var live = $resource(url, {id : $scope.query});
-        var data = live.get(function() {
-            console.log(data.livename);    
-        });
-    };
 });

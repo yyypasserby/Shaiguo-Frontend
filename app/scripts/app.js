@@ -19,7 +19,7 @@ var app = angular
     'ui.bootstrap',
     'ui.utils'
 ])
-.config(function ($routeProvider, $httpProvider) {
+.config(function ($routeProvider) {
     $routeProvider
     .when('/', {
         templateUrl: 'views/main.html',
@@ -95,7 +95,7 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
     };
 };
 
-app.run(function($http, $rootScope, $modal, $location, AuthService) {
+app.run(function($rootScope, $modal, $location, AuthService) {
     $rootScope.openLoginModal = function() {
         var modalInstance = $modal.open({
             templateUrl: 'UserLogin.html',
@@ -109,6 +109,10 @@ app.run(function($http, $rootScope, $modal, $location, AuthService) {
         console.log(AuthService.isAuthenticated());
         console.log(AuthService.userId);
     };
+    $rootScope.getSearch = function() {
+        $location.path('/search');   
+    };
+    $rootScope.search = {content : '', category : ''};
 });
 
 app.service('Server', function(RUN_MODES) {
@@ -156,19 +160,20 @@ app.service('Session', function($window) {
 
 app.service('Resource', function($http, $resource, Server) {
     this.getResource = function(resName) {
-        $http.defaults.headers.common['access_token'] = 'hehe';
+        //$http.defaults.headers.common['hehe'] = 'access_token';
         var res = $resource(Server.getServerAddress() + '/' + resName);
         //res = TokenHandler.tokenWrapper(res);
         return res;
     }; 
 });
 
-app.service('AuthService', function($http, $resource, $rootScope, Session, Resource) {
+app.service('AuthService', function($rootScope, Session, Resource, AUTH_EVENTS) {
     this.login = function(user) {
         var authResource = Resource.getResource('auth');
         return authResource.save(user, function(result) {
             if(result.result !== 'failure') {
                 Session.create(result.result, result.object.userId, result.object.userRole);
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 console.log(result.object.userId);
             }
             return result;
@@ -176,6 +181,7 @@ app.service('AuthService', function($http, $resource, $rootScope, Session, Resou
     };
 
     this.isAuthenticated = function() {
+        console.log(Session.getUserId());
         return ((typeof Session.getUserId()) !== 'undefined');
     };
 

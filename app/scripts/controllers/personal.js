@@ -23,10 +23,10 @@ var UserSettingsInstanceCtrl = function ($scope, $modalInstance, settings) {
 };
 
 angular.module('livesApp')
-.controller('PersonalCtrl', function ($scope, $modal, Resource, AuthService, Session) {
-    $scope.showPage = AuthService.isAuthenticated();
-    console.log($scope.showPage);
-    if(AuthService.isAuthenticated()) {
+.controller('PersonalCtrl', function ($scope, $modal, Resource, AUTH_EVENTS, Session, AuthService) {
+    var pageLoader = {};
+    pageLoader.load = function() {
+        $scope.showPage = true;
         var messageResource = Resource.getResource('message/:id');
         $scope.messages = messageResource.query({id : Session.getUserId()}, function() {
             console.log($scope.messages);
@@ -41,11 +41,17 @@ angular.module('livesApp')
         $scope.friends = friendResource.query({id : Session.getUserId()}, function() {
             console.log($scope.friends);
         });
+    };
 
+    if(AuthService.isAuthenticated()) {
+        pageLoader.load();    
     }
+    $scope.$on(AUTH_EVENTS.loginSuccess, function() {
+        pageLoader.load();
+    });
+
 
     $scope.open = function() {
-        console.log(AuthService.isAuthenticated());
         var modalInstance = $modal.open({
             templateUrl: 'UserSettings.html',
             controller: UserSettingsInstanceCtrl,
