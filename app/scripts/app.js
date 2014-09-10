@@ -19,7 +19,7 @@ var app = angular
     'ui.bootstrap',
     'ui.utils'
 ])
-.config(function ($routeProvider) {
+.config(function ($routeProvider, $httpProvider) {
     $routeProvider
     .when('/', {
         templateUrl: 'views/main.html',
@@ -44,6 +44,7 @@ var app = angular
       .otherwise({
         redirectTo: '/'
       });
+      //$httpProvider.defaults.headers.common.access_token = 'hehe';
 });
 
 app.constant('USER_ROLES', {
@@ -94,13 +95,14 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
     };
 };
 
-app.run(function($rootScope, $modal, AuthService) {
+app.run(function($http, $rootScope, $modal, $location, AuthService) {
     $rootScope.openLoginModal = function() {
         var modalInstance = $modal.open({
             templateUrl: 'UserLogin.html',
             controller: UserLoginInstanceCtrl,
         });
         modalInstance.result.then(function(user) {
+            $location.path('/personal');
         });
     };
     $rootScope.openNotificationCenter = function() {
@@ -126,45 +128,55 @@ app.service('Server', function(RUN_MODES) {
     return this;
 });
 
-app.service('Session', function() {
-    this.sessionId = null;
-    this.userId = null;
-    this.userRole = null;
+app.service('Session', function($window) {
     this.create = function(sid, uid, userRole) {
-        this.sessionId = sid;
-        this.userId = uid;
-        this.userRole = userRole;
+        $window.sessionStorage.sessionId = sid;
+        $window.sessionStorage.userId = uid;
+        $window.sessionStorage.userRole = userRole;
     };
     this.destory = function() {
-        this.sessionId = null;
-        this.userId = null;
-        this.userRole = null;
+        $window.sessionStorage.sessionId = null;
+        $window.sessionStorage.userId = null;
+        $window.sessionStorage.userRole = null;
+    };
+    this.getUserId = function() {
+        return $window.sessionStorage.userId;    
+    };
+    this.setSessionId = function(newSessionId) {
+        $window.sessionStorage.sessionId = newSessionId;
+    };
+    this.getSessionId = function() {
+        return $window.sessionStorage.sessionId;    
+    };
+    this.getUserRole = function() {
+        return $window.sessionStorage.userRole;
     };
     return this;
 });
 
-app.service('Resource', function($resource, Server) {
+app.service('Resource', function($http, $resource, Server) {
     this.getResource = function(resName) {
+        $http.defaults.headers.common['access_token'] = 'hehe';
         var res = $resource(Server.getServerAddress() + '/' + resName);
+        //res = TokenHandler.tokenWrapper(res);
         return res;
     }; 
-    return this;
 });
 
-app.service('AuthService', function($resource, $rootScope, Session, Resource) {
+app.service('AuthService', function($http, $resource, $rootScope, Session, Resource) {
     this.login = function(user) {
         var authResource = Resource.getResource('auth');
         return authResource.save(user, function(result) {
             if(result.result !== 'failure') {
-                Session.create(result.result, result.object.username, result.object.userRole);
+                Session.create(result.result, result.object.userId, result.object.userRole);
+                console.log(result.object.userId);
             }
-            console.log(result);
             return result;
         });
     };
 
     this.isAuthenticated = function() {
-        return (Session.userId !== null);
+        return ((typeof Session.getUserId()) !== 'undefined');
     };
 
     this.isAuthorized = function(authorizedRoles) {
@@ -172,6 +184,42 @@ app.service('AuthService', function($resource, $rootScope, Session, Resource) {
             authorizedRoles = [authorizedRoles];    
         }    
         return (this.isAuthenticated() &&
-            authorizedRoles.indexOf(Session.userRole) !== -1);
+            authorizedRoles.indexOf(Session.getUserRole()) !== -1);
     };
 });
+/*
+app.factory('TokenHandler', function(Session) {
+    var tokenHandler = {};
+    var token = 'none';
+
+    tokenHandler.set = function(newToken) {
+        token = newToken;
+        Session.setSessionId(newToken);
+    };
+    tokenHandler.get = function() {
+        console.log(token);
+        return token; 
+       // return Session.getSessionId();  
+    };
+    tokenHandler.tokenWrapper = function(resource, actions) {
+        var allActions = ['query','get','save','delete','remove'];    
+        actions = (typeof actions === 'undefined' ? allActions : actions);
+
+        var wrappedResource = resource;
+        for(var i = 0; i < actions.length; ++i) {
+            actionWrapper(wrappedResource, actions[i]);        
+        }
+        return wrappedResource;
+    };
+    var actionWrapper = function(resource, action) {
+        resource['_' + action] = resource[action];
+        resource[action] = function(data, success, error) {
+            console.log(data);
+            return resource['_' + action](
+                angular.extend({}, data || {}, 
+                {access_token : tokenHandler.get()}),
+                success, error);
+        };
+    };
+    return tokenHandler;
+});*/

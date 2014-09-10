@@ -8,14 +8,12 @@
  * Controller of the livesApp
  */
 angular.module('livesApp')
-.controller('MainCtrl', function ($scope, $resource, $location) {
+.controller('MainCtrl', function ($scope, Resource, $location) {
     $scope.user={};
     $scope.background = { imgSrc : '' };
-    var url = 'http://localhost:8080/LivesServer/rest/:func';
     $scope.signup = function() {
         console.log($scope.user);  
-        var userResource = $resource(url, {func : 'user'});
-        console.log(userResource);
+        var userResource = Resource.getResource('user');
 
         var result = userResource.save($scope.user, function() {
             if(result.result === true) {
@@ -43,13 +41,13 @@ angular.module('livesApp')
 });
 
 angular.module('livesApp')
-.controller('IndexImageCarouselCtrl', function($scope, $resource) {
+.controller('IndexImageCarouselCtrl', function($scope, Resource) {
     $scope.indexImageInterval = 5000;
     $scope.indexImageSlides = [];
-    var url = 'http://localhost:8080/LivesServer/rest/indexImage';
-    var slidesResource = $resource(url);
-    var slides = slidesResource.query(function() {
+    var slidesResource = Resource.getResource('indexImage');
+    var slides = slidesResource.query({}, function() {
         $scope.indexImageSlides = slides;
+        console.log(slides);
     });
 
     $scope.$watch(function () {
