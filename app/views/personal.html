@@ -55,14 +55,14 @@
     <div class="row-fluid">
         <div class="span8">
             <div class="thumbnail media message" ng-repeat="message in messages">
-                <div class="pull-left span2" style="margin-top:10px;margin-left:5px;">
+                <div class="pull-left span2" style="margin:20px; margin-top:80px;">
                     <img class="media-object img-rounded" ng-src="images/{{ message.username }}.png"></img>
                     <h5 class="">{{ message.username }}</h5>
                 </div>
-                <div class="media-body">
+                <div class="media-body" style="margin-left:50px;">
                     <h3 class="media-heading">{{ message.heading }}</h3>
-                    <img class="img-rounded" ng-src="images/{{ message.thumbnail }}.jpg"></img>
-                    <p class="text-right" style="">
+                    <img class="img-rounded" style="width:450px;height:280px;" ng-src="images/{{ message.thumbnail }}.jpg"></img>
+                    <p class="text-right" style="margin-top:10px;">
                     <span class="label label-warning label-bigger" style="">{{ message.castTime }} {{ message.status }}</span>
                     </p>
                 </div>
