@@ -120,18 +120,15 @@ app.run(function($rootScope, $modal, $location, AuthService, Resource) {
     $rootScope.getSearch = function() {
         $location.path('/search');   
     };
-    var range = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
-    $rootScope.getPreSearch = function(val) {
+    $rootScope.getPreSearch = function(val) { 
         var preSearchResource = Resource.getResource('search/pre');
-        var result = preSearchResource.query({key : val});
-        result.$promise.then(function() {
-            var searchResult = [];
-            console.log(searchResult);
+        return preSearchResource.query({key : val}).$promise.then(function(result) {
+            var searchResults = [];
             angular.forEach(result, function(item) {
-                searchResult.push(item);    
+                searchResults.push(item.searchResult);    
             });
-            console.log(searchResult);
-            return searchResult; 
+            console.log(searchResults);
+            return searchResults; 
         });
     };
     $rootScope.search = {content : '', category : ''};
