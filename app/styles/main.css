@@ -11,3 +11,65 @@ body {
 .btn.btn-primary:hover {
     background-color:#5ea3f3;
 }
+
+.label-title {
+    font-size: 28px;
+    height:23px;
+    padding-top: 12px;
+}
+
+div.category-heading {
+    margin-bottom: 20px;
+}
+
+div#hot-caster {
+    padding: 5px;
+}
+div#hot-caster:hover {
+    cursor:pointer;
+    box-shadow: 0px 1px 1px #222;
+}
+.swapImage img {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.swap1, .swapImage:hover .swap2 {
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    opacity: 1;
+} 
+.swapImage:hover .swap1, .swap2 {
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    opacity: 0;
+}
+.category{
+    font-size:150%;
+    font-weight:bold;
+    font-family:微软雅黑;
+    margin-left:20px;
+    margin-right:20px;
+}
+.play{
+    cursor: pointer;
+    overflow: hidden;
+    height: 210px;
+    width: 280px;
+    background-color: #ebebee;
+    margin-bottom: 10px;
+}
+.play img{
+    margin-bottom:5px; 
+    width:280px;
+    height:180px;
+}
+.limit_text{
+    width: 140px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}

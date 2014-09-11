@@ -84,10 +84,12 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
     $scope.signIn = function() {
         var result = AuthService.login($scope.user);
         result.$promise.then(function() {
+            console.log('login result is :');
+            console.log(result);
             if(result.result !== 'failure') {
                 console.log(result.result);
-                $modalInstance.close(result.object);
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                $modalInstance.close(result.object);
             }
             else {
                 var msg = result.object.errorMessage;
@@ -102,7 +104,7 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
     };
 };
 
-app.run(function($rootScope, $modal, $location, AuthService, Resource) {
+app.run(function($rootScope, $modal, $location, AuthService, Resource, AUTH_EVENTS) {
     $rootScope.openLoginModal = function() {
         var modalInstance = $modal.open({
             templateUrl: 'UserLogin.html',
@@ -120,6 +122,12 @@ app.run(function($rootScope, $modal, $location, AuthService, Resource) {
     $rootScope.getSearch = function() {
         $location.path('/search');   
     };
+
+    $rootScope.isAuth = AuthService.isAuthenticated();
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+        $rootScope.isAuth = AuthService.isAuthenticated();
+    });
+
     $rootScope.getPreSearch = function(val) { 
         var preSearchResource = Resource.getResource('search/pre');
         return preSearchResource.query({key : val}).$promise.then(function(result) {
@@ -212,39 +220,3 @@ app.service('AuthService', function($rootScope, Session, Resource, AUTH_EVENTS) 
             authorizedRoles.indexOf(Session.getUserRole()) !== -1);
     };
 });
-/*
-app.factory('TokenHandler', function(Session) {
-    var tokenHandler = {};
-    var token = 'none';
-
-    tokenHandler.set = function(newToken) {
-        token = newToken;
-        Session.setSessionId(newToken);
-    };
-    tokenHandler.get = function() {
-        console.log(token);
-        return token; 
-       // return Session.getSessionId();  
-    };
-    tokenHandler.tokenWrapper = function(resource, actions) {
-        var allActions = ['query','get','save','delete','remove'];    
-        actions = (typeof actions === 'undefined' ? allActions : actions);
-
-        var wrappedResource = resource;
-        for(var i = 0; i < actions.length; ++i) {
-            actionWrapper(wrappedResource, actions[i]);        
-        }
-        return wrappedResource;
-    };
-    var actionWrapper = function(resource, action) {
-        resource['_' + action] = resource[action];
-        resource[action] = function(data, success, error) {
-            console.log(data);
-            return resource['_' + action](
-                angular.extend({}, data || {}, 
-                {access_token : tokenHandler.get()}),
-                success, error);
-        };
-    };
-    return tokenHandler;
-});*/
