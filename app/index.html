@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/bootstrap/css/normalize.css">
         <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="styles/personal.css">
 
         <!-- endbuild -->
     </head>
@@ -27,6 +28,7 @@
             <div class="navbar-inner">
                 <div class="nav-collapse collapse container">
                     <ul class="nav">
+                        <li><img class="span2" style="margin-left:-30px;"src="images/logo_shaiguo_with_article.png"></li>
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="#personal">Person</a></li>
                         <li><a href="#search">Search</a></li>
@@ -34,7 +36,7 @@
                     </ul>
                     <div class="pull-right form-search" style="margin-top:9px">
                         <div class="input-append" style="height:25px;">
-                            <input type="text" style="height:15px" class="search-query" placeholder="Search"></input>
+                            <input type="text" ng-model="asyncSelected" style="height:15px" class="search-query" placeholder="你想看啥？" typeahead="result for result in getPreSearch($viewValue) | filter : $viewValue"></input>
                             <button class="btn" style="height:25px;padding:2px 10px" type="submit" ng-click="getSearch()">Go!</button>
                         </div>
                         <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-click="openNotificationCenter()">
@@ -51,31 +53,8 @@
             <div style="height:10px;background-color:#fff">
             </div>
         </div>
-        <!--<div class="">
-            <img style="position:fixed;margin-left:70px;z-index:1031;"ng-src="images/icon_small.png">
-            </img>
-        </div>-->
         <div style="height:55px">
         </div>
-        <!--
-        <div>
-            <div class="navbar-fixed-top navbar" style="min-width:768px;background-color:#f1f1f1;box-shadow: 2px 3px 7px #909090;">
-                <div class="navbar-fixed-top" style="z-index:-1;background-color:#222;height:20px;">
-                </div>
-                <img class="img-rounded" style="margin-left:80px;margin-top:15px;" src="images/icon_small.png"></img>
-                <form class="pull-right form-search" style="margin:50px;margin-bottom:0px;">
-                    <div class="input-append">
-                        <input type="text" class="search-query"placeholder="Search"></input>
-                        <button class="btn" type="submit">Go!</button>
-                    </div>
-                    <button class="btn" style="margin-top:0px;">search</button>
-                </form>
-            </div>
-            <div style="height:105px">
-            </div>
-        </div>
-        -->
-
         <div ng-view=""></div>
 
         <!--<div class="container" style="">

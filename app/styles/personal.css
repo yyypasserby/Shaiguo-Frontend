@@ -11,7 +11,12 @@ img.people-head {
 span.label.label-bigger {
     font-size:16px;
     padding:7px 9px;
-    margin:11px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+}
+
+span.label.label-bigger:hover {
+    cursor:pointer;
+    box-shadow:0px 1px 1px #222;
 }
 
 span.badge.badge-bigger {
@@ -25,5 +30,42 @@ div.message {
     background-size:cover;
     padding-bottom:0px;
     padding-right:20px;
+}
+
+div.message:hover {
     box-shadow: 0px 1px 1px #222;
 }
+
+div#friend_box {
+    padding:10px 0 0 10px;
+    margin-top:0px;
+}
+
+div#friend_box:hover {
+    box-shadow:0px 1px 1px #222;
+}
+
+div#favor{
+    margin-bottom:10px;
+    cursor: pointer;
+}
+
+div#favor:hover{
+    box-shadow: 1px 1px 1px #222;
+}
+
+
+.attention{
+    position: relative;
+    display: none;
+    bottom: 20px;
+    padding-left: 5px;
+    background-color: #5590f3;
+
+}
+.fixed {   
+    position:fixed;   
+    top:40px;   
+    width:300px;   
+} 
+

@@ -16,7 +16,7 @@ angular.module('livesApp')
         var userResource = Resource.getResource('user');
 
         var result = userResource.save($scope.user, function() {
-            if(result.result === true) {
+            if(result.result === 'success') {
                 $location.path('/personal');
             }
             console.log(result);

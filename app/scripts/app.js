@@ -102,13 +102,14 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
     };
 };
 
-app.run(function($rootScope, $modal, $location, AuthService) {
+app.run(function($rootScope, $modal, $location, AuthService, Resource) {
     $rootScope.openLoginModal = function() {
         var modalInstance = $modal.open({
             templateUrl: 'UserLogin.html',
             controller: UserLoginInstanceCtrl,
         });
         modalInstance.result.then(function(user) {
+            console.log(user);
             $location.path('/personal');
         });
     };
@@ -118,6 +119,20 @@ app.run(function($rootScope, $modal, $location, AuthService) {
     };
     $rootScope.getSearch = function() {
         $location.path('/search');   
+    };
+    var range = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+    $rootScope.getPreSearch = function(val) {
+        var preSearchResource = Resource.getResource('search/pre');
+        var result = preSearchResource.query({key : val});
+        result.$promise.then(function() {
+            var searchResult = [];
+            console.log(searchResult);
+            angular.forEach(result, function(item) {
+                searchResult.push(item);    
+            });
+            console.log(searchResult);
+            return searchResult; 
+        });
     };
     $rootScope.search = {content : '', category : ''};
 });

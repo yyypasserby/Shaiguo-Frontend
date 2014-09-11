@@ -1,34 +1,3 @@
-<head>
-    <link rel="stylesheet" href="styles/personal.css">
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="script/controllers/personal.js"></script>
-    <style>
-        .favor{
-            width: 90px;
-            height: 42px;
-            margin-right:10px;
-            margin-left:10px;
-            margin-bottom: 13px;
-            cursor: pointer;
-            border-color: #5590f3;
-            border-width: 2px;
-        }
-        .attention{
-            position: relative;
-            display: none;
-            bottom: 20px;
-            padding-left: 5px;
-            background-color: #5590f3;
-
-        }
-        .fixed {   
-        position:fixed;   
-        top:40px;   
-        width:300px;   
-        } 
-    </style>
-</head>
-
 <script type="text/ng-template" id="UserSettings.html">
     <div class="modal-header">
         <h3 class="modal-title">User Settings</h3>
@@ -62,34 +31,18 @@
     <div class="modal-header">
         <h3 class="modal-title">User Favor</h3>
     </div>
-    <div class="modal-body" style="margin-left:20px;">
-        <div class="thumbnail span3 favor" value="0" ng-click="attention()">
-            <div style="text-align:center"><h4 style="margin-top:1.8px;margin-bottom:1.8px;">英雄联盟</h4>15万关注</div>
-            <div class="attention"><i class="icon-ok" style="margin-right:10px;"></i>已关注</div>
-        </div>
-        <div class="thumbnail span3 favor" value="0" ng-click="attention()">
-            <div style="text-align:center"><h4 style="margin-top:1.8px;margin-bottom:1.8px;">英雄联盟</h4>15万关注</div>
-            <div class="attention"><i class="icon-ok" style="margin-right:10px;"></i>已关注</div>
-        </div>
-        <div class="thumbnail span3 favor" value="0" ng-click="attention()">
-            <div style="text-align:center"><h4 style="margin-top:1.8px;margin-bottom:1.8px;">英雄联盟</h4>15万关注</div>
-            <div class="attention"><i class="icon-ok" style="margin-right:10px;"></i>已关注</div>
-        </div>
-        <div class="thumbnail span3 favor" value="0" ng-click="attention()">
-            <div style="text-align:center"><h4 style="margin-top:1.8px;margin-bottom:1.8px;">英雄联盟</h4>15万关注</div>
-            <div class="attention"><i class="icon-ok" style="margin-right:10px;"></i>已关注</div>
-        </div>
-        <div class="thumbnail span3 favor" value="0" ng-click="attention()">
-            <div style="text-align:center"><h4 style="margin-top:1.8px;margin-bottom:1.8px;">英雄联盟</h4>15万关注</div>
-            <div class="attention"><i class="icon-ok" style="margin-right:10px;"></i>已关注</div>
-        </div>
-        <div class="thumbnail span3 favor" value="0" ng-click="attention()">
-            <div style="text-align:center"><h4 style="margin-top:1.8px;margin-bottom:1.8px;">英雄联盟</h4>15万关注</div>
-            <div class="attention"><i class="icon-ok" style="margin-right:10px;"></i>已关注</div>
-        </div>
-        <div class="thumbnail span3 favor" value="0" ng-click="attention()">
-            <div style="text-align:center"><h4 style="margin-top:1.8px;margin-bottom:1.8px;">英雄联盟</h4>15万关注</div>
-            <div class="attention"><i class="icon-ok" style="margin-right:10px;"></i>已关注</div>
+    <div class="modal-body">
+        <div class="thumbnail media span3" id="favor" style="margin-top:0px;" ng-repeat="tag in tags" ng-click="addFavor(tag.tagId)">
+            <a class="pull-left" >
+                <img class="media-object" ng-src="images/dudu.png"></img>
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">{{ tag.tagName }}</h4>
+                <span class="label">15万关注</span>
+                <div class="pull-right" style="margin-top:20px;" ng-show="tag.selected">
+                    <i class="icon-ok" style="margin-right:10px;"></i>已关注
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal-footer" style="background-color:#d3ecf5;">
@@ -125,40 +78,54 @@
                     <p>
                     {{ user.email }}
                     </p>
-                    <button class="btn btn-primary" ng-click="open()">
+                    <button class="btn btn-primary" ng-click="openUserSettings()">
                         personal center
                     </button>
                 </div>
                 <hr></hr>
-                <button class="btn btn-primary" ng-click="open2()">
-                        personal favor
+                <div style="">
+                    <span class="label label-bigger" style="margin-right:10px;margin-bottom:10px;" ng-repeat="tag in tags | filter : {selected : true}">{{ tag.tagName }}</span>
+                <div>
+                    <button class="btn btn-primary" ng-click="openUserFavor()">
+                        +
                     </button>
-                <p style="">
-                <span class="label label-bigger" style="">music</span>
-                <span class="label label-bigger label-success">music</span>
-                <span class="label label-bigger label-warning">music</span>
-                <span class="label label-bigger label-important">music</span>
-                <span class="label label-bigger label-info">music</span>
-                <span class="label label-bigger label-inverse">music</span>
-                </p>
+                </div>
+                </div>
             </div>
         </div>
-        <div id="floatbox" > 
         <div id="divfloat">
+        <div id="floatbox">
         <hr></hr>
         <div class="thumbnail">
-            <div class="media" style="padding:10px" ng-repeat="friend in friends">
+            <div class="media img-rounded" id="friend_box" style="" ng-repeat="friend in friends">
                 <a class="pull-left">
                     <img class="media-object people-head" ng-src="images/{{ friend.username }}.png">
                     </img>
                 </a>
                 <div class="media-body" style="padding:5px">
                     <h4 class="media-heading">{{ friend.username }}</h4>
+                    <p>
+                    <span class="label" style="">music</span>
+                    </p>
                 </div>
             </div>
         </div>
-    </div></div>
+        </div>
+        </div>
     </div>
 </div>
 </div>
+<script>
+    $(document).ready(function() {   
+        var a = $('#floatbox').offset();   
+        $(window).scroll(function() {   
+            var b = $(window).scrollTop();   
+            if (b > a.top + 5) {   
+                $('#divfloat').addClass('fixed');
+            } else {   
+                $('#divfloat').removeClass('fixed');
+            }   
+        });   
+    });  
+</script>
 

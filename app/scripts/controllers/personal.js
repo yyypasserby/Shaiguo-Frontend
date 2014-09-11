@@ -22,31 +22,18 @@ var UserSettingsInstanceCtrl = function ($scope, $modalInstance, settings) {
     };
 };
 
-var UserFavorInstanceCtrl = function ($scope, $modalInstance, settings) {
+var UserFavorInstanceCtrl = function ($scope, $modalInstance, tags) {
 
-    $scope.settings = settings;
-    console.log($scope.settings);
-    $scope.selected = {
-        item: $scope.settings[0]
+    $scope.tags = tags;
+    console.log($scope.tags);
+
+    $scope.addFavor = function(index){
+        if(tags[index].selected) {
+            tags[index].selected = false;
+        } else {
+            tags[index].selected = true;
+        }
     };
-
-    $(document).ready(function(){
-      $(".favor").mouseover(function(){
-        $(this).css("box-shadow","2px 2px 5px");
-      });
-    });
-    $scope.attention = function(){
-        var value = $(".favor").attr("value");
-        
-        if(value == "0"){
-            $(".attention").show("fast");
-            $(".favor").attr("value","1");
-        }
-        else{
-            $(".attention").hide("fast");
-            $(".favor").attr("value","0");
-        }
-      };
 
     $scope.ok = function () {
         $modalInstance.close($scope.settings);
@@ -70,6 +57,19 @@ angular.module('livesApp')
         var userResource = Resource.getResource('user/:id');
         $scope.user = userResource.get({id : Session.getUserId()}, function() {
             console.log($scope.user);
+            var tagsResource = Resource.getResource('tag/:id'); 
+            $scope.tags = tagsResource.query({id : Session.getUserId()}, function() {
+                for(var i = 0; i < $scope.user.tagList.length; ++i) {
+                    for(var j = 0; j < $scope.tags.length; ++j) {
+                        if($scope.tags[j].tagId === $scope.user.tagList[i]) {
+                            $scope.tags[j].selected = true;
+                            console.log($scope.user.tagList[i]);
+                        }    
+                    }
+                }
+                console.log($scope.tags);
+            });
+
         });
 
         var friendResource = Resource.getResource('friend/:id'); 
@@ -86,7 +86,7 @@ angular.module('livesApp')
     });
 
 
-    $scope.open = function() {
+    $scope.openUserSettings = function() {
         var modalInstance = $modal.open({
             templateUrl: 'UserSettings.html',
             controller: UserSettingsInstanceCtrl,
@@ -101,32 +101,20 @@ angular.module('livesApp')
         });
     };
 
-    $scope.open2 = function() {
+    $scope.openUserFavor = function() {
         var modalInstance = $modal.open({
             templateUrl: 'UserFavor.html',
             controller: UserFavorInstanceCtrl,
             resolve: {
-                settings: function () {
-                    return $scope.user;
+                tags: function() {
+                    return $scope.tags;
                 }
             }
         });
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
+        modalInstance.result.then(function (tags) {
+            $scope.tag = tags;
         });
     };
-
-    jQuery(document).ready(function() {   
-        var a = $("#floatbox").offset();   
-        $(window).scroll(function() {   
-            var b = $(window).scrollTop();   
-            if (b > a.top + 5) {   
-                $("#divfloat").addClass("fixed")   
-            } else {   
-                $("#divfloat").removeClass("fixed")   
-            }   
-        });   
-    });   
 });
 
 
