@@ -3,12 +3,19 @@ body {
     padding:0px;
 }
 
+.btn {
+    outline:none;
+}
 .btn.btn-primary {
     background-color:#5eccf3;
     background-image:linear-gradient(to bottom, #5eccf3, #5ea3f3);
 }
 
 .btn.btn-primary:hover {
+    background-color:#5ea3f3;
+}
+
+.btn.btn-primary:focus {
     background-color:#5ea3f3;
 }
 
