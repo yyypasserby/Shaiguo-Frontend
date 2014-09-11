@@ -1,3 +1,22 @@
+<head>
+    <style>
+        div#add{
+            cursor: pointer;
+            border: dotted #b6b6b7;
+            width:25px;
+            height:25px;
+            font-size:28px;
+            text-align:center;
+            font-weight:bold;
+            color:#b6b6b7;
+        }
+        div#add:hover{
+            border: dotted #474748;
+            color:#474748;
+        }
+    </style>
+</head>
+
 <script type="text/ng-template" id="UserSettings.html">
     <div class="modal-header">
         <h3 class="modal-title">User Settings</h3>
@@ -85,12 +104,10 @@
                 <hr></hr>
                 <div style="">
                     <span class="label label-bigger" style="margin-right:10px;margin-bottom:10px;" ng-repeat="tag in tags | filter : {selected : true}">{{ tag.tagName }}</span>
-                <div>
-                    <button class="btn btn-primary" ng-click="openUserFavor()">
-                        +
-                    </button>
+                <div id="add">
+                    <span id="plus" ng-click="openUserFavor()">+</span>
                 </div>
-                </div>
+            </div>
             </div>
         </div>
         <div id="divfloat">
@@ -128,4 +145,5 @@
         });   
     });  
 </script>
+
 

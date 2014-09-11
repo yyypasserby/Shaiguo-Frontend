@@ -16,8 +16,7 @@ var app = angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.bootstrap',
-    'ui.utils'
+    'ui.bootstrap'
 ])
 .config(function ($routeProvider) {
     $routeProvider
@@ -47,6 +46,10 @@ var app = angular
       })
       .when('/favor2', {
         templateUrl: 'views/favor2.html',
+        controller: 'PersonalCtrl'
+      })
+      .when('/join', {
+        templateUrl: 'views/join.html',
         controller: 'PersonalCtrl'
       })
       .otherwise({
