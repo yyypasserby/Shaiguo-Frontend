@@ -6,8 +6,49 @@ body {
 .btn.btn-primary {
     background-color:#5eccf3;
     background-image:linear-gradient(to bottom, #5eccf3, #5ea3f3);
+    outline:none;
 }
 
 .btn.btn-primary:hover {
     background-color:#5ea3f3;
+}
+
+.button-primary {
+    display: inline-block;
+    position: relative;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    padding: 0 20px;
+    text-align: center;
+    text-decoration: none;
+    font: bold 12px/25px Arial, sans-serif;
+    height:29px;
+    outline:none;
+ 
+    text-shadow: 1px 1px 1px rgba(255,255,255, .22);
+ 
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.blue {
+    color: white;
+ 
+    background: #5eccf3; /* Old browsers */
+    background-image:linear-gradient(to bottom, #5eccf3, #5ea3f3);
+    background: -moz-linear-gradient(top,  #70c9e3 0%, #39a0be 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#70c9e3), color-stop(100%,#39a0be)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #70c9e3 0%,#39a0be 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #70c9e3 0%,#39a0be 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #70c9e3 0%,#39a0be 100%); /* IE10+ */
+    background: linear-gradient(top,  #70c9e3 0%,#39a0be 100%); /* W3C */
+}
+
+.button-primary:hover {
+	background: #5ea3f3;
+}
+.button-primary:active {
+    -webkit-box-shadow: inset 0px 0px 3px rgba(0,0,0, .8);
+    -moz-box-shadow: inset 0px 0px 3px rgba(0,0,0, .8);
+    box-shadow: inset 0px 0px 3px rgba(0,0,0, .8);
 }
