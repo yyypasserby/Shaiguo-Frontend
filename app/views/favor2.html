@@ -1,145 +1,53 @@
-<head>
-	<style>
-		.span3{
-			cursor:pointer;
-			height:80px;
-			overflow: hidden;
-			margin-right: 30px;
-			border-color: #5590f3;
-			border-width: 2px;
-		}
-		.span4{
-			margin-top: 6px;
-			text-align:center;
-			padding-left: 8px;
-			font-size: large;
-			font-weight: bold;
-			font-family: 微软雅黑;
-		}
-		.span6{
-			margin-top: 6px;
-			padding-left: 10px;
-		}
-		img{
-			width:70px;
-			height: 70px;
-		}
-		.attention{
-			display: none;
-			position: relative;
-			bottom:23px;
-			background-color: white;
-			opacity: 1;
-			margin-left: 110px;
-			margin-top: 70px;
-			padding-left: 10px;
-		}
-	</style>
-	
-</head>
-<script type="text/javascript">
-	$(document).ready(function(){
-	  $(".thumbnail").mouseover(function(){
-	    $(this).css("box-shadow","2px 2px 5px");
-	  });
-	});
-	$(document).ready(function(){
-	  $(".thumbnail").mouseleave(function(){
-	    $(this).css("box-shadow","0px 0px 0px");
-	  });
-	});
-	$(document).ready(function(){
-	  $(".thumbnail").click(function(){
-	  	var value = $(this).attr("value");
-	    if(value == "0"){
-	    	$(this.getElementsByClassName('attention')).show("fast");
-	    	$(this).attr("value","1");
-	    }
-	    else{
-	    	$(this.getElementsByClassName('attention')).hide("fast");
-	    	$(this).attr("value","0");
-	    }
-	  });
-	});
-</script>
-
-<div class="container" style="width:850px;">
-	<div class="setup-wrapper">
-		<div class="navbar">
-			<h2>加入晒果</h2>
-			<p class="lead" style="margin-left:30px;">直播你的精彩</p>
-			<ul class="nav row-fluid">
-				<li class="divider-vertical " style="margin-left:80px;">
-					<span><i class="icon-user"></i></span>
-					<strong class="step" style="color:grey;">Step 1:</strong>
-					<p style="color:grey;">Set up a personal account</p>
-				</li>
-				<li class="divider-vertical" style="margin-left:80px;">
-					<span><i class="icon-upload"></i></span>
-					<strong class="step" style="color:grey;">Step 2:</strong>
-					<p style="color:grey;">The Live you wanna share</p>
-				</li>
-				<li class="divider-vertical" style="margin-left:80px;">
-					<span><i class="icon-eye-open"></i></span>
-					<strong class="step" style="color:blue;">Step 3:</strong>
-					<p style="color:blue;">The Live you wanna watch</p>
-				</li>
-			</ul>
-		</div>
-		<div class="progress progress-striped active" style="width:700px; margin-left:80px;margin-top:85px;">
-		<div class="bar" style="width: 100%;"></div>
-	</div>
-	</div>
-	<div style="margin-left:20px;margin-top:25px;">
-	<div class="row-fluid">
-	 	<div class="span5"><h4>你作为观众想观看的直播类型:</h4></div>
-	 	<div class="span5"><a href="#/personal"><button class="btn btn-info" style="float:right">完 成</button></div>
-	 	<div class="span2"><a href="#/personal"><button class="btn btn-warning">跳 过</button></a></div>
-	</div>
-	</br>
-	<div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" value="0">
-		<div class="row-fluid">
-			<div class="span2" style="background-color:#5eccf3;height:80px;"></div>
-			<div class="span4"><img ng-src="images/football.png"></img></div>
-			<div class="span6"><h4>liaoyuqian</h4>15wan关注</div>
-			<div class="attention" style="font-color:#1712f0;font-weight:bold;">
-				<img src="images/tick.png" style="width:23px;height:20px;margin-right:10px;">
-				已关注</div>
-
-		</div>
-	</div>
-	<div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" value="0">
-		<div class="row-fluid">
-			<div class="span2" style="background-color:#5eccf3;height:80px;"></div>
-			<div class="span4"><img ng-src="images/football.png"></img></div>
-			<div class="span6"><h4>liaoyuqian</h4>15wan关注</div>
-			<div class="attention" style="font-color:#1712f0;font-weight:bold;">
-				<img src="images/tick.png" style="width:23px;height:20px;margin-right:10px;">
-				已关注</div>
-
-		</div>
-	</div>
-	<div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" value="0">
-		<div class="row-fluid">
-			<div class="span2" style="background-color:#5eccf3;height:80px;"></div>
-			<div class="span4"><img ng-src="images/football.png"></img></div>
-			<div class="span6"><h4>liaoyuqian</h4>15wan关注</div>
-			<div class="attention" style="font-color:#1712f0;font-weight:bold;">
-				<img src="images/tick.png" style="width:23px;height:20px;margin-right:10px;">
-				已关注</div>
-
-		</div>
-	</div>
-	<div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" value="0">
-		<div class="row-fluid">
-			<div class="span2" style="background-color:#5eccf3;height:80px;"></div>
-			<div class="span4"><img ng-src="images/football.png"></img></div>
-			<div class="span6"><h4>liaoyuqian</h4>15wan关注</div>
-			<div class="attention" style="font-color:#1712f0;font-weight:bold;">
-				<img src="images/tick.png" style="width:23px;height:20px;margin-right:10px;">
-				已关注</div>
-
-		</div>
-	</div>
-</div>
+<div class="container" style="">
+    <div>
+        <h1>加入晒果</h1>
+        <p class="lead" style="">直播你的精彩</p>
+        <ul class="nav row-fluid">
+            <li class="span4 divider-vertical" style="border-right:0px; border-left:0px">
+            <span><img style="width:20px;height:20px;" src="images/step1_grey.png"></span>
+            <strong class="step" style="color:grey;">Step 1:</strong>
+            <p style="color:grey;">注册一个晒果</p>
+            </li>
+            <li class="span4 divider-vertical" style="border-right:0px; border-left:0px">
+            <span><img style="width:20px;height:20px;" src="images/step2_grey.png"></span>
+            <strong class="step" style="color:#868484;">Step 2:</strong>
+            <p style="color:grey;">你想晒晒什么？</p>
+            </li>
+            <li class="span4 divider-vertical" style="border-right:0px; border-left:0px">
+            <span><img style="width:25px;height:20px;" src="images/step3_blue.png"></span>
+            <strong class="step" style="color:#149bdf;">Step 3:</strong>
+            <p style="color:#149bdf;">你想看的这里都有!</p>
+            </li>
+        </ul>
+    </div>
+    <div class="progress" style="">
+        <div class="bar" style="width:66%"></div>
+    </div>
+    <div style="">
+        <div class="row-fluid">
+            <div class="span6">
+                <h4>你作为观众想观看的直播类型:<h4>
+                    </div>
+                    <a href="#/personal" class="btn btn-warning pull-right" style="margin-left:10px;">
+                        跳 过
+                    </a>
+                    <a href="#/favor2" class="btn btn-primary pull-right">
+                        完成
+                    </a>
+                </div>
+                <div class="thumbnail media span3" id="favor" style="margin-top:0px;" ng-click="addFavor(tag.tagId)">
+                    <a class="pull-left" >
+                        <img class="media-object" ng-src="images/dudu.png"></img>
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ tag.tagName }}</h4>
+                        <span class="label">15万关注</span>
+                        <div class="pull-right" style="margin-top:20px;" ng-show="tag.selected">
+                            <i class="icon-ok" style="margin-right:10px;"></i>已关注
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
