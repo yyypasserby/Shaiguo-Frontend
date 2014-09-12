@@ -24,17 +24,18 @@
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
+        <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="NavbarCtrl">
+            <div class="navbar-inner" style="border:0px">
                 <div class="nav-collapse collapse container">
-                    <ul class="nav">
-                        <li><img class="span2" style="margin-left:-30px;"src="images/logo_shaiguo_with_article.png"></li>
-                        <li class="active"  style="margin-top:10px;border-bottom: 3px solid #37a9e3;"><a href="#">首页</a></li>
-                        <li><a href="#personal"  style="margin-top:10px;">我的晒果</a></li>
-                        <li><a href="#search"  style="margin-top:10px;">搜索</a></li>
-                        <li><a href="#castroom"  style="margin-top:10px;">直播间</a></li>
+                    <ul id="navigation" class="nav" style="padding-top:5px">
+                        <li><img ng-click="goToIndex()"class="span2" style="margin-left:-30px;cursor:pointer;"src="images/logo_shaiguo_with_article.png">
+                        </li>
+                        <li nav-item="#/"><a href="#/">首页</a></li>
+                        <li nav-item="#/personal"><a href="#/personal">我的晒果</a></li>
+                        <li nav-item="#/search"><a href="#/search">搜索</a></li>
+                        <li nav-item="#/castroom"><a href="#/castroom">直播间</a></li>
                     </ul>
-                    <div class="pull-right form-search" style="margin-top:16px">
+                    <div class="pull-right form-search" style="margin-top:21px">
                         <div class="input-append" style="height:25px;">
                             <input type="text" ng-model="asyncSelected" style="height:15px" class="search-query" placeholder="你想看啥？" typeahead="result for result in getPreSearch($viewValue)"></input>
                             <button class="btn" style="height:25px;padding:2px 10px" type="submit" ng-click="getSearch()">Go!</button>
@@ -42,7 +43,7 @@
                         <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-click="openNotificationCenter()" ng-show="isAuth">
                         <i class="icon-bell icon-white"></i>
                         </a>
-                        <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-show="isAuth">
+                        <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-show="isAuth" ng-click="logOut()">
                         <i class="icon-off icon-white"></i>
                         <span>Log Out</span>
                         </a>
@@ -114,6 +115,7 @@
     <script src="scripts/controllers/search.js"></script>
     <script src="scripts/controllers/cast.js"></script>
     <script src="scripts/controllers/castroom.js"></script>
+    <script src="scripts/controllers/navbar.js"></script>
     <!-- endbuild -->
     <script type="text/ng-template" id="UserLogin.html">
         <div class="modal-body">

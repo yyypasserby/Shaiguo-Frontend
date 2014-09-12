@@ -82,67 +82,13 @@ app.constant('USER_ROLES', {
     PASSWORD_NOT_VALID : 'Password not valid'
 });
 
-var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthService, AUTH_EVENTS, ERROR_INFO) {
-    $scope.user = {};
-    $scope.signIn = function() {
-        var result = AuthService.login($scope.user);
-        result.$promise.then(function() {
-            console.log('login result is :');
-            console.log(result);
-            if(result.result !== 'failure') {
-                console.log(result.result);
-                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                $modalInstance.close(result.object);
-            }
-            else {
-                var msg = result.object.errorMessage;
-                console.log(msg);
-                $scope.errorMessage = ERROR_INFO[msg];
-                $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-            }
-        });
-    };
-    $scope.cancel = function() {
-        $modalInstance.dismiss();
-    };
-};
-
-app.run(function($rootScope, $modal, $location, AuthService, Resource, AUTH_EVENTS) {
-    $rootScope.openLoginModal = function() {
-        var modalInstance = $modal.open({
-            templateUrl: 'UserLogin.html',
-            controller: UserLoginInstanceCtrl,
-        });
-        modalInstance.result.then(function(user) {
-            console.log(user);
-            $location.path('/personal');
-        });
-    };
-    $rootScope.openNotificationCenter = function() {
-        console.log(AuthService.isAuthenticated());
-        console.log(AuthService.userId);
-    };
-    $rootScope.getSearch = function() {
-        $location.path('/search');   
-    };
-
+app.run(function($rootScope, AuthService, AUTH_EVENTS) {
     $rootScope.isAuth = AuthService.isAuthenticated();
-    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+    $rootScope.$watch(AuthService.isAuthenticated(), function() {
+        console.log('index detect! Authentication changed!');
+        console.log(AuthService.isAuthenticated);
         $rootScope.isAuth = AuthService.isAuthenticated();
     });
-
-    $rootScope.getPreSearch = function(val) { 
-        var preSearchResource = Resource.getResource('search/pre');
-        return preSearchResource.query({key : val}).$promise.then(function(result) {
-            var searchResults = [];
-            angular.forEach(result, function(item) {
-                searchResults.push(item.searchResult);    
-            });
-            console.log(searchResults);
-            return searchResults; 
-        });
-    };
-    $rootScope.search = {content : '', category : ''};
 });
 
 app.service('Server', function(RUN_MODES) {
@@ -168,7 +114,7 @@ app.service('Session', function($window) {
         $window.sessionStorage.userId = uid;
         $window.sessionStorage.userRole = userRole;
     };
-    this.destory = function() {
+    this.destroy = function() {
         $window.sessionStorage.sessionId = null;
         $window.sessionStorage.userId = null;
         $window.sessionStorage.userRole = null;
@@ -209,10 +155,23 @@ app.service('AuthService', function($rootScope, Session, Resource, AUTH_EVENTS) 
             return result;
         });
     };
+    this.logout = function() {
+        Session.destroy();
+        $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+    };
 
     this.isAuthenticated = function() {
-        console.log(Session.getUserId());
-        return ((typeof Session.getUserId()) !== 'undefined');
+        console.log(Session.getSessionId());
+        console.log(typeof Session.getSessionId());
+        if(Session.getSessionId() === 'null') {
+            console.log(Session.getSessionId());
+            return false;    
+        }
+        else if(typeof Session.getSessionId() === 'undefined') {
+            console.log(typeof Session.getSessionId());
+            return false;
+        }
+        return true;
     };
 
     this.isAuthorized = function(authorizedRoles) {
