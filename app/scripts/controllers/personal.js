@@ -79,16 +79,20 @@ angular.module('livesApp')
     };
 
     if(AuthService.isAuthenticated()) {
-        pageLoader.load();    
+        console.log("loading pages");
+        pageLoader.load();
     }
     else {
-        $scope.openLoginModal();    
+   //     $scope.openLoginModal();    
     }
 
     $scope.$on(AUTH_EVENTS.loginSuccess, function() {
         pageLoader.load();
     });
 
+    $scope.$on(AUTH_EVENTS.logoutSuccess, function() {
+        $scope.showPage = false;
+    });
 
     $scope.openUserSettings = function() {
         var modalInstance = $modal.open({

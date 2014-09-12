@@ -54,6 +54,14 @@ div#hot-caster:hover {
     -moz-opacity: 0;
     opacity: 0;
 }
+ul.nav a {
+    margin-top:10px;
+}
+
+ul#navigation li.active {
+    border-bottom:5px solid #37a9e3;
+}
+
 .category{
     font-size:150%;
     font-weight:bold;
