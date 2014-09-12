@@ -40,6 +40,10 @@ var app = angular
         templateUrl: 'views/castroom.html',
         controller: 'CastroomCtrl'
       })
+      .when('/join', {
+        templateUrl: 'views/join.html',
+        controller: 'PersonalCtrl'
+      })
       .when('/favor', {
         templateUrl: 'views/favor.html',
         controller: 'PersonalCtrl'
