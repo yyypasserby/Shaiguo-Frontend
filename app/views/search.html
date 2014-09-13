@@ -1,6 +1,28 @@
+<style>
+    .nav-tabs{
+        border-bottom: 3px solid #5ea3f3;
+    }
+    .nav-tabs > .active > a, .nav-tabs > .active > a:hover{
+        background-color:#5eccf3;
+        color:white;
+        font-weight: bold;
+        border-color: #5ea3f3;
+        border-width: 3px;
+        border-bottom-color: #5eccf3;
+    }
+    .nav-tabs > li > a{
+        width: 120px;
+        height: 30px;
+        text-align: center;
+        font-size: 150%;
+        line-height:30px;
+        font-family: 微软雅黑;
+    }
+</style>
+
 <div class="container" style="margin-top:20px;" ng-show="isLoad">
     <tabset>
-    <tab heading="Lives">
+    <tab heading="正在直播">
     <div>
         <input type="text" ng-model="live_query" placeholder="Type sth. to filter..."></input>
     </div>
@@ -10,7 +32,7 @@
             <p></p>
         </div>
     </tab>
-    <tab heading="Users">
+    <tab heading="晒果用户">
     <div>
         <div>
         <input type="text" ng-model="user_query" placeholder="Type sth. to filter..."></input>
@@ -21,7 +43,7 @@
         </div>
     </div>
     </tab>
-    <tab heading="Caches">
+    <tab heading="缓存视频">
     <div class="container">
     <div>
         <input type="text" ng-model="cache_query" placeholder="Type sth. to filter..."></input>

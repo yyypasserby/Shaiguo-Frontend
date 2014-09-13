@@ -45,7 +45,7 @@ var UserFavorInstanceCtrl = function ($scope, $modalInstance, tags) {
 };
 
 angular.module('livesApp')
-.controller('PersonalCtrl', function ($scope, $modal, Resource, AUTH_EVENTS, Session, AuthService) {
+.controller('PersonalCtrl', function ($scope, $modal, Resource, AUTH_EVENTS, Session, AuthService, TagService) {
     var pageLoader = {};
     pageLoader.load = function() {
         $scope.showPage = true;
@@ -60,19 +60,18 @@ angular.module('livesApp')
         });
 
 
-        var tagsResource = Resource.getResource('tag'); 
-            $scope.tags = tagsResource.get({id : Session.getUserId()}, function() {
-                console.log($scope.tags);
-                for(var i = 0; i < $scope.user.tagList.length; ++i) {
-                    for(var j = 0; j < $scope.tags.length; ++j) {
-                        if($scope.tags[j].tagId === $scope.user.tagList[i]) {
-                            $scope.tags[j].selected = true;
-                            console.log($scope.user.tagList[i]);
-                        }    
-                    }
-                }
-                console.log($scope.tags);
-            });
+        $scope.tags = TagService.tags;
+        console.log('User tags');
+        console.log($scope.user.tags);
+        console.log($scope.user.tagList);
+        for(var i = 0; i < $scope.user.tagList.length; ++i) {
+            for(var j = 0; j < $scope.tags.length; ++j) {
+                if($scope.tags[j].tagId === $scope.user.tagList[i]) {
+                    $scope.tags[j].selected = true;
+                    console.log($scope.user.tagList[i]);
+                }    
+            }
+        }
 
         var friendResource = Resource.getResource('friend/:id'); 
         $scope.friends = friendResource.query({id : $scope.user.userId}, function() {
