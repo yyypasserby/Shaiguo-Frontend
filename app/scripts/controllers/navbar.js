@@ -27,7 +27,7 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
 
 
 var app = angular.module('livesApp')
-.controller('NavbarCtrl', function($scope, $modal, $location, Resource, AuthService, AUTH_EVENTS) {
+.controller('NavbarCtrl', function($scope, $modal, $location, Resource, AuthService, AUTH_EVENTS, SearchService, $rootScope) {
     $scope.openLoginModal = function() {
         var modalInstance = $modal.open({
             templateUrl: 'UserLogin.html',
@@ -41,7 +41,13 @@ var app = angular.module('livesApp')
     $scope.openNotificationCenter = function() {
     };
     $scope.getSearch = function() {
-        $location.path('/search');   
+        SearchService.setSearchContent($scope.searchContent);
+        if($location.path() === '/search') {
+            $rootScope.$broadcast('searchPageReload'); 
+        }
+        else {
+            $location.path('/search');
+        }
     };
 
     $scope.goToIndex = function() {

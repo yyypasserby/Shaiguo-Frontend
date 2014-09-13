@@ -37,7 +37,7 @@
                     </ul>
                     <div class="pull-right form-search" style="margin-top:21px">
                         <div class="input-append" style="height:25px;">
-                            <input type="text" ng-model="asyncSelected" style="height:15px" class="search-query" placeholder="你想看啥？" typeahead="result for result in getPreSearch($viewValue)"></input>
+                            <input type="text" ng-model="searchContent" style="height:15px" class="search-query" placeholder="你想看啥？" typeahead="result for result in getPreSearch($viewValue)"></input>
                             <button class="btn" style="height:25px;padding:2px 10px" type="submit" ng-click="getSearch()">Go!</button>
                         </div>
                         <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-click="openNotificationCenter()" ng-show="isAuth">

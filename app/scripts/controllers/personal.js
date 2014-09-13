@@ -79,7 +79,7 @@ angular.module('livesApp')
     };
 
     if(AuthService.isAuthenticated()) {
-        console.log("loading pages");
+        console.log('loading pages');
         pageLoader.load();
     }
     else {

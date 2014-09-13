@@ -45,17 +45,7 @@
                         <img class="swap1" src="images/category/{{ category.thumbnail }}" style="position:absolute">
                         <img class="swap2" src="images/play2.png">
                     </div>
-                    <p><span class="category">{{ category.name }}</span><span style="margin-right:20px;">{{ category.livingNumber }}个正在直播</span>{{ category.attention }}人关注</p>
-                </div>
-                <div class="play">
-                    <div class="swapImage">
-                    <img class="swap1" src="images/category/game.png" style="position:absolute">
-                    <img class="swap2" src="images/play2.png">
-                    </div>
-                    <span>
-                    <span class="category">游戏</span>
-                    <span style="margin-right:20px;">15个正在直播</span>
-                    4万人关注</span>
+                    <p><span class="category">{{ category.tagName }}</span><span style="margin-right:20px;">{{ category.livingNumber }}个正在直播</span>{{ category.tagAttention }}人关注</p>
                 </div>
             </div>
             <div class="span4" style="margin-left:40px;margin-right:40px">
@@ -69,20 +59,9 @@
                         <img class="swap2" src="images/play2.png">
                     </div>
                     <div class="row-fluid">
-                        <div><p class="span6 limit_text">{{ live.name }}</p></div>
-                        <div class="span6 level"><i  style="margin-left:30px;" class="icon-forward"></i><span>{{ live.attetion }}</span>
+                        <div><p class="span6 limit_text">{{ live.livename }}</p></div>
+                        <div class="span6 level"><i  style="margin-left:30px;" class="icon-forward"></i><span>{{ live.attention }}</span>
                             <i class="icon-fire"></i><span>{{ live.rating }}</span></div>
-                    </div>
-                </div>
-                <div class="play">
-                    <div class="swapImage">
-                        <img class="swap1" src="images/lives/chinavoice.png" style="position:absolute">
-                        <img class="swap2" src="images/play2.png">
-                    </div>
-                    <div class="">
-                        <div><p class="span6 limit_text">中国好声音 汪峰专场</p></div>
-                        <span class="span6 level"><i  style="margin-left:30px;" class="icon-forward"></i><span>2,241</span>
-                            <i class="icon-fire"></i><span>123</span></span>
                     </div>
                 </div>
             </div>
@@ -94,29 +73,16 @@
                 <div class="media-list span12">
                     <div class="media" id="hot-caster" ng-repeat="caster in casters">
                         <a class="pull-left">
-                            <img class="media-object" ng-src="images/caster/{{ caster.thumbnail }}">
+                            <img class="media-object" style="width:100px;" ng-src="images/caster/{{ caster.username }}.png">
                         </a>
                         <div class="media-body">
-                            <h4 class="media-heading">{{ caster.name }}
+                            <h4 class="media-heading">{{ caster.username }}
                             </h4>
                             <span class="label label-warning">{{ caster.castType }}</span>
                             <span><i class="icon-eye-open"></i>{{ caster.attention }}</span>
                             <button class="btn btn-success pull-right" style="margin-top:20px">+ 关注</button>
                         </div>
                     </div>
-                    <div class="media" id="hot-caster">
-                        <a class="pull-left" href="#">
-                            <img class="media-object" ng-src="images/caster/yaoyao.png">
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading">瑶瑶
-                            </h4>
-                            <span class="label label-warning">游戏</span>
-                            <span><i class="icon-eye-open"></i>2345</span>
-                            <button class="btn btn-success pull-right" style="margin-top:20px">+ 关注</button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
             <!--end hotCaster -->

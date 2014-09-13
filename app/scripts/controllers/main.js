@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the livesApp
  */
-angular.module('livesApp')
+var app = angular.module('livesApp')
 .controller('MainCtrl', function ($scope, Resource, $location) {
     $scope.user={};
     $scope.background = { imgSrc : '' };
@@ -22,10 +22,26 @@ angular.module('livesApp')
             console.log(result);
         });
     };
+    var liveResource = Resource.getResource('hot/live');
+    liveResource.query(function(result) {
+        console.log(result);
+        $scope.lives = result; 
+    });
+
+    var casterResource = Resource.getResource('hot/caster');
+    casterResource.query(function(result) {
+        console.log(result);
+        $scope.casters = result; 
+    });
+
+    var categoryResource = Resource.getResource('hot/category');
+    categoryResource.query(function(result) {
+        console.log(result);
+        $scope.categories = result; 
+    });
 });
 
-angular.module('livesApp')
-.directive('backImg', function() {
+app.directive('backImg', function() {
     return function(scope, element)  {
         element.css({
             'background-size': 'cover',
@@ -40,8 +56,7 @@ angular.module('livesApp')
     };   
 });
 
-angular.module('livesApp')
-.controller('IndexImageCarouselCtrl', function($scope, Resource) {
+app.controller('IndexImageCarouselCtrl', function($scope, Resource) {
     $scope.indexImageInterval = 5000;
     $scope.indexImageSlides = [];
     var slidesResource = Resource.getResource('indexImage');

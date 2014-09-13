@@ -16,7 +16,8 @@ var app = angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ui.utils'
 ])
 .config(function ($routeProvider) {
     $routeProvider
@@ -36,7 +37,7 @@ var app = angular
         templateUrl: 'views/cast.html',
         controller: 'CastCtrl'
       })
-      .when('/castroom', {
+      .when('/castroom/:username', {
         templateUrl: 'views/castroom.html',
         controller: 'CastroomCtrl'
       })
@@ -46,14 +47,6 @@ var app = angular
       })
       .when('/favor', {
         templateUrl: 'views/favor.html',
-        controller: 'PersonalCtrl'
-      })
-      .when('/favor2', {
-        templateUrl: 'views/favor2.html',
-        controller: 'PersonalCtrl'
-      })
-      .when('/join', {
-        templateUrl: 'views/join.html',
         controller: 'PersonalCtrl'
       })
       .otherwise({
@@ -89,8 +82,7 @@ app.constant('USER_ROLES', {
 app.run(function($rootScope, AuthService, AUTH_EVENTS) {
     $rootScope.isAuth = AuthService.isAuthenticated();
     $rootScope.$watch(AuthService.isAuthenticated(), function() {
-        console.log('index detect! Authentication changed!');
-        console.log(AuthService.isAuthenticated);
+        console.log(AuthService.isAuthenticated());
         $rootScope.isAuth = AuthService.isAuthenticated();
     });
 });
@@ -185,4 +177,24 @@ app.service('AuthService', function($rootScope, Session, Resource, AUTH_EVENTS) 
         return (this.isAuthenticated() &&
             authorizedRoles.indexOf(Session.getUserRole()) !== -1);
     };
+});
+
+app.service('UserService', function() {
+    var userHash = [];
+    this.getUserById = function(id) {
+        for(var user in userHash) {
+            if(user.userId === id) {
+                console.log('Get user by id from userHash: ');
+                console.log(user);
+                return user;    
+            }    
+        }
+        var uR = Resource.getResource('user/:userId');
+        return uR.get({userId: id}, function(res) {
+            console.log('Get user by id by Remote: ') ;
+            console.log(res);
+            userHash.push(res);
+            return res;
+        })
+    }; 
 });

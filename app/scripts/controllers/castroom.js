@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('livesApp')
-.controller('CastroomCtrl', function ($scope) {
+var app = angular.module('livesApp')
+.controller('CastroomCtrl', function ($scope, Resource, $routeParams) {
+    $scope.username = $routeParams.username;
     $scope.chatpool = [];
     for(var i = 0; i < 10; ++i) {
-        $scope.chatpool.push({username : 'CANCAN', content : 'Yes, I love it, too'});    
+        $scope.chatpool.push({username : 'CANCAN', content : 'Yes, I love it, too'});
     }
     $scope.saySth = function($event) {
         if($scope.chatContent === '') {
@@ -14,11 +15,15 @@ angular.module('livesApp')
         $scope.$broadcast('ChatpoolChanged', $scope.chatId);
         $scope.chatContent = '';
         $event.preventDefault();
-    };
+    }; 
+    var userResource = Resource.getResource('user/:id');
+    $scope.caster = userResource.get({id: 1}, function(res) {
+        console.log(res);
+        return res;
+    });
 });
 
-angular.module('livesApp')
-.directive('chatPool', function() {
+app.directive('chatPool', function() {
     return {
         controller:function($scope, $element) {
             $scope.$on('ChatpoolChanged', function() {
@@ -26,8 +31,36 @@ angular.module('livesApp')
                 console.log(pool);
                 pool.scrollTop = pool.scrollHeight;
             });
-
         }
     };
 });
 
+app.directive('subscribeBtn', function(Resource, Session) {
+    return {
+        scope: {
+            caster: '=caster'
+        },
+        link: function(scope, ele, attrs) {
+        var subscribeResource = Resource.getResource('subscribe/check');
+        console.log(scope.caster);
+        subscribeResource.get({from_id: Session.getUserId(), to_id: scope.caster.userId},
+            function(result) {
+                console.log(result);
+                if(result.result === 'true') {
+                    ele.addClass('disabled');
+                    ele.removeClass('btn-primary');
+                    ele.html('已订阅');
+                } 
+            });
+        }
+    };
+});
+
+app.service('WatchService', function() {
+    this.setCasterId = function(caster) {
+        this.casterId = caster;
+    };
+    this.getCasterId = function() {
+        return this.casterId;  
+    };
+});
