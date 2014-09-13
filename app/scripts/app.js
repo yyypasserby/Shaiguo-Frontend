@@ -33,6 +33,10 @@ var app = angular
         templateUrl: 'views/search.html',
         controller: 'SearchCtrl'
       })
+      .when('/category/:category', {
+        templateUrl: 'views/category.html',
+        controller: 'CategoryCtrl'
+      })
       .when('/cast', {
         templateUrl: 'views/cast.html',
         controller: 'CastCtrl'
@@ -79,12 +83,19 @@ app.constant('USER_ROLES', {
     PASSWORD_NOT_VALID : 'Password not valid'
 });
 
-app.run(function($rootScope, AuthService, AUTH_EVENTS) {
+app.run(function($rootScope, TagService, AuthService, Resource) {
     $rootScope.isAuth = AuthService.isAuthenticated();
     $rootScope.$watch(AuthService.isAuthenticated(), function() {
         console.log(AuthService.isAuthenticated());
         $rootScope.isAuth = AuthService.isAuthenticated();
     });
+
+    var categories = Resource.getResource('tag').query();
+    categories.$promise.then(function() {
+        TagService.setTags(categories);
+        console.log(TagService.tags);
+    });
+
 });
 
 app.service('Server', function(RUN_MODES) {
@@ -105,18 +116,22 @@ app.service('Server', function(RUN_MODES) {
 });
 
 app.service('Session', function($window) {
-    this.create = function(sid, uid, userRole) {
+    this.create = function(sid, user) {
         $window.sessionStorage.sessionId = sid;
-        $window.sessionStorage.userId = uid;
-        $window.sessionStorage.userRole = userRole;
+        $window.sessionStorage.user = angular.toJson(user);
     };
     this.destroy = function() {
         $window.sessionStorage.sessionId = null;
-        $window.sessionStorage.userId = null;
-        $window.sessionStorage.userRole = null;
+        $window.sessionStorage.user = null;
+    };
+    this.getUser = function() {
+        console.log('Getting user');
+        console.log($window.sessionStorage.user);
+        return angular.fromJson($window.sessionStorage.user);
     };
     this.getUserId = function() {
-        return $window.sessionStorage.userId;    
+        var user = this.getUser();
+        return user.userId;    
     };
     this.setSessionId = function(newSessionId) {
         $window.sessionStorage.sessionId = newSessionId;
@@ -125,9 +140,9 @@ app.service('Session', function($window) {
         return $window.sessionStorage.sessionId;    
     };
     this.getUserRole = function() {
-        return $window.sessionStorage.userRole;
+        var user = this.getUser();
+        return user.userRole;
     };
-    return this;
 });
 
 app.service('Resource', function($http, $resource, Server) {
@@ -144,7 +159,9 @@ app.service('AuthService', function($rootScope, Session, Resource, AUTH_EVENTS) 
         var authResource = Resource.getResource('auth');
         return authResource.save(user, function(result) {
             if(result.result !== 'failure') {
-                Session.create(result.result, result.object.userId, result.object.userRole);
+                Session.create(result.result, result.object);
+                console.log('Creating session');
+                console.log(result.object);
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 console.log(result.object.userId);
             }
@@ -179,7 +196,7 @@ app.service('AuthService', function($rootScope, Session, Resource, AUTH_EVENTS) 
     };
 });
 
-app.service('UserService', function() {
+app.service('UserService', function(Resource) {
     var userHash = [];
     this.getUserById = function(id) {
         for(var user in userHash) {
@@ -195,6 +212,18 @@ app.service('UserService', function() {
             console.log(res);
             userHash.push(res);
             return res;
-        })
+        });
     }; 
+});
+
+app.service('ActionService', function($rootScope, Resource) {
+    $rootScope.$on('UserActionOccur', function(e, d) {
+        console.log(e);
+        console.log(d);
+        var send = Resource.getResource('action');
+        send.save(d, function(res) {
+            if(res.result === 'success') {
+            }
+        });
+    });
 });

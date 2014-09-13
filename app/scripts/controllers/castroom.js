@@ -38,29 +38,46 @@ app.directive('chatPool', function() {
 app.directive('subscribeBtn', function(Resource, Session) {
     return {
         scope: {
-            caster: '=caster'
+            caster: '=caster',
         },
         link: function(scope, ele, attrs) {
-        var subscribeResource = Resource.getResource('subscribe/check');
-        console.log(scope.caster);
-        subscribeResource.get({from_id: Session.getUserId(), to_id: scope.caster.userId},
-            function(result) {
-                console.log(result);
-                if(result.result === 'true') {
-                    ele.addClass('disabled');
-                    ele.removeClass('btn-primary');
-                    ele.html('已订阅');
-                } 
+            var subCheckResource = Resource.getResource('subscribe/check');
+            console.log('logging user');
+            console.log(scope.caster);
+            scope.caster.$promise.then(function() {
+            subCheckResource.get({from_id: Session.getUserId(), to_id: scope.caster.userId},
+                function(result) {
+                    console.log(result);
+                    if(result.result === 'true') {
+                        ele.addClass('disabled');
+                        ele.removeClass('btn-primary');
+                        ele.html('已订阅');
+                    } 
+                });
+            });
+            ele.bind('click', function() {
+                if(scope.isDisabled) {return;}
+                var subscribeResource = Resource.getResource('subscribe');
+                subscribeResource.get({from_id: Session.getUserId(), to_id: scope.caster.userId},
+                    function(result) {
+                        console.log('Subscribe processing');
+                        console.log(result);
+                    }
+                );
             });
         }
     };
 });
 
-app.service('WatchService', function() {
-    this.setCasterId = function(caster) {
-        this.casterId = caster;
+app.directive('addOneButton', function() {
+    return {
+        scope: {
+            caster: '=caster'  
+        },
+        link: function(scope, ele, attrs) {
+            //ele.$watch(Se)
+            //ele.bind('click') 
+        }
     };
-    this.getCasterId = function() {
-        return this.casterId;  
-    };
+    
 });

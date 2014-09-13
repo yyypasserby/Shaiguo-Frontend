@@ -83,6 +83,7 @@ app.directive('navItem', function($location) {
         var elementPath = attrs.navItem.substring(1);
         scope.$on('$routeChangeSuccess', function() {
             var locationPath = $location.path();
+            console.log(locationPath);
             if(elementPath === locationPath) {
                 element.addClass('active');
             } else {

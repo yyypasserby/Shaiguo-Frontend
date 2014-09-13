@@ -8,7 +8,7 @@
  * Controller of the livesApp
  */
 var app = angular.module('livesApp')
-.controller('MainCtrl', function ($scope, Resource, $location) {
+.controller('MainCtrl', function ($scope, Resource, $location, SearchService) {
     $scope.user={};
     $scope.background = { imgSrc : '' };
     $scope.signup = function() {
@@ -22,6 +22,7 @@ var app = angular.module('livesApp')
             console.log(result);
         });
     };
+
     var liveResource = Resource.getResource('hot/live');
     liveResource.query(function(result) {
         console.log(result);

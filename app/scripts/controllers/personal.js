@@ -49,16 +49,20 @@ angular.module('livesApp')
     var pageLoader = {};
     pageLoader.load = function() {
         $scope.showPage = true;
+
+        var userResource = Resource.getResource('user/:id');
+        $scope.user = Session.getUser();
+        console.log($scope.user);
+
         var messageResource = Resource.getResource('message/:id');
-        $scope.messages = messageResource.query({id : Session.getUserId()}, function() {
+        $scope.messages = messageResource.query({id : $scope.user.userId}, function() {
             console.log($scope.messages);
         });
 
-        var userResource = Resource.getResource('user/:id');
-        $scope.user = userResource.get({id : Session.getUserId()}, function() {
-            console.log($scope.user);
-            var tagsResource = Resource.getResource('tag/:id'); 
-            $scope.tags = tagsResource.query({id : Session.getUserId()}, function() {
+
+        var tagsResource = Resource.getResource('tag'); 
+            $scope.tags = tagsResource.get({id : Session.getUserId()}, function() {
+                console.log($scope.tags);
                 for(var i = 0; i < $scope.user.tagList.length; ++i) {
                     for(var j = 0; j < $scope.tags.length; ++j) {
                         if($scope.tags[j].tagId === $scope.user.tagList[i]) {
@@ -70,10 +74,8 @@ angular.module('livesApp')
                 console.log($scope.tags);
             });
 
-        });
-
         var friendResource = Resource.getResource('friend/:id'); 
-        $scope.friends = friendResource.query({id : Session.getUserId()}, function() {
+        $scope.friends = friendResource.query({id : $scope.user.userId}, function() {
             console.log($scope.friends);
         });
     };

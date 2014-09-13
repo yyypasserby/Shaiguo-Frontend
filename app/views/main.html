@@ -40,17 +40,19 @@
                     <span class="label-title">热门分类</span>
                     <a class="pull-right">更多...</a>
                 </div>
-                <div class="play" ng-repeat="category in categories">
-                    <div class="swapImage">
-                        <img class="swap1" src="images/category/{{ category.thumbnail }}" style="position:absolute">
+                <div class="play" ng-repeat="category in categories" >
+                    <a href="#/category/{{category.tagNameEng}}">
+                        <div class="swapImage">
+                        <img class="swap1" src="{{ category.thumbnailSmall }}" style="position:absolute">
                         <img class="swap2" src="images/play2.png">
                     </div>
+                    </a>
                     <p><span class="category">{{ category.tagName }}</span><span style="margin-right:20px;">{{ category.livingNumber }}个正在直播</span>{{ category.tagAttention }}人关注</p>
                 </div>
             </div>
             <div class="span4" style="margin-left:40px;margin-right:40px">
                 <div class="category-heading">
-                    <span class="label-title">热门分类</span>
+                    <span class="label-title">热门视频</span>
                     <a class="pull-right">更多...</a>
                 </div>
                 <div class="play" ng-repeat="live in lives">

@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('livesApp')
-.controller('SearchCtrl', function($scope, Resource, SearchService) {
+.controller('SearchCtrl', function($scope, Resource, SearchService, $routeParams) {
     var pageLoader = {};
     pageLoader.load = function() {
         $scope.lives = SearchService.searchLives();
@@ -14,6 +14,8 @@ var app = angular.module('livesApp')
         pageLoader.load();    
     }
     $scope.$on('searchPageReload', function() {
+        console.log('page reloaded');
+        $scope.isLoad = true;
         pageLoader.load(); 
     });
 });
