@@ -80,3 +80,17 @@ div#favor:hover{
     width:300px;   
 } 
 
+div#add{
+    cursor: pointer;
+    border: dotted #b6b6b7;
+    width:25px;
+    height:25px;
+    font-size:28px;
+    text-align:center;
+    font-weight:bold;
+    color:#b6b6b7;
+}
+div#add:hover{
+    border: dotted #474748;
+    color:#474748;
+}

@@ -83,7 +83,7 @@ app.constant('USER_ROLES', {
     PASSWORD_NOT_VALID : 'Password not valid'
 });
 
-app.run(function($rootScope, TagService, AuthService, Resource) {
+app.run(function($rootScope, Session, TagService, AuthService, Resource) {
     $rootScope.isAuth = AuthService.isAuthenticated();
     $rootScope.$watch(AuthService.isAuthenticated(), function() {
         console.log(AuthService.isAuthenticated());
@@ -94,6 +94,49 @@ app.run(function($rootScope, TagService, AuthService, Resource) {
     categories.$promise.then(function() {
         TagService.setTags(categories);
         console.log(TagService.tags);
+    });
+    function dateFormat(date, format) {
+        if(format === undefined){
+            format = date;
+            date = new Date();
+        }
+        var map = {
+            'M': date.getMonth() + 1, //月份 
+            'd': date.getDate(), //日 
+            'h': date.getHours(), //小时 
+            'm': date.getMinutes(), //分 
+            's': date.getSeconds(), //秒 
+            'q': Math.floor((date.getMonth() + 3) / 3), //季度 
+            'S': date.getMilliseconds() //毫秒 
+        };
+        format = format.replace(/([yMdhmsqS])+/g, function(all, t){
+            var v = map[t];
+            if(v !== undefined){
+                if(all.length > 1){
+                    v = '0' + v;
+                    v = v.substr(v.length-2);
+                }
+                return v;
+            }
+            else if(t === 'y'){
+                return (date.getFullYear() + '').substr(4 - all.length);
+            }
+        return all;
+        });
+        return format;
+    }
+    $rootScope.$on('UserActionOccur', function(e, d) {
+        console.log('User action occur');
+        console.log(e);
+        console.log(d);
+        var send = Resource.getResource('action/receive');
+        var action = {userId: Session.getUserId(), vid: 1, type: 1, 
+            castTime: dateFormat('yyyy-MM-dd hh:mm:ss')};
+        send.save(action, function(res) {
+            if(res.result === 'success') {
+                console.log(res);
+            }
+        });
     });
 
 });
@@ -161,9 +204,7 @@ app.service('AuthService', function($rootScope, Session, Resource, AUTH_EVENTS) 
             if(result.result !== 'failure') {
                 Session.create(result.result, result.object);
                 console.log('Creating session');
-                console.log(result.object);
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                console.log(result.object.userId);
             }
             return result;
         });
@@ -174,14 +215,12 @@ app.service('AuthService', function($rootScope, Session, Resource, AUTH_EVENTS) 
     };
 
     this.isAuthenticated = function() {
-        console.log(Session.getSessionId());
-        console.log(typeof Session.getSessionId());
         if(Session.getSessionId() === 'null') {
-            console.log(Session.getSessionId());
+            console.log('SessionId now is null');
             return false;    
         }
         else if(typeof Session.getSessionId() === 'undefined') {
-            console.log(typeof Session.getSessionId());
+            console.log('SessionId is undefined');
             return false;
         }
         return true;
@@ -216,14 +255,20 @@ app.service('UserService', function(Resource) {
     }; 
 });
 
-app.service('ActionService', function($rootScope, Resource) {
-    $rootScope.$on('UserActionOccur', function(e, d) {
-        console.log(e);
-        console.log(d);
-        var send = Resource.getResource('action');
-        send.save(d, function(res) {
-            if(res.result === 'success') {
-            }
-        });
-    });
+app.factory('TagService', function(Resource) {
+    var tagService = {};
+    tagService.setTags = function(tags) {
+        tagService.tags = tags;        
+    };
+
+    tagService.getTag = function(name) {
+        for(var i in tagService.tags) {
+            if(tagService.tags[i].tagNameEng === name) {
+                console.log('Get cate by id from categoryHash: ');
+                console.log(tagService.tags[i]);
+                return tagService.tags[i];    
+            }    
+        }
+    };
+    return tagService;
 });

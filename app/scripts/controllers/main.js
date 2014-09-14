@@ -8,7 +8,7 @@
  * Controller of the livesApp
  */
 var app = angular.module('livesApp')
-.controller('MainCtrl', function ($scope, Resource, $location, SearchService) {
+.controller('MainCtrl', function ($scope, Resource, $location, SearchService, AuthService, UserService) {
     $scope.user={};
     $scope.background = { imgSrc : '' };
     $scope.signup = function() {
@@ -16,27 +16,36 @@ var app = angular.module('livesApp')
         var userResource = Resource.getResource('user');
 
         var result = userResource.save($scope.user, function() {
-            if(result.result === 'success') {
-                $location.path('/personal');
-            }
+            $location.path('/personal');
             console.log(result);
         });
     };
 
     var liveResource = Resource.getResource('hot/live');
     liveResource.query(function(result) {
+        console.log('Loading Lives:');
         console.log(result);
+        var userResource = Resource.getResource('user/:id');
+        angular.forEach(result, function(item) {
+            userResource.get({id: item.userId}, function(res) {
+                item.username = res.username;
+                console.log(item);
+            });
+        });
         $scope.lives = result; 
+        console.log($scope.lives);
     });
 
     var casterResource = Resource.getResource('hot/caster');
     casterResource.query(function(result) {
+        console.log('Loading Caster:');
         console.log(result);
         $scope.casters = result; 
     });
 
     var categoryResource = Resource.getResource('hot/category');
     categoryResource.query(function(result) {
+        console.log('Loading Category:');
         console.log(result);
         $scope.categories = result; 
     });
@@ -61,16 +70,18 @@ app.controller('IndexImageCarouselCtrl', function($scope, Resource) {
     $scope.indexImageInterval = 5000;
     $scope.indexImageSlides = [];
     var slidesResource = Resource.getResource('indexImage');
-    var slides = slidesResource.query({}, function() {
-        $scope.indexImageSlides = slides;
-        console.log(slides);
+    slidesResource.query({}, function(res) {
+        $scope.indexImageSlides = res;
+        console.log('slide image:');
+        console.log(res);
+
     });
 
     $scope.$watch(function () {
-        return slides.filter(function(s) { return s.active; })[0];
+        return $scope.indexImageSlides.filter(function(s) { return s.active; })[0];
     }, function() {
-        var slide = slides.filter(function(s) { return s.active; })[0];
-        if(slide.imgSrc === null) {
+        var slide = $scope.indexImageSlides.filter(function(s) { return s.active; })[0];
+        if(typeof slide === 'undefined') {
             return;
         }
         $scope.$emit('indexImageChanged', slide.imgSrc + '_blur');

@@ -1,3 +1,58 @@
+<script language="JavaScript">
+var jsReady = false;
+function isReady() {
+    return jsReady;
+}
+function pageInit() {
+    jsReady = true;
+}
+function thisMovie(movieName) {
+
+    if (navigator.appName.indexOf("Microsoft") != -1) {
+
+        return window[movieName];
+    } else {
+        //alert(document[movieName]);
+        return document[movieName];
+    }
+}
+
+function jumpToAnchor(anchorName){
+    alert(anchorName);
+}
+
+function adjustVideoVolume(value){
+    thisMovie("videoClient").adjustVolume(value);
+}
+
+function sendToActionScript(value) {
+
+    //var list = getRcmdVideos();
+
+    var list = [
+    {"videoName":"晒果果",
+        "picUrl":"http://g.hiphotos.baidu.com/image/pic/item/6a600c338744ebf894bcead7dbf9d72a6159a70d.jpg",
+        "fileName":"mp4:game1.flv",
+        "anchorName": "cancan",
+        "serverUrl":"123.2.2.1"},
+    {"videoName":"checrrr~",
+        "picUrl":"http://g.hiphotos.baidu.com/image/pic/item/6a600c338744ebf894bcead7dbf9d72a6159a70d.jpg",
+        "fileName":"mp4:game2.flv",
+        "anchorName": "cancan",
+        "serverUrl":"123.2.2.1"},
+    ];
+
+
+    thisMovie("videoClient").sendToActionScript(list);
+}
+function sendToJavaScript(value) {
+    //document.forms["form1"].output.value += "ActionScript says: " + value + "\n";
+    //alert("send");
+
+    sendToActionScript("value");
+}
+</script>
+
 <div class="container-fluid" style="min-width:1000px;">
     <div class="row-fluid">
         <div class="span2">
@@ -5,16 +60,16 @@
                 <img ng-src="images/caster/{{ caster.username }}.png"></img>
                 <div class="caption">
                     <h3 class="text-center">{{ caster.username }}</h3>
-                    <button subscribe-btn caster="caster" class="btn btn-primary btn-block">订阅</button>
-                <button class="btn btn-block"><i class="icon-thumbs-up"></i> +1!</button>
+                    <button subscribe-btn class="btn btn-primary btn-block">订阅</button>
+                    <button add-one-btn class="btn btn-block"><i class="icon-thumbs-up"></i> +1!</button>
                 </div>
             </div>
         </div>
         <div class="span7">
             <div>
-                <h3>DUODUO DOTA2 CASTING</h3>
+                <h3>{{ live.livename }}</h3>
             </div>
-            <img ng-src="images/back2_blur.jpg"></img>
+            <div live-player liveloc="live.location"></div> 
             <p>
             </p>
         </div>

@@ -28,7 +28,7 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
 
 var app = angular.module('livesApp')
 .controller('NavbarCtrl', function($scope, $modal, $location, Resource, AuthService, AUTH_EVENTS, SearchService, $rootScope) {
-    $scope.openLoginModal = function() {
+    $rootScope.openLoginModal = function() {
         var modalInstance = $modal.open({
             templateUrl: 'UserLogin.html',
             controller: UserLoginInstanceCtrl,
@@ -55,7 +55,7 @@ var app = angular.module('livesApp')
     };
     $scope.getPreSearch = function(val) { 
         var preSearchResource = Resource.getResource('search/pre');
-        return preSearchResource.query({key : val}).$promise.then(function(result) {
+        return preSearchResource.query({content : val}).$promise.then(function(result) {
             var searchResults = [];
             angular.forEach(result, function(item) {
                 searchResults.push(item.searchResult);    

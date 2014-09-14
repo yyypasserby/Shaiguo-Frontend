@@ -43,7 +43,7 @@
                 <div class="play" ng-repeat="category in categories" >
                     <a href="#/category/{{category.tagNameEng}}">
                         <div class="swapImage">
-                        <img class="swap1" src="{{ category.thumbnailSmall }}" style="position:absolute">
+                        <img class="swap1" ng-src="images/catagory/{{ category.thumbnailBig }}" style="position:absolute">
                         <img class="swap2" src="images/play2.png">
                     </div>
                     </a>
@@ -56,10 +56,12 @@
                     <a class="pull-right">更多...</a>
                 </div>
                 <div class="play" ng-repeat="live in lives">
+                    <a href="#/castroom/{{ live.username }}"> 
                     <div class="swapImage">
-                        <img class="swap1" src="images/lives/{{ live.thumbnail }}" style="position:absolute">
+                        <img class="swap1" ng-src="images/lives/{{ live.thumbnail }}" style="position:absolute">
                         <img class="swap2" src="images/play2.png">
                     </div>
+                    </a>
                     <div class="row-fluid">
                         <div><p class="span6 limit_text">{{ live.livename }}</p></div>
                         <div class="span6 level"><i  style="margin-left:30px;" class="icon-forward"></i><span>{{ live.attention }}</span>
