@@ -1,26 +1,89 @@
-<div class="container-fluid" style="min-width:1000px;">
-    <div class="row-fluid">
-        <div class="span2">
-            <div class="thumbnail span8 offset4">
-                <img ng-src="images/caster/{{ caster.username }}.png"></img>
-                <div class="caption">
+<style>
+        #box{background: #37a9e3;width: 100px;height: 30px;border-radius: 10px;margin-top: 15px;margin-left:30px; }
+        .slider{background: #5eccf3;width: 50px;height: 30px;border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+            left:0px;
+        }
+        span{height: 30px;line-height: 30px;color: #F6F6F6;font-weight: 800;}
+        #on{float: left;margin-left: 20px}
+        #off{float: right;margin-right: 20px}
+    </style>
+
+<script>
+    function showCater(){
+        if(document.getElementById("caption").style.display=="none"){
+            document.getElementById("caption").style.display="block";
+        }
+        else{
+            document.getElementById("caption").style.display="none";
+            }
+    }
+    function showMission(){
+        if(document.getElementById("mission").style.display=="none"){
+            document.getElementById("mission").style.display="block";
+        }
+        else{
+            document.getElementById("mission").style.display="none";
+            }
+    }
+    function slide(){
+        
+        if(document.getElementById("slider").style.left==""){
+            document.getElementById("back").style.background="white";
+            document.getElementById("slider").style.left="50px";
+        }
+        else{
+            document.getElementById("slider").style.left="";   
+            document.getElementById("back").style.background="#313131";
+            }
+    }
+</script>
+
+
+<div class="container-fluid" id="back" style="min-width:1000px;background:#313131;padding-bottom:20px;">
+    <div class="row-fluid" >
+        <div class="span2" style="height:500px;">
+            <div class="thumbnail span8 offset4" style="margin-left:60px;overflow:hidden;border-width:0px;">
+                <h4 onclick="showCater()" style="cursor:pointer;background-color:#37a9e3;position:relative;bottom:14px;right:4px;width:128px;height:30px;text-align:center;font-family:微软雅黑;line-height:30px;">主播信息</h4>
+                <div id="caption" style="background:white;position:relative;bottom:25px;right:4px;display:none;border:2px solid #37a9e3;width:124px;">
+                    <img style="padding-top:5px;" ng-src="images/caster/{{ caster.username }}.png"></img>               
                     <h3 class="text-center">{{ caster.username }}</h3>
                     <button subscribe-btn caster="caster" class="btn btn-primary btn-block">订阅</button>
                 <button class="btn btn-block"><i class="icon-thumbs-up"></i> +1!</button>
                 </div>
             </div>
+            <div class="thumbnail span8 offset4" style="overflow:hidden;margin-left:60px;border-width:0px;">
+                <h4 onclick="showMission()" style="cursor:pointer;background-color:#37a9e3;position:relative;bottom:14px;right:4px;width:128px;height:30px;text-align:center;font-family:微软雅黑;line-height:30px;">每日任务</h4>
+                <div id="mission" style="background:white;position:relative;bottom:25px;right:4px;display:none;border:2px solid #37a9e3;width:124px;overflow:hidden;" ng-click="hidden()">
+                    <ul style="padding-top:5px;">
+                        <li>观看5个直播</li>
+                        <p style="text-align:right;font-size:70%;">:( 未完成</p>
+                        <li>为他人点个赞</li>
+                        <p style="text-align:right;font-size:70%">:) 已完成</p>
+                        <li>发起一段直播</li>
+                        <p style="text-align:right;font-size:70%">:( 未完成</p>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="span7">
-            <div>
-                <h3>DUODUO DOTA2 CASTING</h3>
+            <div class="row fluid">
+                <div class="span9" style="margin-left:30px;">
+                    <h3 style="color:#37a9e3">DUODUO DOTA2 CASTING</h3>
+                </div>
+                <div class="span3" id="box">
+                    <span id="on">on</span>
+                    <span id="off">off</span>
+                    <div class="slider" id="slider" onclick="slide()"></div>
+                </div>
             </div>
             <img ng-src="images/back2_blur.jpg"></img>
             <p>
             </p>
         </div>
-        <div class="span3" style="`">
-            <h3>&nbsp</h3>
-            <div class="thumbnail span8" style="height:500px">
+        <div class="span3">
+            <div class="thumbnail span8" style="position:relative;top:10px;height:480px;width:260px;background-color:white;">
                 <dl chat-pool style="height:calc(100% - 35px);margin:0;overflow:scroll;">
                     <div id="{{ item.chatId }}" ng-repeat="item in chatpool">
                         <dt>{{ item.username }}</dt>
@@ -29,8 +92,9 @@
                     <div style="height:50px">
                     </div>
                 </dl>
-                <div class="" style="margin-top:5px">
-                    <input ng-model="chatContent" type="text" style="" class="input-block-level" ui-keypress="{13:'saySth($event)'}"placeholder="Say sth."></input>
+                <div class="input-append" style="margin-top:5px;background-color:#d6d4d4">
+                    <input ng-model="chatContent" type="text" style="width:190px;border:1px solid #5eccf3" class="input-block-level" ui-keypress="{13:'saySth($event)'}"placeholder="Say sth."></input>
+                    <button class="btn btn-primary" style="height:30px;" type="submit">发送</button>
                 </div>
                 </div>
             </div>

@@ -16,8 +16,7 @@ var app = angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.bootstrap',
-    'ui.utils'
+    'ui.bootstrap'
 ])
 .config(function ($routeProvider) {
     $routeProvider
@@ -104,7 +103,7 @@ app.service('Server', function(RUN_MODES) {
         remoteServer: 'http://223.3.80.99:8080/LivesServer/rest/:api'
     };
     this.getServerAddress = function(status) {
-        status = typeof status !== 'undefined' ? status : RUN_MODES.testing;
+        status = typeof status !== 'undefined' ? status : RUN_MODES.running;
         switch(status) {
             case RUN_MODES.testing:
                 return this.serverAddress.testServer;
