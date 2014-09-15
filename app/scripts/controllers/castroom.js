@@ -1,34 +1,45 @@
 'use strict';
 
 var app = angular.module('livesApp')
-.controller('CastroomCtrl', function ($scope, Resource, $routeParams, $sce) {
+.controller('CastroomCtrl', function ($scope, Resource, $routeParams, Session) {
     var castername = $routeParams.username;
-    $scope.trustSrc = function(src) {
-        return $sce.trustAsResourceUrl(src);
-    };
     $scope.chatpool = [];
-    for(var i = 0; i < 10; ++i) {
-        $scope.chatpool.push({username : 'CANCAN', content : 'Yes, I love it, too'});
-    }
     $scope.saySth = function($event) {
         if($scope.chatContent === '') {
             return;
         }
-        $scope.chatpool.push({username : 'YAOYAO', content : $scope.chatContent });
+        var chatResource = Resource.getResource('chat/send/' + $scope.caster.userId);
+        var content = {};
+        content.userId = Session.getUserId();
+        content.username = Session.getUser().username;
+        content.content = $scope.chatContent;
+        content.time = dateFormat('yyyy-MM-dd hh:mm:ss');
+        $scope.chatpool.push(content);
+        chatResource.save(content, function(res) {
+            console.log(res);    
+        });
+
+        var chatPoolResource = Resource.getResource('chat/receive/' + $scope.caster.userId);
+        chatPoolResource.query(function(res) {
+            console.log(res);    
+        });
         $scope.$broadcast('ChatpoolChanged', $scope.chatId);
         $scope.chatContent = '';
         $event.preventDefault();
     }; 
+    var casterResource = Resource.getResource('user/username/:username');
+    casterResource.get({username: castername}, function(user) {
+        if(user.thumbnail === null) {
+            user.thumbnail = 'default.png'    
+        }
+        $scope.caster = user;
+        $scope.$broadcast('CasterLoadFinish', user);
+    });
 
     var liveResource = Resource.getResource('casting/:username');
     liveResource.get({username: castername}, function(live) {
         $scope.live = live;
         $scope.$broadcast('LiveLoadFinish', live);
-        var casterResource = Resource.getResource('user/:userId');
-        casterResource.get({userId: live.userId}, function(user) {
-            $scope.caster = user;
-            $scope.$broadcast('CasterLoadFinish', user);
-        });
     });
 });
 
@@ -94,8 +105,6 @@ app.directive('livePlayer', function() {
         scope: { src:'=liveloc' },
         link: function(scope, ele, attrs) {
             scope.$on('LiveLoadFinish', function(e, d) {
-            console.log('hehe');
-            console.log(d);
             //attrs.$observe('src', function(value) {
                 //if(value) {
                     ele.html(

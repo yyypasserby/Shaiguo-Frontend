@@ -27,6 +27,10 @@ var app = angular.module('livesApp')
         console.log(result);
         var userResource = Resource.getResource('user/:id');
         angular.forEach(result, function(item) {
+            if(item.thumbnail === null) {
+                console.log('hehe');
+                item.thumbnail = 'game.png';
+            }
             userResource.get({id: item.userId}, function(res) {
                 item.username = res.username;
                 console.log(item);

@@ -45,16 +45,17 @@ div#hot-caster:hover {
     transition: all 0.3s ease-in-out;
     */
 }
-.swap1, .swapImage:hover .swap2 {
-    -webkit-opacity: 1;
-    -moz-opacity: 1;
-    opacity: 1;
-} 
-.swapImage:hover .swap1, .swap2 {
-    -webkit-opacity: 0;
-    -moz-opacity: 0;
+
+.swap2 {
+    position:absolute;
+    background-image: url("images/utils/play.png");
     opacity: 0;
-}
+} 
+
+.swap2:hover {
+    opacity: 0.8;
+} 
+
 ul.nav a {
     margin-top:10px;
 }

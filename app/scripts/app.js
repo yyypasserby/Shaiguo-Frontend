@@ -130,8 +130,8 @@ app.run(function($rootScope, Session, TagService, AuthService, Resource) {
         console.log(e);
         console.log(d);
         var send = Resource.getResource('action/receive');
-        var action = {userId: Session.getUserId(), vid: 1, type: 1, 
-            castTime: dateFormat('yyyy-MM-dd hh:mm:ss')};
+        var action = {userId: Session.getUserId(), vid: d.liveId, type: 1, 
+            time: dateFormat('yyyy-MM-dd hh:mm:ss')};
         send.save(action, function(res) {
             if(res.result === 'success') {
                 console.log(res);
@@ -162,16 +162,21 @@ app.service('Session', function($window) {
     this.create = function(sid, user) {
         $window.sessionStorage.sessionId = sid;
         $window.sessionStorage.user = angular.toJson(user);
+        $window.sessionStorage.dirty = false;
     };
     this.destroy = function() {
         $window.sessionStorage.sessionId = null;
         $window.sessionStorage.user = null;
+        $window.sessionStorage.dirty = false;
     };
     this.getUser = function() {
-        console.log('Getting user');
-        console.log($window.sessionStorage.user);
         return angular.fromJson($window.sessionStorage.user);
     };
+    this.setNewTags = function(tagStr) {
+        var user = angular.fromJson($window.sessionStorage.user);
+        user.tags = tagStr;
+        $window.sessionStorage.user = angular.toJson(user);
+    }
     this.getUserId = function() {
         var user = this.getUser();
         return user.userId;    
@@ -186,6 +191,12 @@ app.service('Session', function($window) {
         var user = this.getUser();
         return user.userRole;
     };
+    this.setDirty = function() {
+        $window.sessionStorage.dirty = true;    
+    }
+    this.isDirty = function() {
+        return $window.sessionStorage.dirty;    
+    }
 });
 
 app.service('Resource', function($http, $resource, Server) {

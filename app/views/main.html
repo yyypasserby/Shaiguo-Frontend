@@ -40,31 +40,35 @@
                     <span class="label-title">热门分类</span>
                     <a class="pull-right">更多...</a>
                 </div>
-                <div class="play" ng-repeat="category in categories" >
+                <div class="play img-rounded" ng-repeat="category in categories" >
                     <a href="#/category/{{category.tagNameEng}}">
                         <div class="swapImage">
-                        <img class="swap1" ng-src="images/catagory/{{ category.thumbnailBig }}" style="position:absolute">
-                        <img class="swap2" src="images/play2.png">
+                        <img class="swap2 img-rounded" src="images/utils/search.png">
+                        <img class="swap1 img-rounded" ng-src="images/catagory/{{ category.thumbnailBig }}" >
                     </div>
                     </a>
-                    <p><span class="category">{{ category.tagName }}</span><span style="margin-right:20px;">{{ category.livingNumber }}个正在直播</span>{{ category.tagAttention }}人关注</p>
+                    <p>
+                    <span class="category">{{ category.tagName }}</span>
+                    <span style="margin-right:20px;">{{ category.livingNumber }}个正在直播</span>{{ category.tagAttention }}人关注
+                    </p>
                 </div>
             </div>
             <div class="span4" style="margin-left:40px;margin-right:40px">
                 <div class="category-heading">
-                    <span class="label-title">热门视频</span>
+                    <span class="label-title">热门直播</span>
                     <a class="pull-right">更多...</a>
                 </div>
-                <div class="play" ng-repeat="live in lives">
+                <div class="play img-rounded" ng-repeat="live in lives">
                     <a href="#/castroom/{{ live.username }}"> 
                     <div class="swapImage">
-                        <img class="swap1" ng-src="images/lives/{{ live.thumbnail }}" style="position:absolute">
-                        <img class="swap2" src="images/play2.png">
+                        <img class="swap2 img-rounded" src="images/utils/play.png">
+                        <img class="swap1 img-rounded" ng-src="images/lives/{{ live.thumbnail }}" >
                     </div>
                     </a>
-                    <div class="row-fluid">
-                        <div><p class="span6 limit_text">{{ live.livename }}</p></div>
-                        <div class="span6 level"><i  style="margin-left:30px;" class="icon-forward"></i><span>{{ live.attention }}</span>
+                    <div>
+                        <span class="limit_text span7" style="margin-left:10px;">{{ live.livename }}</span>
+                        <div class="pull-right level">
+                            <i class="icon-forward"></i><span>{{ live.attention }}</span>
                             <i class="icon-fire"></i><span>{{ live.rating }}</span></div>
                     </div>
                 </div>
@@ -75,16 +79,16 @@
                     <a class="pull-right">更多...</a>
                 </div>
                 <div class="media-list span12">
-                    <div class="media" id="hot-caster" ng-repeat="caster in casters">
+                    <div class="media img-rounded" id="hot-caster" ng-repeat="caster in casters">
                         <a class="pull-left">
-                            <img class="media-object" style="width:100px;" ng-src="images/caster/{{ caster.username }}.png">
+                            <img class="media-object" style="width:100px;" ng-src="images/caster/{{ caster.thumbnail }}">
                         </a>
                         <div class="media-body">
                             <h4 class="media-heading">{{ caster.username }}
                             </h4>
-                            <span class="label label-warning">{{ caster.castType }}</span>
-                            <span><i class="icon-eye-open"></i>{{ caster.attention }}</span>
-                            <button class="btn btn-success pull-right" style="margin-top:20px">+ 关注</button>
+                            <div class="label label-warning">{{ caster.castType }}</div>
+                            <div><i class="icon-thumbs-up"></i> {{ caster.hotRate }}</div>
+                            <div><i class="icon-eye-open"></i> {{ caster.attention }}</div>
                         </div>
                     </div>
                 </div>

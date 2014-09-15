@@ -7,14 +7,16 @@
  * # PersonalCtrl
  * Controller of the livesApp
  */
-var CastInfoInstanceCtrl = function ($scope, $modalInstance, user) {
+var CastInfoInstanceCtrl = function ($scope, $modalInstance, Resource, user) {
 
     $scope.user = user;
     console.log($scope.user);
     $scope.rtmp = 'rtmp://223.3.91.16:8080/LivesServer';
-    var date = new Date();
-    var hash = hex_sha1($scope.user.username + 'shaiguo' + date.getDay());
-    $scope.streamName = hash.substring(13,23);
+    var sha1Resource = Resource.getResource('casting/apply');
+    sha1Resource.get({username: $scope.user.username}, function(res) {
+        console.log(res) 
+        $scope.streamName = res.result;
+    });
     $scope.ok = function () {
         applyFso($scope.streamName); 
         $modalInstance.close();
@@ -59,9 +61,12 @@ var UserFavorInstanceCtrl = function ($scope, $modalInstance, tags, Resource, Se
             } 
         }
         tagStr = tagStr.substring(0, tagStr.length - 1);
+        console.log('tags modified');
         console.log(tagStr);
-        modify.save({userId: Session.getUserId(), tags: tagStr}, function(res) {
+        console.log(Session.getUserId());
+        modify.get({userId: Session.getUserId(), tags: tagStr}, function(res) {
             console.log(res); 
+            Session.setNewTags(tagStr);
         });
         $modalInstance.close($scope.tags);
     };
@@ -95,20 +100,37 @@ angular.module('livesApp')
 
         var userResource = Resource.getResource('user/:id');
         $scope.user = Session.getUser();
-        console.log($scope.user);
 
+        $scope.messages = [];
         var friendResource = Resource.getResource('friend/:id'); 
-        $scope.friends = friendResource.query({id : $scope.user.userId}, function() {
+        friendResource.query({id : $scope.user.userId}, function(friends) {
             console.log('Loading friends');
+            $scope.friends = friends;
+            angular.forEach(friends, function(friend) {
+                var actionResource = Resource.getResource('action/user/:id');
+                actionResource.query({id : friend.userId}, function(actions) {
+                    angular.forEach(actions, function(action) {
+                        var videoResource = Resource.getResource('video/:id');
+                        videoResource.get({id : action.vid}, function(video) {
+                            if(video.thumbnail === null) {
+                                video.thumbnail = 'chinavoice.png';
+                            }
+                            var casterResource = Resource.getResource('user/:id');
+                            casterResource.get({id: video.userId}, function(caster) {
+                                var message = {};
+                                message.video = video;
+                                message.user = friend;
+                                message.time = action.time;
+                                message.caster = caster;
+                                $scope.messages.push(message);
+                                console.log(message);
+                            });
+                        });
+                    });
+                });
+            });
             console.log($scope.friends);
         });
-
-        var actionResource = Resource.getResource('action/friend/:id');
-        $scope.actions = actionResource.query({id : $scope.user.userId}, function() {
-            console.log('Loading actions');
-            console.log($scope.actions);
-        });
-
 
         if(typeof TagService.tags === 'undefined') {
             console.log('tags not defined!');

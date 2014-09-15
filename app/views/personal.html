@@ -157,16 +157,36 @@ function replyer(){
     <div class="row-fluid">
         <div class="span8">
             <div class="thumbnail media message" ng-repeat="message in messages">
-                <div class="pull-left span2" style="margin:20px; margin-top:80px;">
-                    <img class="media-object img-rounded" ng-src="images/{{ message.username }}.png"></img>
-                    <h5 class="">{{ message.username }}</h5>
+                <div class="pull-left span2" style="margin:10px;">
+                    <img class="media-object img-rounded" ng-src="images/caster/{{ message.user.thumbnail }}"></img>
+                    <p class="text-center" style="font-size:24px">
+                        {{ message.user.username }}
+                    </p>
                 </div>
                 <div class="media-body" style="margin-left:50px;">
-                    <h3 class="media-heading">{{ message.heading }}</h3>
-                    <img class="img-rounded" style="width:450px;height:280px;" ng-src="images/{{ message.thumbnail }}.jpg"></img>
-                    <p class="text-right" style="margin-top:10px;">
-                    <span class="label label-warning label-bigger" style="">{{ message.castTime }} {{ message.status }}</span>
-                    </p>
+                    <h3 class="media-heading">{{ message.user.username }}正在看</h3>
+                    <div class="media" style="margin-top:0px;">
+                        <div class="pull-left">
+                            <a href="#/castroom/{{ message.caster.username }}">
+                                <img class="liveThumbnail swap2 img-rounded" ng-src="images/utils/play.png"></img>
+                                <img class="img-rounded liveThumbnail" ng-src="images/lives/{{ message.video.thumbnail }}"></img>
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ message.video.livename }}</h3>
+                            <div>
+                            <h5 class="muted">{{ message.caster.username }}的直播间</h5>
+                            <div class="muted"><i class="icon-fire"></i> {{ message.caster.hotRate}}</div>
+                            <div class="muted"><i class="icon-eye-open"></i> {{ message.caster.attention}}</div>
+                            <span class="muted"></span>
+                            </div>
+                        </div>
+                        <p style="position:absolute;bottom:10px;right:20px;">
+                        <span class="label label-warning label-bigger">
+                            {{ message.time }} {{ message.status }}
+                        </span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -174,7 +194,7 @@ function replyer(){
         <div class="span4">
             <div class="thumbnail">
             <div class="media" style="padding:20px;padding-top:0px">
-                <img class="pull-left" ng-src="images/{{ user.username }}.png" style="width:40%;margin-top:10px;">
+                <img class="pull-left" ng-src="images/caster/{{ user.thumbnail }}" style="width:40%;margin-top:10px;">
                 <div class="media-body">
                     <h4>{{ user.username }}</h4>
                     <p>
@@ -216,13 +236,11 @@ function replyer(){
                 </div>
             </div>
         </div>
-        <div id="divfloat">
-        <div id="floatbox">
         <hr></hr>
         <div class="thumbnail">
             <div class="media img-rounded" id="friend_box" style="" ng-repeat="friend in friends">
                 <a class="pull-left">
-                    <img class="media-object people-head" ng-src="images/{{ friend.username }}.png">
+                    <img class="media-object people-head" ng-src="images/caster/{{ friend.thumbnail }}">
                     </img>
                 </a>
                 <div class="media-body" style="padding:5px">
@@ -233,23 +251,8 @@ function replyer(){
                 </div>
             </div>
         </div>
-        </div>
-        </div>
     </div>
 </div>
 </div>
-<script>
-    $(document).ready(function() {   
-        var a = $('#floatbox').offset();   
-        $(window).scroll(function() {   
-            var b = $(window).scrollTop();   
-            if (b > a.top + 5) {   
-                $('#divfloat').addClass('fixed');
-            } else {   
-                $('#divfloat').removeClass('fixed');
-            }   
-        });   
-    });  
-</script>
 
 
