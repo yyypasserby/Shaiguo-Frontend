@@ -12,10 +12,16 @@ var CastInfoInstanceCtrl = function ($scope, $modalInstance, Resource, user) {
     $scope.user = user;
     console.log($scope.user);
     $scope.rtmp = 'rtmp://223.3.91.16:8080/LivesServer';
-    var sha1Resource = Resource.getResource('casting/apply');
-    sha1Resource.get({username: $scope.user.username}, function(res) {
-        console.log(res) 
-        $scope.streamName = res.result;
+    $scope.livename = user.username + '的直播间';
+    $scope.tag = 23;
+    var applyForCast = Resource.getResource('casting/apply');
+    var live = {};
+    live.userId = user.userId;
+    live.livename = $scope.livename;
+    live.tag = $scope.tag;
+    applyForCast.save(live, function(res) {
+        console.log(res);
+        $scope.streamName = res.object;
     });
     $scope.ok = function () {
         applyFso($scope.streamName); 

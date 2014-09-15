@@ -10,19 +10,15 @@ var app = angular.module('livesApp')
         }
         var chatResource = Resource.getResource('chat/send/' + $scope.caster.userId);
         var content = {};
-        content.userId = Session.getUserId();
         content.username = Session.getUser().username;
         content.content = $scope.chatContent;
         content.time = dateFormat('yyyy-MM-dd hh:mm:ss');
         $scope.chatpool.push(content);
-        chatResource.save(content, function(res) {
-            console.log(res);    
-        });
-
-        var chatPoolResource = Resource.getResource('chat/receive/' + $scope.caster.userId);
-        chatPoolResource.query(function(res) {
-            console.log(res);    
-        });
+        //postToChat(angular.toJson(content));
+        //function getChatPost(json) {
+        //    console.log(angular.fromJson(json));    
+        //}
+        
         $scope.$broadcast('ChatpoolChanged', $scope.chatId);
         $scope.chatContent = '';
         $event.preventDefault();
@@ -30,7 +26,7 @@ var app = angular.module('livesApp')
     var casterResource = Resource.getResource('user/username/:username');
     casterResource.get({username: castername}, function(user) {
         if(user.thumbnail === null) {
-            user.thumbnail = 'default.png'    
+            user.thumbnail = 'default.png';
         }
         $scope.caster = user;
         $scope.$broadcast('CasterLoadFinish', user);

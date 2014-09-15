@@ -140,11 +140,20 @@ function replyer(){
             <input class="disable" type="text" placeholder="" value="{{rtmp}}"></input>
             <a class="btn btn-warning" style="margin-left:10px;margin-bottom:10px">复制</a>
             </dd>
-            <dt class="lead">Stream名称</dt>
+            <dt class="lead" style="margin-bottom:0px">Stream名称</dt>
             <dd>
             <input type="text" placeholder="" value="{{streamName}}"></input>
             <a class="btn btn-warning" style="margin-left:10px;margin-bottom:10px">复制</a>
             </dd>
+            <dt class="lead" style="margin-bottom:0px">视频名称</dt>
+            <dd>
+            <input type="text" placeholder="" ng-model="livename"></input>
+            </dd>
+            <dt class="lead">视频分类</dt>
+            <dd>
+            <input type="text" placeholder="" ng-model="tag"></input>
+            </dd>
+
         </dl>
     </div>
     <div class="modal-footer" style="background-color:#d3ecf5;">
