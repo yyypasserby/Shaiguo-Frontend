@@ -48,7 +48,6 @@ div#hot-caster:hover {
 
 .swap2 {
     position:absolute;
-    background-image: url("images/utils/play.png");
     opacity: 0;
 } 
 

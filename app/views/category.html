@@ -6,7 +6,7 @@
         <input type="text" ng-model="live_query" placeholder="Type sth. to filter..."></input>
     </div>
     <div class="span3 thumbnail" style="margin-left:5px;margin-bottom:30px;" ng-repeat="live in lives | filter : {'livename' : live_query}">
-        <img ng-src="images/{{ live.thumbnail }}.jpg">
+        <img ng-src="images/catagory/{{ live.thumbnail }}">
         <h6 class="muted">{{ live.livename }}</h6>
         <p></p>
     </div>

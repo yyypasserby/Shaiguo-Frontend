@@ -11,7 +11,7 @@ var CastInfoInstanceCtrl = function ($scope, $modalInstance, Resource, user) {
 
     $scope.user = user;
     console.log($scope.user);
-    $scope.rtmp = 'rtmp://223.3.91.16:8080/LivesServer';
+    $scope.rtmp = 'rtmp://223.3.91.16/LivesServer';
     $scope.livename = user.username + '的直播间';
     $scope.tag = 23;
     var applyForCast = Resource.getResource('casting/apply');
@@ -101,6 +101,53 @@ angular.module('livesApp')
             }
         }
     }
+    function pushAction(friend, action) {
+        var videoResource = Resource.getResource('video/:id');
+        videoResource.get({id : action.vid}, function(video) {
+            if(video.thumbnail === null) {
+                video.thumbnail = 'chinavoice.png';
+            }
+            var casterResource = Resource.getResource('user/:id');
+            casterResource.get({id: video.userId}, function(caster) {
+                var message = {};
+                message.video = video;
+                message.user = friend;
+                message.time = action.time;
+                message.caster = caster;
+                $scope.messages.push(message);
+                console.log(message);
+            });
+        });
+    }
+
+    function loadMoreActions() {
+        console.log('NeedMoreActions');
+        console.log(Session.getUser().tags);  
+        var tagList = Session.getUser().tags.split(',');
+        angular.forEach(tagList, function(item) {
+            item = parseInt(item); 
+        });
+        console.log(tagList);
+        var messageResource = Resource.getResource('action/recommend');
+        messageResource.save(tagList, function(res) {
+            console.log('more actions');
+            console.log(res.object); 
+            var userResource = Resource.getResource('user/:id');
+            angular.forEach(res.object, function(item) {
+                if(item.liveId === 0) {
+                    return;    
+                }
+                userResource.get({id: item.userId}, function(user) {
+                    var message = {};
+                    message.user = user;
+                    message.caster = user;
+                    message.video = item;
+                    $scope.messages.push(message);
+                });
+            });
+        });
+    }
+
     pageLoader.load = function() {
         $scope.showPage = true;
 
@@ -116,26 +163,15 @@ angular.module('livesApp')
                 var actionResource = Resource.getResource('action/user/:id');
                 actionResource.query({id : friend.userId}, function(actions) {
                     angular.forEach(actions, function(action) {
-                        var videoResource = Resource.getResource('video/:id');
-                        videoResource.get({id : action.vid}, function(video) {
-                            if(video.thumbnail === null) {
-                                video.thumbnail = 'chinavoice.png';
-                            }
-                            var casterResource = Resource.getResource('user/:id');
-                            casterResource.get({id: video.userId}, function(caster) {
-                                var message = {};
-                                message.video = video;
-                                message.user = friend;
-                                message.time = action.time;
-                                message.caster = caster;
-                                $scope.messages.push(message);
-                                console.log(message);
-                            });
-                        });
+                        pushAction(friend, action);
                     });
                 });
             });
             console.log($scope.friends);
+            console.log($scope.messages.length);
+            if($scope.messages.length < 3) {
+                loadMoreActions();
+            }
         });
 
         if(typeof TagService.tags === 'undefined') {
@@ -152,6 +188,7 @@ angular.module('livesApp')
         }
 
     };
+
 
     if(AuthService.isAuthenticated()) {
         console.log('loading pages');

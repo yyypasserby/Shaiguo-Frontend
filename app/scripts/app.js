@@ -114,7 +114,7 @@ app.run(function($rootScope, Session, TagService, AuthService, Resource) {
 
 app.service('Server', function(RUN_MODES) {
     this.serverAddress = {
-        testServer: 'http://localhost:8080/LivesServer/rest/:api',
+        testServer: 'http://223.3.85.182:8080/LivesServer/rest/:api',
         remoteServer: 'http://223.3.80.99:8080/LivesServer/rest/:api'
     };
     this.getServerAddress = function(status) {
@@ -248,11 +248,20 @@ app.factory('TagService', function(Resource) {
     tagService.getTag = function(name) {
         for(var i in tagService.tags) {
             if(tagService.tags[i].tagNameEng === name) {
-                console.log('Get cate by id from categoryHash: ');
+                console.log('Get tag by tagEngName : ');
                 console.log(tagService.tags[i]);
                 return tagService.tags[i];    
             }    
         }
+    };
+    tagService.getTagById = function(id) {
+        for(var i in tagService.tags) {
+            if(tagService.tags[i].tagId === id) {
+                console.log('Get tag by tagId : ');
+                console.log(tagService.tags[i]);
+                return tagService.tags[i];
+            }    
+        }    
     };
     return tagService;
 });

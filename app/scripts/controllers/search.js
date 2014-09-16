@@ -20,7 +20,7 @@ var app = angular.module('livesApp')
     });
 });
 
-app.service('SearchService', function(Resource) {
+app.service('SearchService', function(Resource, TagService) {
     this.setSearchContent = function(searchContent) {
         this.key = searchContent;    
     };
@@ -33,6 +33,16 @@ app.service('SearchService', function(Resource) {
     this.searchLives = function() {
         return this.searchResource.query({category: 'live', content: this.key}, function(res) {
             console.log('Search Lives Data:');
+            var userResource = Resource.getResource('user/:id');
+            angular.forEach(res, function(item) {
+                if(item.thumbnail === null) {
+                    var tag = TagService.getTagById(item.tag);
+                    item.thumbnail = tag.thumbnailBig;    
+                }
+                userResource.get({id: item.userId}, function(res) {
+                    item.username = res.username; 
+                });
+            });
             console.log(res);
             return res; 
         });
@@ -48,6 +58,12 @@ app.service('SearchService', function(Resource) {
         return this.searchResource.query({category: 'cached', content: this.key}, function(res) {
             console.log('Search Caches Data:');
             console.log(res);
+            angular.forEach(res, function(item) {
+                if(item.thumbnail === null) {
+                    var tag = TagService.getTagById(item.tag);
+                    item.thumbnail = tag.thumbnailBig;    
+                }
+            });
             return res; 
         });
     }; 

@@ -7,12 +7,9 @@ function pageInit() {
     jsReady = true;
 }
 function thisMovie(movieName) {
-
     if (navigator.appName.indexOf("Microsoft") != -1) {
-
         return window[movieName];
     } else {
-        //alert(document[movieName]);
         return document[movieName];
     }
 }
@@ -33,7 +30,7 @@ function sendToActionScript(value) {
 
     //var list = getRcmdVideos();
 
-    var list = [
+    /*var list = [
     {"videoName":"晒果果",
         "picUrl":"http://g.hiphotos.baidu.com/image/pic/item/6a600c338744ebf894bcead7dbf9d72a6159a70d.jpg",
         "fileName":"mp4:game1.flv",
@@ -44,7 +41,7 @@ function sendToActionScript(value) {
         "fileName":"mp4:game2.flv",
         "anchorName": "cancan",
         "serverUrl":"123.2.2.1"},
-    ];
+    ];*/
 
 
     thisMovie("videoClient").sendToActionScript(list);
@@ -84,7 +81,7 @@ function getChatPost(json) {
             <p>
             </p>
         </div>
-        <div class="span3" style="`">
+        <div class="span3">
             <h3>&nbsp</h3>
             <div class="thumbnail span8" style="height:500px">
                 <dl chat-pool style="height:calc(100% - 35px);margin:0;overflow:scroll;">

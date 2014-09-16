@@ -1,6 +1,6 @@
 'use strict';
 
-var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthService, AUTH_EVENTS, ERROR_INFO, $location) {
+var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthService, AUTH_EVENTS, ERROR_INFO, $location, RegisterService) {
     $scope.user = {};
     $scope.signIn = function() {
         var result = AuthService.login($scope.user);
@@ -21,6 +21,7 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
         });
     };
     $scope.signup = function() {
+        RegisterService.setUser({username: "", password: "", email: ""});
         $location.path('/join');
         $modalInstance.dismiss();  
     };
@@ -62,7 +63,9 @@ var app = angular.module('livesApp')
         return preSearchResource.query({content : val}).$promise.then(function(result) {
             var searchResults = [];
             angular.forEach(result, function(item) {
-                searchResults.push(item.searchResult);    
+                if(item.searchResult !== '') {
+                    searchResults.push(item);    
+                }
             });
             return searchResults; 
         });

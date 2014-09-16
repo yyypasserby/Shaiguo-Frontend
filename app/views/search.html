@@ -27,7 +27,10 @@
         <input type="text" ng-model="live_query" placeholder="Type sth. to filter..."></input>
     </div>
         <div class="span3 thumbnail" style="margin-left:5px;margin-bottom:30px;" ng-repeat="live in lives | filter : {'livename' : live_query}">
-            <img ng-src="images/{{ live.thumbnail }}.jpg">
+            <a href="#/castroom/{{live.username}}">
+            <img class="swap2" style="height:160px; width:220px;" ng-src="images/utils/play.png">
+            <img style="height:160px; width:220px;" ng-src="images/catagory/{{ live.thumbnail }}">
+            </a>
             <h6 class="muted">{{ live.livename }}</h6>
             <p></p>
         </div>
@@ -38,7 +41,7 @@
         <input type="text" ng-model="user_query" placeholder="Type sth. to filter..."></input>
         </div>
         <div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" ng-repeat="user in users | filter : {'username' : user_query}">
-            <img ng-src="images/{{ user.username }}.png">
+            <img style="height:80px;width:80px;" ng-src="images/caster/{{ user.thumbnail }}">
             <h6 class="">{{ user.username }}</h6>
         </div>
     </div>
@@ -49,7 +52,8 @@
         <input type="text" ng-model="cache_query" placeholder="Type sth. to filter..."></input>
     </div>
     <div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" ng-repeat="video in cachedVideos | filter : {'videoname' : cache_query}">
-            <img ng-src="images/{{ video.thumbnail }}.jpg">
+            <img class="swap2" style="height:160px; width:220px;" ng-src="images/utils/play.png">
+            <img style="height:160px; width:220px;" ng-src="images/{{ video.thumbnail }}.jpg">
             <h6 class="">{{ video.videoname }}</h6>
             <h6 class="muted">{{ video.duration.seconds }}</h6>
         </div>

@@ -37,7 +37,7 @@
                     </ul>
                     <div class="pull-right form-search" style="margin-top:21px">
                         <div class="input-append" style="height:25px;">
-                            <input type="text" ng-model="searchContent" style="height:15px" class="search-query" placeholder="你想看啥？" typeahead="result for result in getPreSearch($viewValue)"></input>
+                            <input type="text" ng-model="searchContent" style="height:15px" class="search-query" placeholder="你想看啥？" typeahead="result.searchResult as result for result in getPreSearch($viewValue)" ui-keypress="{13:'getSearch()'}" typeahead-template-url="searchTemplate.html"></input>
                             <button class="btn" style="height:25px;padding:2px 10px" type="submit" ng-click="getSearch()">Go!</button>
                         </div>
                         <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-click="openNotificationCenter()" ng-show="isAuth">
@@ -45,20 +45,20 @@
                         </a>
                         <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-show="isAuth" ng-click="logOut()">
                         <i class="icon-off icon-white"></i>
-                        <span>Log Out</span>
+                        <span>登出</span>
                         </a>
                         <a ng-click="openLoginModal()"class="btn btn-small btn-primary" style="margin-left:5px;margin-top:0px;" ng-hide="isAuth">
                         <i class="icon-user icon-white"></i>
-                        <span>Log In</span>
+                        <span>登录</span>
                         </a>
 
                     </div>
                 </div>
             </div>
-            <div style="height:10px;background-color:#fff">
+            <div style="height:0px;background-color:#fff">
             </div>
         </div>
-        <div style="height:55px">
+        <div style="height:65px">
         </div>
         <div id="ngView" style="" ng-view=""></div>
 
@@ -138,7 +138,7 @@
                 <dt class="lead" style="margin-bottom:0px">Password</dt>
                 <dd>
                 <span class="control-group">
-                    <input type="password" ng-model="user.password" placeholder="" ng-minlength=6 ng-maxlength=20>
+                    <input type="password" ng-model="user.password" placeholder="" ng-minlength=6 ng-maxlength=20  ui-keypress="{13:'signIn()'}" >
                     </input>
                     <div class="control-group error">
                         <span class="help-block">{{ errorMessage }}</span>
@@ -151,6 +151,14 @@
                 <button class="btn" ng-click="cancel()">取消</button>
             </div>
         </div>
+    </script>
+    <script type="text/ng-template" id="searchTemplate.html">
+    <a>
+        <span ng-show="match.label.searchType === 1">在用户里搜索: </span>
+        <span ng-show="match.label.searchType === 2">在缓存视频里搜索: </span>
+        <span ng-show="match.label.searchType === 0">在直播里搜索: </span>
+        <span bind-html-unsafe="match.label.searchResult | typeaheadHighlight:query"></span>
+    </a>
     </script>
 </body>
 </html>
