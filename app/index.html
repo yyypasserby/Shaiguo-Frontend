@@ -38,7 +38,7 @@
                     <div class="pull-right form-search" style="margin-top:21px">
                         <div class="input-append" style="height:25px;">
                             <input type="text" ng-model="searchContent" style="height:15px" class="search-query" placeholder="你想看啥？" typeahead="result for result in getPreSearch($viewValue)"></input>
-                            <button class="btn" style="height:25px;padding:2px 10px" type="submit" ng-click="getSearch()">Go!</button>
+                            <button class="btn" id="search" style="height:25px;padding:2px 10px" type="submit" ng-click="getSearch()">Go!</button>
                         </div>
                         <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-click="openNotificationCenter()" ng-show="isAuth">
                         <i class="icon-bell icon-white"></i>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div style="height:10px;background-color:#fff">
+            <div style="height:0px;background-color:#fff">
             </div>
         </div>
         <div style="height:55px">
@@ -149,6 +149,19 @@
                 <button class="btn" ng-click="cancel()">Cancel</button>
             </div>
         </div>
+    </script>
+    <script>
+        
+function document.onkeydown(evt)
+{
+ evt = (evt) ? evt : ((window.event) ? window.event : "");
+ //兼容IE和Firefox获得keyBoardEvent对象     var key = evt.keyCode?evt.keyCode:evt.which;
+ //兼容IE和Firefox获得keyBoardEvent对象的键值 if(key == 13)
+        {
+            document.getElementById("search").click();
+            event.returnValue = false;
+        }
+}
     </script>
 </body>
 </html>

@@ -34,7 +34,9 @@ function previewImage(file)
   }  
 }  
 function clacImgZoomParam( maxWidth, maxHeight, width, height ){  
-    var param = {top:0, left:0, width:width, height:height};  
+    var param = {top:0, left:0, width:width, height:height}; 
+    if(width<maxWidth){param.width = maxWidth;}
+    if(height<maxHeight){param.height = maxHeight;}  
     if( width>maxWidth || height>maxHeight )  
     {  
         rateWidth = width / maxWidth;  
@@ -85,11 +87,10 @@ function replyer(){
             <div class="pull-left" id="preview">  
                 <img id="imghead" width=120 height=120 border=0 src="images/yeoman.png">  
             </div>
-            <div class="media-body">
-                <input type="button" class='btn btn-primary' style="width:180px;" value='Upload headImage'>
-                </br></br>
-                <input type="text" name='textfield' id='textfield' class='txt'>                       
-                <input type="file" class="file" value="Upload headImage" style="position:relative;bottom:90px;opacity:0;height:30px;width:200px;" onchange="previewImage(this);document.getElementById('textfield').value=this.value">
+            <div class="media-body" style="height:120px;overflow:hidden;">
+                <input type="button" class='btn btn-primary' style="width:180px;position:relative;top:30px;" value='Upload headImage'>
+                <input type="text" name='textfield' id='textfield' class='txt' style="margin-top:40px;">                       
+                <input type="file" class="file" value="Upload headImage" style="position:relative;bottom:80px;opacity:0;height:30px;width:220px;cursor:pointer;" onchange="previewImage(this);document.getElementById('textfield').value=this.value">
             </div>
         </div>
         <dl class="dl-horizontal">
@@ -165,15 +166,15 @@ function replyer(){
 <div class="container container-fluid" style="margin-top:20px;" ng-show="showPage">
     <div class="row-fluid">
         <div class="span8">
-            <div class="thumbnail media message" ng-repeat="message in messages">
+            <div class="thumbnail media message" >
                 <div class="pull-left span2" style="margin:10px;">
                     <img class="media-object img-rounded" ng-src="images/caster/{{ message.user.thumbnail }}"></img>
                     <p class="text-center" style="font-size:24px">
                         {{ message.user.username }}
                     </p>
                 </div>
-                <div class="media-body" style="margin-left:50px;">
-                    <h3 class="media-heading">{{ message.user.username }}正在看</h3>
+                <div class="media-body" style="margin-left:100px;">
+                    <h3 class="media-heading">{{ message.caster.username }}的直播间</h3>
                     <div class="media" style="margin-top:0px;">
                         <div class="pull-left">
                             <a href="#/castroom/{{ message.caster.username }}">
@@ -184,7 +185,7 @@ function replyer(){
                         <div class="media-body">
                             <h4 class="media-heading">{{ message.video.livename }}</h3>
                             <div>
-                            <h5 class="muted">{{ message.caster.username }}的直播间</h5>
+                            <h5 class="muted">{{ message.user.username }}正在看</h5>
                             <div class="muted"><i class="icon-fire"></i> {{ message.caster.hotRate}}</div>
                             <div class="muted"><i class="icon-eye-open"></i> {{ message.caster.attention}}</div>
                             <span class="muted"></span>
@@ -214,7 +215,7 @@ function replyer(){
                     </button>
                 </div>
                 <div>
-                    <a class="btn btn-large btn-success btn-block" ng-click="OpenCastInfoDialog()" style="margin-top:10px;">我要直播</a>
+                    <a class="btn btn-large btn-success btn-block" ng-click="OpenCastInfoDialog()" style="margin-top:30px;">我要直播</a>
                     <span display="none">
                     <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
                         id="applyComp" width="0" height="0"
@@ -240,7 +241,7 @@ function replyer(){
                 <div style="">
                     <span class="label label-bigger" style="margin-right:10px;margin-bottom:10px;" ng-repeat="tag in tags | filter : {selected : true}">{{ tag.tagName }}</span>
                     <div id="add" ng-click="openUserFavor()">
-                        <span id="plus" >+</span>
+                        <span id="plus" style="line-height:25px;">+</span>
                     </div>
                 </div>
             </div>

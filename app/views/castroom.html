@@ -1,3 +1,15 @@
+<style>
+    #box{background: #37a9e3;width: 100px;height: 30px;border-radius: 10px;margin-top: 15px;margin-left:30px; }
+    .slider{background: #5eccf3;width: 50px;height: 30px;border-radius: 10px;
+        cursor: pointer;
+        position: relative;
+        left:0px;
+    }
+    span{height: 30px;line-height: 30px;color: #F6F6F6;font-weight: 800;}
+    #off{float: left;margin-left: 20px}
+    #on{float: right;margin-right: 20px}
+</style>
+
 <script language="JavaScript">
 var jsReady = false;
 function isReady() {
@@ -51,12 +63,24 @@ function sendToJavaScript(value) {
 
     sendToActionScript("value");
 }
+
+function slide(){
+        
+        if(document.getElementById("slider").style.left==""){
+            document.getElementById("back").style.background="#313131";
+            document.getElementById("slider").style.left="50px";
+        }
+        else{
+            document.getElementById("slider").style.left="";   
+            document.getElementById("back").style.background="white";
+            }
+    }
 </script>
 
-<div class="container-fluid" style="min-width:1000px;">
+<div class="container-fluid" id="back" style="min-width:1000px;padding-bottom:20px;">
     <div class="row-fluid">
         <div class="span2">
-            <div class="thumbnail span8 offset4">
+            <div class="thumbnail span8 offset4" style="background:white">
                 <img ng-src="images/caster/{{ caster.thumbnail }}"></img>
                 <div class="caption">
                     <h3 class="text-center">{{ caster.username }}</h3>
@@ -66,16 +90,23 @@ function sendToJavaScript(value) {
             </div>
         </div>
         <div class="span7">
-            <div>
-                <h3>{{ live.livename }}</h3>
+            <div class="row fluid">
+                <div class="span9" style="margin-left:30px;">
+                    <h3 style="color:#37a9e3">{{live.livename}}</h3>
+                </div>
+                <div class="span3" id="box" style="float:right">
+                    <span id="off">off</span>
+                    <span id="on">on</span>
+                    <div class="slider" id="slider" onclick="slide()"></div>
+                </div>
             </div>
             <div live-player liveloc="live.location"></div> 
             <p>
             </p>
         </div>
-        <div class="span3" style="`">
+        <div class="span3" style="padding-left:20px;">
             <h3>&nbsp</h3>
-            <div class="thumbnail span8" style="height:500px">
+            <div class="thumbnail span11" style="height:500px;background:white">
                 <dl chat-pool style="height:calc(100% - 35px);margin:0;overflow:scroll;">
                     <div id="{{ item.chatId }}" ng-repeat="item in chatpool">
                         <dt>{{ item.username }}</dt>
@@ -84,9 +115,9 @@ function sendToJavaScript(value) {
                     <div style="height:50px">
                     </div>
                 </dl>
-                <div class="" style="margin-top:5px">
-                    <input ng-model="chatContent" type="text" style="" class="input-block-level" ui-keypress="{13:'saySth($event)'}"placeholder="谈谈感想。"></input>
-                </div>
+                <div class="input-append" style="margin-top:5px">
+                    <input ng-model="chatContent" type="text" style="width:200px;border:1px solid #5eccf3;" class="input-block-level" ui-keypress="{13:'saySth($event)'}"placeholder="谈谈感想。"></input>
+                    <button class="btn btn-primary" style="height:30px;" type="submit">发送</button>
                 </div>
             </div>
         </div>
