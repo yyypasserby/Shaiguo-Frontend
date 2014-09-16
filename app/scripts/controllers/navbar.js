@@ -1,6 +1,6 @@
 'use strict';
 
-var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthService, AUTH_EVENTS, ERROR_INFO) {
+var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthService, AUTH_EVENTS, ERROR_INFO, $location) {
     $scope.user = {};
     $scope.signIn = function() {
         var result = AuthService.login($scope.user);
@@ -19,6 +19,10 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
                 $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             }
         });
+    };
+    $scope.signup = function() {
+        $location.path('/join');
+        $modalInstance.dismiss();  
     };
     $scope.cancel = function() {
         $modalInstance.dismiss();

@@ -25,6 +25,10 @@ function adjustVideoVolume(value){
     thisMovie("videoClient").adjustVolume(value);
 }
 
+function sendChatMessage(value){
+    thisMovie("videoClient").postToChat(value);
+}
+
 function sendToActionScript(value) {
 
     //var list = getRcmdVideos();
@@ -50,6 +54,13 @@ function sendToJavaScript(value) {
     //alert("send");
 
     sendToActionScript("value");
+}
+function getChatPost(json) {
+//    alert(json); 
+    var scope = angular.element($("#ngView")).scope();
+    scope.$apply(function() {
+        scope.receiveMsg(json);
+    });
 }
 </script>
 

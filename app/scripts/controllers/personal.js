@@ -59,7 +59,7 @@ var UserFavorInstanceCtrl = function ($scope, $modalInstance, tags, Resource, Se
     };
 
     $scope.ok = function () {
-        var modify = Resource.getResource('user/modifyTags');
+        var modify = Resource.getResource('user/modify/tags');
         var tagStr = '';
         for(var i in $scope.tags) {
             if($scope.tags[i].selected) {

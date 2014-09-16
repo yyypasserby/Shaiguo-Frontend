@@ -8,17 +8,13 @@
  * Controller of the livesApp
  */
 var app = angular.module('livesApp')
-.controller('MainCtrl', function ($scope, Resource, $location, SearchService, AuthService, UserService) {
+.controller('MainCtrl', function ($scope, Resource, $location, SearchService, AuthService, RegisterService) {
     $scope.user={};
     $scope.background = { imgSrc : '' };
     $scope.signup = function() {
-        console.log($scope.user);  
-        var userResource = Resource.getResource('user');
-
-        var result = userResource.save($scope.user, function() {
-            $location.path('/personal');
-            console.log(result);
-        });
+        
+        RegisterService.setUser($scope.user);
+        $location.path('/join');
     };
 
     var liveResource = Resource.getResource('hot/live');
@@ -69,6 +65,7 @@ app.directive('backImg', function() {
         });
     };   
 });
+
 
 app.controller('IndexImageCarouselCtrl', function($scope, Resource) {
     $scope.indexImageInterval = 5000;

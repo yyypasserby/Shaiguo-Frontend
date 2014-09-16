@@ -8,21 +8,27 @@ var app = angular.module('livesApp')
         if($scope.chatContent === '') {
             return;
         }
-        var chatResource = Resource.getResource('chat/send/' + $scope.caster.userId);
         var content = {};
         content.username = Session.getUser().username;
         content.content = $scope.chatContent;
         content.time = dateFormat('yyyy-MM-dd hh:mm:ss');
         $scope.chatpool.push(content);
-        //postToChat(angular.toJson(content));
-        //function getChatPost(json) {
-        //    console.log(angular.fromJson(json));    
-        //}
+        sendChatMessage(angular.toJson(content));
         
-        $scope.$broadcast('ChatpoolChanged', $scope.chatId);
+        $scope.$broadcast('ChatpoolChanged');
         $scope.chatContent = '';
         $event.preventDefault();
     }; 
+
+    $scope.receiveMsg = function(json) {
+        if(json === null || typeof json === 'undefined') {
+            return;    
+        }  
+        $scope.chatpool.push(angular.fromJson(json));
+        console.log($scope.chatpool);
+        $scope.$broadcast('ChatpoolChanged');
+    };
+   
     var casterResource = Resource.getResource('user/username/:username');
     casterResource.get({username: castername}, function(user) {
         if(user.thumbnail === null) {
@@ -44,7 +50,6 @@ app.directive('chatPool', function() {
         controller:function($scope, $element) {
             $scope.$on('ChatpoolChanged', function() {
                 var pool = $element[0];
-                console.log(pool);
                 pool.scrollTop = pool.scrollHeight;
             });
         }

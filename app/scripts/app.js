@@ -47,11 +47,11 @@ var app = angular
       })
       .when('/join', {
         templateUrl: 'views/join.html',
-        controller: 'PersonalCtrl'
+        controller: 'JoinCtrl'
       })
       .when('/favor', {
         templateUrl: 'views/favor.html',
-        controller: 'PersonalCtrl'
+        controller: 'FavorCtrl'
       })
       .otherwise({
         redirectTo: '/'
@@ -242,7 +242,9 @@ app.factory('TagService', function(Resource) {
     tagService.setTags = function(tags) {
         tagService.tags = tags;        
     };
-
+    tagService.allTags = function() {
+        return tagService.tags;  
+    };
     tagService.getTag = function(name) {
         for(var i in tagService.tags) {
             if(tagService.tags[i].tagNameEng === name) {

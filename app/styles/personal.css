@@ -73,16 +73,12 @@ div#favor:hover{
 } 
 
 div#add{
-    cursor: pointer;
-    border: dotted #b6b6b7;
-    width:25px;
     height:25px;
-    font-size:28px;
-    text-align:center;
-    font-weight:bold;
-    color:#b6b6b7;
+    width:25px;
+    background-size:25px;
+    background-image: url(../images/utils/add.png);
+    cursor:pointer;
 }
 div#add:hover{
-    border: dotted #474748;
-    color:#474748;
+    background-image: url(../images/utils/add_hover.png);
 }

@@ -60,7 +60,7 @@
         </div>
         <div style="height:55px">
         </div>
-        <div id="view" style="" ng-view=""></div>
+        <div id="ngView" style="" ng-view=""></div>
 
         <div class="container" style="">
             <div class="footer">
@@ -117,13 +117,15 @@
     <script src="scripts/controllers/castroom.js"></script>
     <script src="scripts/controllers/navbar.js"></script>
     <script src="scripts/controllers/category.js"></script>
+    <script src="scripts/controllers/join.js"></script>
+    <script src="scripts/controllers/favor.js"></script>
     <script src="scripts/utils.js"></script>
     <!-- endbuild -->
     <script type="text/ng-template" id="UserLogin.html">
         <div class="modal-body">
             <div class="modal-header">
-                <span class="modal-title" style="font-size:24.5px">Sign in</span>
-                <a class="btn btn-success pull-right" ng-click="signUp()">Sign Up</a>
+                <span class="modal-title" style="font-size:24.5px">登录您的晒果账户</span>
+                <a class="btn btn-success pull-right" ng-click="signup()">注册</a>
             </div>
             <dl class="dl-horizontal">
                 <dt class="lead" style="margin-bottom:0px">Username</dt>
@@ -145,8 +147,8 @@
                 </dd>
             </dl>
             <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="signIn()">Sign In</button>
-                <button class="btn" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-primary" ng-click="signIn()">登录</button>
+                <button class="btn" ng-click="cancel()">取消</button>
             </div>
         </div>
     </script>
