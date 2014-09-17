@@ -56,13 +56,20 @@ app.directive('chatPool', function() {
     };
 });
 
-app.directive('subscribeBtn', function(Resource, Session) {
+app.directive('subscribeBtn', function(Resource, Session, AuthService) {
     return {
         link: function(scope, ele, attrs) {
             var subCheckResource = Resource.getResource('subscribe/check');
             scope.$on('CasterLoadFinish', function(e, d) {
                 console.log('logging user');
                 console.log(d);
+                if(AuthService.isAuthenticated() === false) {
+                    ele.bind('click', function() {
+                        if(scope.isDisabled) {return;}
+                        scope.$emit('needToLogin'); 
+                    });
+                    return;
+                }
                 subCheckResource.get({from_id: Session.getUserId(), to_id: d.userId},
                     function(result) {
                         console.log(result);
@@ -79,8 +86,11 @@ app.directive('subscribeBtn', function(Resource, Session) {
                         function(result) {
                             console.log('Subscribe processing');
                             console.log(result);
+                            ele.addClass('disabled');
+                            ele.removeClass('btn-primary');
+                            ele.html('已订阅');
                         }
-                        );
+                    );
                 });
             });
         }

@@ -8,12 +8,22 @@
             <strong class="step" style="color:grey;">Step 1:</strong>
             <p style="color:grey;">注册一个晒果</p>
             </li>
-            <li class="span4 divider-vertical" style="border-right:0px; border-left:0px">
+            <li ng-show="step1" class="span4 divider-vertical" style="border-right:0px; border-left:0px">
+            <span><img style="width:20px;height:20px;" src="images/step2_blue.png"></span>
+            <strong class="step" style="color:#149bdf;">Step 2:</strong>
+            <p style="color:#149bdf;">你想晒晒什么？</p>
+            </li>
+            <li ng-show="step2" class="span4 divider-vertical" style="border-right:0px; border-left:0px">
             <span><img style="width:20px;height:20px;" src="images/step2_grey.png"></span>
             <strong class="step" style="color:#868484;">Step 2:</strong>
             <p style="color:grey;">你想晒晒什么？</p>
             </li>
-            <li class="span4 divider-vertical" style="border-right:0px; border-left:0px">
+            <li ng-show="step1" class="span4 divider-vertical" style="border-right:0px; border-left:0px">
+            <span><img style="width:25px;height:20px;" src="images/step3_blue.png"></span>
+            <strong class="step" style="color:#868484;">Step 3:</strong>
+            <p style="color:grey;">你想看的这里都有!</p>
+            </li>
+            <li ng-show="step2" class="span4 divider-vertical" style="border-right:0px; border-left:0px">
             <span><img style="width:25px;height:20px;" src="images/step3_blue.png"></span>
             <strong class="step" style="color:#149bdf;">Step 3:</strong>
             <p style="color:#149bdf;">你想看的这里都有!</p>

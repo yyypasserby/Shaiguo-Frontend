@@ -168,7 +168,7 @@ function replyer(){
             <div class="thumbnail media message" ng-repeat="message in messages">
                 <div class="pull-left span2" style="margin:10px;">
                     <img class="media-object img-rounded" ng-src="images/caster/{{ message.user.thumbnail }}"></img>
-                    <p class="text-center" style="font-size:24px">
+                    <p class="text-center" style="font-size:24px;overflow:hidden;">
                         {{ message.user.username }}
                     </p>
                 </div>

@@ -10,7 +10,12 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
             if(result.result !== 'failure') {
                 console.log(result.result);
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                $modalInstance.close(result.object);
+                if($location.path() === '/') {
+                    $modalInstance.close(true);
+                }
+                else {
+                    $modalInstance.close(false);    
+                }
             }
             else {
                 var msg = result.object.errorMessage;
@@ -38,10 +43,15 @@ var app = angular.module('livesApp')
             templateUrl: 'UserLogin.html',
             controller: UserLoginInstanceCtrl,
         });
-        modalInstance.result.then(function(user) {
-            $location.path('/personal');
+        modalInstance.result.then(function(needToGotoPersonal) {
+            if(needToGotoPersonal) {
+                $location.path('/personal');
+            }
         });
     };
+    $rootScope.$on('needToLogin', function(e, d) {
+        $rootScope.openLoginModal();  
+    });
 
     $scope.openNotificationCenter = function() {
     };
