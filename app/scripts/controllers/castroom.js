@@ -35,7 +35,7 @@ var app = angular.module('livesApp')
 
     $scope.jumpAnchor = function(anchor) {
         $location.path('/castroom/' + anchor);    
-    }
+    };
    
     var casterResource = Resource.getResource('user/username/:username');
     casterResource.get({username: castername}, function(user) {
@@ -58,7 +58,7 @@ var app = angular.module('livesApp')
     liveResource.get({username: castername}, function(live) {
         $scope.live = live;
         if(live.liveId === 0) {
-            live.livename = castername + "的直播间";
+            live.livename = castername + '的直播间';
             live.isCasting = 'false';    
         }
         else {
@@ -71,9 +71,9 @@ var app = angular.module('livesApp')
     });
     $scope.$on('addOneClicked', function($event) {
         var message = Session.getUser().username;
-        message += "给了主播一个赞!";
+        message += '给了主播一个赞!';
         var content = {};
-        content.username = "系统消息:"
+        content.username = '系统消息:';
         content.content = message;
         content.time = dateFormat('yyyy-MM-dd hh:mm:ss');
         console.log(content);

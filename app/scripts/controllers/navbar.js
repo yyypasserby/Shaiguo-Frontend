@@ -85,7 +85,9 @@ var app = angular.module('livesApp')
         $scope.remainUps = null;
     });
 
-    $scope.remainUps = Session.getUser().remainUps;
+    if(AuthService.isAuthenticated()) {
+        $scope.remainUps = Session.getUser().remainUps;
+    }
     $scope.$on(AUTH_EVENTS.loginSuccess, function() {
         $scope.isAuth = AuthService.isAuthenticated();
         $scope.remainUps = Session.getUser().remainUps;

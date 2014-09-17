@@ -52,7 +52,7 @@ var app = angular.module('livesApp')
     $scope.goToCastroom = function(caster) {
         if(caster.status === 1) {
             $location.path('/castroom/' + caster.username);  
-        };  
+        }
     };
 });
 
