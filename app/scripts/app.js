@@ -29,10 +29,6 @@ var app = angular
         templateUrl: 'views/personal.html',
         controller: 'PersonalCtrl'
       })
-      .when('/personal/:username', {
-        templateUrl: 'views/usercenter.html',
-        controller: 'UserCenterCtrl'
-      })
       .when('/search', {
         templateUrl: 'views/search.html',
         controller: 'SearchCtrl'
