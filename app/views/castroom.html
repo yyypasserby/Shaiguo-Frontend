@@ -1,3 +1,29 @@
+<style>
+    #box{
+        background: #37a9e3;
+        width: 100px;
+        height: 30px;
+        border-radius: 10px;
+        margin-top: 15px;
+        margin-left:30px; 
+        cursor: pointer;
+    }
+    .slider{background: #5eccf3;width: 50px;height: 30px;border-radius: 10px;
+        position: relative;
+        left:0px;
+    }
+    span{}
+    #off{
+        float: left;margin-left: 20px;
+        height: 30px;line-height: 30px;color: #F6F6F6;font-weight: 800;
+    }
+
+    #on{
+        float: right;margin-right: 20px;
+        height: 30px;line-height: 30px;color: #F6F6F6;font-weight: 800;
+    }
+</style>
+
 <script language="JavaScript">
 var jsReady = false;
 function isReady() {
@@ -15,7 +41,10 @@ function thisMovie(movieName) {
 }
 
 function jumpToAnchor(anchorName){
-    alert(anchorName);
+    var scope = angular.element($("#ngView")).scope();
+    scope.$apply(function() {
+        scope.jumpAnchor(anchorName);
+    });
 }
 
 function adjustVideoVolume(value){
@@ -30,20 +59,18 @@ function sendToActionScript(value) {
 
     //var list = getRcmdVideos();
 
-    /*var list = [
+    var list = [
     {"videoName":"晒果果",
-        "picUrl":"http://g.hiphotos.baidu.com/image/pic/item/6a600c338744ebf894bcead7dbf9d72a6159a70d.jpg",
+        "picUrl":"http://localhost:9000/images/catagory/phone_game.png",
         "fileName":"mp4:game1.flv",
-        "anchorName": "cancan",
+        "anchorName": "lebi173",
         "serverUrl":"123.2.2.1"},
     {"videoName":"checrrr~",
-        "picUrl":"http://g.hiphotos.baidu.com/image/pic/item/6a600c338744ebf894bcead7dbf9d72a6159a70d.jpg",
+        "picUrl":"http://localhost:9000/images/catagory/home_game.png",
         "fileName":"mp4:game2.flv",
-        "anchorName": "cancan",
+        "anchorName": "lebi172",
         "serverUrl":"123.2.2.1"},
-    ];*/
-
-
+    ];
     thisMovie("videoClient").sendToActionScript(list);
 }
 function sendToJavaScript(value) {
@@ -59,29 +86,48 @@ function getChatPost(json) {
         scope.receiveMsg(json);
     });
 }
+
+function slide() {
+    if(document.getElementById("slider").style.left==""){
+        document.getElementById("ngView").style.background="#313131";
+        document.getElementById("userBox").style.background="#313131";
+        document.getElementById("liveTitle").style.color="white";
+        document.getElementById("slider").style.left="50px";
+    }
+    else{
+        document.getElementById("slider").style.left="";   
+        document.getElementById("ngView").style.background="white";
+        document.getElementById("userBox").style.background="white";
+        document.getElementById("liveTitle").style.color="#313131";
+    }
+}
 </script>
 
-<div class="container-fluid" style="min-width:1000px;">
-    <div class="row-fluid">
-        <div class="span2">
-            <div class="thumbnail span8 offset4">
-                <img ng-src="images/caster/{{ caster.thumbnail }}"></img>
-                <div class="caption">
-                    <h3 class="text-center">{{ caster.username }}</h3>
-                    <button subscribe-btn class="btn btn-primary btn-block">订阅</button>
-                    <button add-one-btn class="btn btn-block"><i class="icon-thumbs-up"></i> +1!</button>
-                </div>
-            </div>
+<div class="container" id="back" style="width:1200px;padding-bottom:20px;">
+    <div id="userBox" style="position:absolute;margin-left:-20px;background:white">
+        <img ng-src="images/caster/{{ caster.thumbnail }}"></img>
+        <button subscribe-btn style="margin-top:20px;" class="btn btn-primary btn-block">订阅</button>
+        <button add-one-btn class="btn btn-block"><i class="icon-thumbs-up"></i> +1!</button>
+    </div>
+
+    <div class="container" style="">
+        <div class="span8" id="liveTitle" style="">
+            <h2>{{live.livename}}</h2>
         </div>
-        <div class="span7">
-            <div>
-                <h3>{{ live.livename }}</h3>
-            </div>
+        <div class="span3" id="box" onclick="slide()">
+            <span id="off">off</span>
+            <span id="on">on</span>
+            <div class="slider" id="slider" ></div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span1">
+        </div>
+        <div class="span8">
             <div live-player liveloc="live.location"></div> 
         </div>
-        <div class="span3">
-            <h3>&nbsp</h3>
-            <div class="thumbnail span8" style="height:500px">
+        <div class="span3" style="">
+            <div class="thumbnail span11" style="height:500px;background:white">
                 <dl chat-pool style="height:calc(100% - 35px);margin:0;overflow:scroll;">
                     <div id="{{ item.chatId }}" ng-repeat="item in chatpool">
                         <dt>{{ item.username }}</dt>
@@ -90,9 +136,9 @@ function getChatPost(json) {
                     <div style="height:50px">
                     </div>
                 </dl>
-                <div class="" style="margin-top:5px">
-                    <input ng-model="chatContent" type="text" style="" class="input-block-level" ui-keypress="{13:'saySth($event)'}"placeholder="谈谈感想。"></input>
-                </div>
+                <div class="input-append" style="margin-top:5px;width:100%;">
+                    <input ng-model="chatContent" type="text" style="border:1px solid #5eccf3;width:calc(100% - 65px)" class="" ui-keypress="{13:'saySth($event)'}"placeholder="谈谈感想。"></input>
+                    <button class="btn btn-primary" style="height:30px;width:50px;" type="submit" ng-click="saySth()">发送</button>
                 </div>
             </div>
         </div>

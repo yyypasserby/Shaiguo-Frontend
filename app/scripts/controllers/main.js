@@ -49,6 +49,11 @@ var app = angular.module('livesApp')
         console.log(result);
         $scope.categories = result; 
     });
+    $scope.goToCastroom = function(caster) {
+        if(caster.status === 1) {
+            $location.path('/castroom/' + caster.username);  
+        };  
+    };
 });
 
 app.directive('backImg', function() {

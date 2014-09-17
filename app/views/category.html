@@ -3,12 +3,26 @@
     <hr></hr>
     <div heading="Lives">
     <div>
-        <input type="text" ng-model="live_query" placeholder="Type sth. to filter..."></input>
+        <input type="text" ng-model="live_query" placeholder="过滤一下"></input>
     </div>
     <div class="span3 thumbnail" style="margin-left:5px;margin-bottom:30px;" ng-repeat="live in lives | filter : {'livename' : live_query}">
+        <a ng-href="#/castroom/{{ live.username }}">
+        <img ng-src="images/utils/play.png" style="width:220px;height:124px;" class="img-rounded swap2">
         <img ng-src="images/catagory/{{ live.thumbnail }}">
-        <h6 class="muted">{{ live.livename }}</h6>
-        <p></p>
+        </a>
+        <div class="row-fluid">
+            <div class="span6" style="">
+                <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis" class="span12">
+                {{ live.livename }}
+                </span>
+            </div>
+            <div class="span3">
+                <i class="icon-eye-open"></i>{{ live.attention }}
+            </div>
+            <div class="span3">
+                <i class="icon-fire"></i>{{ live.rating }}
+            </div>
+        </div>
     </div>
     </div>
 </div>

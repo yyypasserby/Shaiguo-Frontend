@@ -7,22 +7,30 @@
  * # PersonalCtrl
  * Controller of the livesApp
  */
-var CastInfoInstanceCtrl = function ($scope, $modalInstance, Resource, user) {
+var CastInfoInstanceCtrl = function ($scope, $modalInstance, Resource, TagService, user) {
 
     $scope.user = user;
     console.log($scope.user);
     $scope.rtmp = 'rtmp://223.3.91.16/LivesServer';
     $scope.livename = user.username + '的直播间';
-    $scope.tag = 23;
+    
     var applyForCast = Resource.getResource('casting/apply');
     var live = {};
     live.userId = user.userId;
     live.livename = $scope.livename;
-    live.tag = $scope.tag;
+    if(user.castTagId < 21 || user.castTagId > 35) {
+        live.tag = Math.floor(Math.random() * 14 + 21);
+    }
+    else {
+        live.tag = user.castTagId;    
+    }
+
+    $scope.tagName = TagService.getTagById(live.tag).tagName;
     applyForCast.save(live, function(res) {
         console.log(res);
         $scope.streamName = res.object;
     });
+
     $scope.ok = function () {
         applyFso($scope.streamName); 
         $modalInstance.close();
@@ -30,7 +38,7 @@ var CastInfoInstanceCtrl = function ($scope, $modalInstance, Resource, user) {
 };
 
 
-var UserSettingsInstanceCtrl = function ($scope, $modalInstance, settings) {
+var UserSettingsInstanceCtrl = function ($scope, Session, $modalInstance, settings) {
 
     $scope.settings = settings;
     console.log($scope.settings);
@@ -83,7 +91,7 @@ var UserFavorInstanceCtrl = function ($scope, $modalInstance, tags, Resource, Se
 };
 
 angular.module('livesApp')
-.controller('PersonalCtrl', function ($scope, $modal, Resource, AUTH_EVENTS, Session, AuthService, TagService) {
+.controller('PersonalCtrl', function ($scope, $modal, Resource, AUTH_EVENTS, Session, AuthService, TagService, $location) {
     var pageLoader = {};
     function loadTags() {
         $scope.tags = TagService.tags;
@@ -104,16 +112,19 @@ angular.module('livesApp')
     function pushAction(friend, action) {
         var videoResource = Resource.getResource('video/:id');
         videoResource.get({id : action.vid}, function(video) {
+            var tag = TagService.getTagById(video.tag);
             if(video.thumbnail === null) {
-                video.thumbnail = 'chinavoice.png';
+                video.thumbnail = tag.thumbnailBig;
             }
             var casterResource = Resource.getResource('user/:id');
             casterResource.get({id: video.userId}, function(caster) {
                 var message = {};
                 message.video = video;
                 message.user = friend;
+                message.isRecommend = false;
                 message.time = action.time;
                 message.caster = caster;
+                message.type = action.type;
                 $scope.messages.push(message);
                 console.log(message);
             });
@@ -131,17 +142,27 @@ angular.module('livesApp')
         var messageResource = Resource.getResource('action/recommend');
         messageResource.save(tagList, function(res) {
             console.log('more actions');
-            console.log(res.object); 
+            console.log(res); 
+            if(res.result === 'failed') {
+                $scope.noMessage = true;    
+                return;
+            }
             var userResource = Resource.getResource('user/:id');
-            angular.forEach(res.object, function(item) {
-                if(item.liveId === 0) {
+            angular.forEach(res.object, function(video) {
+                if(video.liveId === 0) {
                     return;    
                 }
-                userResource.get({id: item.userId}, function(user) {
+                var tag = TagService.getTagById(video.tag);
+                if(video.thumbnail === null) {
+                    video.thumbnail = tag.thumbnailBig;    
+                }
+                userResource.get({id: video.userId}, function(user) {
                     var message = {};
                     message.user = user;
+                    message.tag = tag;
                     message.caster = user;
-                    message.video = item;
+                    message.isRecommend = true;
+                    message.video = video;
                     $scope.messages.push(message);
                 });
             });
@@ -159,6 +180,10 @@ angular.module('livesApp')
         friendResource.query({id : $scope.user.userId}, function(friends) {
             console.log('Loading friends');
             $scope.friends = friends;
+            if(friends.length < 3) {
+                console.log($scope.messages.length);
+                loadMoreActions();
+            }
             angular.forEach(friends, function(friend) {
                 var actionResource = Resource.getResource('action/user/:id');
                 actionResource.query({id : friend.userId}, function(actions) {
@@ -168,10 +193,6 @@ angular.module('livesApp')
                 });
             });
             console.log($scope.friends);
-            console.log($scope.messages.length);
-            if($scope.messages.length < 3) {
-                loadMoreActions();
-            }
         });
 
         if(typeof TagService.tags === 'undefined') {
@@ -195,7 +216,7 @@ angular.module('livesApp')
         pageLoader.load();
     }
     else {
-   //     $scope.openLoginModal();
+        $scope.$emit('needToLogin');
     }
 
     $scope.$on(AUTH_EVENTS.loginSuccess, function() {
@@ -249,6 +270,15 @@ angular.module('livesApp')
         modalInstance.result.then(function (user) {
             console.log('Closing Cast Info Dialog!');
         });
+    };
+
+    $scope.friendClick = function(friend) {
+        if(friend.status === 1) {
+            $location.path('/castroom/' + friend.username);    
+        }
+    };
+    $scope.goToCategory = function(tag) {
+        $location.path('/category/' + tag.tagNameEng);
     };
 });
 

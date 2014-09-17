@@ -39,7 +39,7 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span4" style="margin-right:0px;">
-                <div class="category-heading">
+                <div class="category-heading" style="width:280px;padding-bottom:10px;border-bottom:4px solid #5ea3f3;">
                     <span class="label-title">热门分类</span>
                     <a class="pull-right">更多...</a>
                 </div>
@@ -52,12 +52,12 @@
                     </a>
                     <p>
                     <span class="category">{{ category.tagName }}</span>
-                    <span style="margin-right:20px;">{{ category.livingNumber }}个正在直播</span>{{ category.tagAttention }}人关注
+                    <span style="margin-right:20px;">{{ category.livingNumber }}个直播</span>{{ category.tagAttention }}人关注
                     </p>
                 </div>
             </div>
             <div class="span4" style="margin-left:40px;margin-right:40px">
-                <div class="category-heading">
+                <div class="category-heading" style="width:280px;padding-bottom:10px;border-bottom:4px solid #5ea3f3;">
                     <span class="label-title">热门直播</span>
                     <a class="pull-right">更多...</a>
                 </div>
@@ -71,27 +71,28 @@
                     <div>
                         <span class="limit_text span7" style="margin-left:10px;">{{ live.livename }}</span>
                         <div class="pull-right level">
-                            <i class="icon-forward"></i><span>{{ live.attention }}</span>
-                            <i class="icon-fire"></i><span>{{ live.rating }}</span></div>
+                            <i class="icon-eye-open"></i><span>{{ live.attention }}</span>
+                            <i class="icon-fire"></i><span>{{live.rating}}</span></div>
                     </div>
                 </div>
             </div>
             <div class="span3" style="margin-left:0px;margin-right:0px;">
-                <div class="category-heading">
-                    <span class="label-title" style="">热门主播</span>
+                <div class="category-heading" style="width:234px;padding-bottom:10px;border-bottom:4px solid #5ea3f3;">
+                    <span class="label-title">热门主播</span>
                     <a class="pull-right">更多...</a>
                 </div>
                 <div class="media-list span12">
-                    <div class="media img-rounded" id="hot-caster" ng-repeat="caster in casters">
+                    <div class="media img-rounded" id="hot-caster" ng-repeat="caster in casters" ng-click="goToCastroom(caster)">
                         <a class="pull-left">
-                            <img class="media-object" style="width:100px;" ng-src="images/caster/{{ caster.thumbnail }}">
+                            <img class="media-object" ng-src="images/caster/{{ caster.thumbnail }}">
                         </a>
                         <div class="media-body">
                             <h4 class="media-heading">{{ caster.username }}
                             </h4>
                             <div class="label label-warning">{{ caster.castType }}</div>
-                            <div><i class="icon-thumbs-up"></i> {{ caster.hotRate }}</div>
-                            <div><i class="icon-eye-open"></i> {{ caster.attention }}</div>
+                            <div><i class="icon-thumbs-up"></i> {{ caster.hotRate }}
+                            <i class="icon-eye-open"></i> {{ caster.attention }}</div>
+                        <span class="label label-primary" ng-show="caster.status === 1">正在直播</span>
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,10 @@ var app = angular.module('livesApp')
                 if(item.thumbnail === null) {
                     item.thumbnail = $scope.mCategory.thumbnailBig;    
                 } 
+                var userResource = Resource.getResource('user/:id');
+                userResource.get({id: item.userId}, function(res) {
+                    item.username = res.username; 
+                });
             });
             $scope.lives = res;
             console.log($scope.lives);

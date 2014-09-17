@@ -1,62 +1,3 @@
-<script type="text/javascript">  
-function previewImage(file)  
-{  
-  var MAXWIDTH  = 120;  
-  var MAXHEIGHT = 120;  
-  var div = document.getElementById('preview');  
-  if (file.files && file.files[0])  
-  {  
-    div.innerHTML = '<img id=imghead>';  
-    var img = document.getElementById('imghead');
-    var road = document.getElementById('textfield');  
-    img.onload = function(){  
-      var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
-      img.width = rect.width;  
-      img.height = rect.height;  
-      img.style.marginLeft = rect.left+'px';  
-      img.style.marginTop = rect.top+'px';  
-    }  
-    var reader = new FileReader();  
-    reader.onload = function(evt){img.src = evt.target.result;}  
-    reader.readAsDataURL(file.files[0]);  
-  }  
-  else  
-  {  
-    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="'; 
-    file.select();  
-    var src = document.selection.createRange().text;  
-    div.innerHTML = '<img id=imghead>';  
-    var img = document.getElementById('imghead');  
-    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;  
-    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
-    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);  
-    div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;margin-left:"+rect.left+"px;"+sFilter+src+"\"'></div>";  
-  }  
-}  
-function clacImgZoomParam( maxWidth, maxHeight, width, height ){  
-    var param = {top:0, left:0, width:width, height:height};  
-    if( width>maxWidth || height>maxHeight )  
-    {  
-        rateWidth = width / maxWidth;  
-        rateHeight = height / maxHeight;  
-          
-        if( rateWidth > rateHeight )  
-        {  
-            param.width =  maxWidth;  
-            param.height = Math.round(height / rateWidth);  
-        }else  
-        {  
-            param.width = Math.round(width / rateHeight);  
-            param.height = maxHeight;  
-        }  
-    }  
-      
-    param.left = Math.round((maxWidth - param.width) / 2);  
-    param.top = Math.round((maxHeight - param.height) / 2);  
-    return param;  
-}  
-</script>
-
 <script>
 function thisMovie(movieName) {
     if (navigator.appName.indexOf("Microsoft") != -1) {
@@ -73,41 +14,37 @@ function applyFso(hashValue){
     thisMovie("applyComp").getHashFromJs(hashValue);
 }
 function replyer(){
-    alert("success");
+//    alert("success");
 }
 </script>
 <script type="text/ng-template" id="UserSettings.html">
 <div class="modal-header">
-        <h3 class="modal-title">User Settings</h3>
+        <h3 class="modal-title">用户设置</h3>
     </div>
     <div class="modal-body">
         <div class="thumbnail media">
             <div class="pull-left" id="preview">  
-                <img id="imghead" width=120 height=120 border=0 src="images/yeoman.png">  
+                <img id="imghead" width=120 height=120 border=0  src="images/caster/{{settings.thumbnail}}">  
             </div>
             <div class="media-body">
-                <input type="button" class='btn btn-primary' style="width:180px;" value='Upload headImage'>
-                </br></br>
+                <div style="padding-top:20px;padding-left:10px;">
+                <input type="button" class='btn btn-primary' style="width:180px;" value='上传头像'>
+                </div>
+                <div style="padding:10px">
                 <input type="text" name='textfield' id='textfield' class='txt'>                       
-                <input type="file" class="file" value="Upload headImage" style="position:relative;bottom:90px;opacity:0;height:30px;width:200px;" onchange="previewImage(this);document.getElementById('textfield').value=this.value">
+                </div>
             </div>
         </div>
-        <dl class="dl-horizontal">
-            <dt class="lead" style="margin-bottom:0px">Username</dt>
-            <dd><input type="text" placeholder="{{settings.username}}"></input></dd>
-            <dt class="lead">Email</dt>
-            <dd><input type="email" placeholder="{{ settings.email }}"></input></dd>
-        </dl>
     </div>
     <div class="modal-footer" style="background-color:#d3ecf5;">
-        <button class="btn btn-primary" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-click="ok()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">取消</button>
     </div>
 </script>
 
 <script type="text/ng-template" id="UserFavor.html">
     <div class="modal-header">
-        <h3 class="modal-title">您想看点什么呢？</h3>
+        <h3 class="modal-title">想看点什么呢？</h3>
     </div>
     <div class="modal-body">
         <div class="thumbnail media span3" id="favor" style="margin-top:0px;" ng-repeat="tag in tags" ng-click="addFavor(tag)">
@@ -137,23 +74,17 @@ function replyer(){
          <dl class="dl-horizontal">
             <dt class="lead" style="margin-bottom:0px">RTMP地址</dt>
             <dd>
-            <input class="disable" type="text" placeholder="" value="{{rtmp}}"></input>
-            <a class="btn btn-warning" style="margin-left:10px;margin-bottom:10px">复制</a>
+            <input id="rmtp" class="disable" type="text" placeholder="" value="{{rtmp}}"></input>
+            <span id="rmtpResult" style=""></span>
             </dd>
             <dt class="lead" style="margin-bottom:0px">Stream名称</dt>
             <dd>
             <input type="text" placeholder="" value="{{streamName}}"></input>
-            <a class="btn btn-warning" style="margin-left:10px;margin-bottom:10px">复制</a>
             </dd>
             <dt class="lead" style="margin-bottom:0px">视频名称</dt>
             <dd>
             <input type="text" placeholder="" ng-model="livename"></input>
             </dd>
-            <dt class="lead">视频分类</dt>
-            <dd>
-            <input type="text" placeholder="" ng-model="tag"></input>
-            </dd>
-
         </dl>
     </div>
     <div class="modal-footer" style="background-color:#d3ecf5;">
@@ -165,15 +96,17 @@ function replyer(){
 <div class="container container-fluid" style="margin-top:20px;" ng-show="showPage">
     <div class="row-fluid">
         <div class="span8">
-            <div class="thumbnail media message" ng-repeat="message in messages">
+            <div ng-if="noMessage" class="well" style="cursor:pointer;" ng-click="openUserFavor()">
+            <p class="muted text-center" style="margin:0px;">试试加点标签</p>
+            </div>
+            <div class="thumbnail media message" ng-repeat="message in messages | orderBy : 'time' : true">
                 <div class="pull-left span2" style="margin:10px;">
                     <img class="media-object img-rounded" ng-src="images/caster/{{ message.user.thumbnail }}"></img>
-                    <p class="text-center" style="font-size:24px;overflow:hidden;">
-                        {{ message.user.username }}
-                    </p>
                 </div>
                 <div class="media-body" style="margin-left:50px;">
-                    <h3 class="media-heading">{{ message.user.username }}正在看</h3>
+                    <span class="muted" style="position:absolute;right:10px;" ng-if="message.isRecommend">为您推荐</span>
+                    <h3 class="media-heading" ng-if="message.type === 2">{{ message.user.username }}正在看</h3>
+                    <h3 class="media-heading" ng-if="message.type === 1">{{ message.user.username }}正在播</h3>
                     <div class="media" style="margin-top:0px;">
                         <div class="pull-left">
                             <a href="#/castroom/{{ message.caster.username }}">
@@ -191,8 +124,11 @@ function replyer(){
                             </div>
                         </div>
                         <p style="position:absolute;bottom:10px;right:20px;">
-                        <span class="label label-warning label-bigger">
-                            {{ message.time }} {{ message.status }}
+                        <span class="label label-warning" ng-if="message.isRecommend === false">
+                            {{ message.time }}
+                        </span>
+                        <span class="label label-info label-bigger" ng-if="message.isRecommend === true">
+                            {{ message.tag.tagName }}
                         </span>
                         </p>
                     </div>
@@ -214,7 +150,7 @@ function replyer(){
                     </button>
                 </div>
                 <div>
-                    <a class="btn btn-large btn-success btn-block" ng-click="OpenCastInfoDialog()" style="margin-top:10px;">我要直播</a>
+                    <a class="btn btn-large btn-success btn-block" ng-click="OpenCastInfoDialog()" style="margin-top:30px;">我要直播</a>
                     <span display="none">
                     <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
                         id="applyComp" width="0" height="0"
@@ -238,7 +174,7 @@ function replyer(){
                 </div>
                 <hr></hr>
                 <div style="">
-                    <span class="label label-bigger" style="margin-right:10px;margin-bottom:10px;" ng-repeat="tag in tags | filter : {selected : true}">{{ tag.tagName }}</span>
+                    <span class="label label-bigger" style="margin-right:10px;margin-bottom:10px;" ng-repeat="tag in tags | filter : {selected : true}" ng-click="goToCategory(tag)">{{ tag.tagName }}</span>
                     <div id="add" ng-click="openUserFavor()">
                     </div>
                 </div>
@@ -246,7 +182,9 @@ function replyer(){
         </div>
         <hr></hr>
         <div class="thumbnail">
-            <div class="media img-rounded" id="friend_box" style="" ng-repeat="friend in friends">
+            <h4 style="margin-left:10px">你的关注</h4>
+            <hr style="margin:10px;"></hr>
+            <div class="media img-rounded" id="friend_box" style="cursor:pointer" ng-click="friendClick(friend)" ng-repeat="friend in friends | orderBy : 'status' : true">
                 <a class="pull-left">
                     <img class="media-object people-head" ng-src="images/caster/{{ friend.thumbnail }}">
                     </img>
@@ -254,7 +192,7 @@ function replyer(){
                 <div class="media-body" style="padding:5px">
                     <h4 class="media-heading">{{ friend.username }}</h4>
                     <p>
-                    <span class="label" style="">music</span>
+                    <span class="label label-success" style="" ng-show="friend.status === 1">正在直播</span>
                     </p>
                 </div>
             </div>

@@ -14,7 +14,7 @@ var app = angular.module('livesApp')
 
     var user = RegisterService.getUser();
     if(user === null || typeof user === 'undefined') {
-//        $location.path('/');    
+        $location.path('/');    
     } else {
         AuthService.login(user, function(res) {
             console.log('received auth!');

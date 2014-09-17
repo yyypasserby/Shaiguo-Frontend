@@ -25,7 +25,10 @@ body {
     height:23px;
     padding-top: 12px;
 }
-
+.label-primary{
+    background-color:#5eccf3;
+    background-image:linear-gradient(to bottom, #5eccf3, #5ea3f3);
+}
 div.category-heading {
     margin-bottom: 20px;
 }
@@ -89,4 +92,8 @@ ul#navigation li.active {
     white-space: nowrap;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
+}
+img.media-object{
+    width: 70px;
+    height: 70px;
 }

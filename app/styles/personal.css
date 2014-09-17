@@ -4,13 +4,19 @@ body{
 }
 
 img.liveThumbnail {
-    width:250px;
+    width:280px;
     height:180px; 
 }
 
 img.people-head {
     height:50px;
     width:50px;
+    margin:5px;
+}
+
+img.media-object{
+    height: 70px;
+    width: 70px;
 }
 
 span.label.label-bigger {

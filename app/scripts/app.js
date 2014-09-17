@@ -29,6 +29,10 @@ var app = angular
         templateUrl: 'views/personal.html',
         controller: 'PersonalCtrl'
       })
+      .when('/personal/:username', {
+        templateUrl: 'views/usercenter.html',
+        controller: 'UserCenterCtrl'
+      })
       .when('/search', {
         templateUrl: 'views/search.html',
         controller: 'SearchCtrl'
@@ -36,10 +40,6 @@ var app = angular
       .when('/category/:category', {
         templateUrl: 'views/category.html',
         controller: 'CategoryCtrl'
-      })
-      .when('/cast', {
-        templateUrl: 'views/cast.html',
-        controller: 'CastCtrl'
       })
       .when('/castroom/:username', {
         templateUrl: 'views/castroom.html',
@@ -77,10 +77,20 @@ app.constant('USER_ROLES', {
     running: 'remote'
 })
 .constant('ERROR_INFO', {
-    USERNAME_NOT_EXIST : 'Username not existed',
-    USERNAME_PASSWORD_NOT_MATCHED : 'Credentials not available',
-    USERNAME_NOT_VALID : 'Username not valid',
-    PASSWORD_NOT_VALID : 'Password not valid'
+    USERNAME_NOT_EXIST : '用户名不存在',
+    USERNAME_PASSWORD_NOT_MATCHED : '用户名与密码不匹配',
+    USERNAME_NOT_VALID : '用户名无效',
+    PASSWORD_NOT_VALID : '密码无效',
+    USERNAME_IS_EMPTY : '用户名不能为空',
+    PASSWORD_IS_EMPTY : '密码不能为空',
+})
+.constant('REGISTER_ERROR', {
+    USERNAME_NOT_VALID: '用户名不符合要求',
+    EMAIL_NOT_VALID: '邮箱名不符合要求',
+    PASSWORD_NOT_VALID: '密码不符合要求',
+    USERNAME_IS_EMPTY: '用户名不能为空',
+    PASSWORD_IS_EMPTY: '密码不能为空',
+    EMAIL_IS_EMPTY: '邮箱不能为空'
 });
 
 app.run(function($rootScope, Session, TagService, AuthService, Resource) {
@@ -101,7 +111,7 @@ app.run(function($rootScope, Session, TagService, AuthService, Resource) {
         console.log(e);
         console.log(d);
         var send = Resource.getResource('action/receive');
-        var action = {userId: Session.getUserId(), vid: d.liveId, type: 1, 
+        var action = {userId: Session.getUserId(), vid: d.liveId, type: 2, 
             time: dateFormat('yyyy-MM-dd hh:mm:ss')};
         send.save(action, function(res) {
             if(res.result === 'success') {
@@ -134,11 +144,18 @@ app.service('Session', function($window) {
         $window.sessionStorage.sessionId = sid;
         $window.sessionStorage.user = angular.toJson(user);
         $window.sessionStorage.dirty = false;
+        $window.sessionStorage.isPublic = false;
+    };
+    this.remainUpsUsed = function() {
+        var user = this.getUser();
+        user.remainUps -= 1;
+        $window.sessionStorage.user = angular.toJson(user);
     };
     this.destroy = function() {
         $window.sessionStorage.sessionId = null;
         $window.sessionStorage.user = null;
         $window.sessionStorage.dirty = false;
+        $window.sessionStorage.isPublic = null;
     };
     this.getUser = function() {
         return angular.fromJson($window.sessionStorage.user);
@@ -168,6 +185,12 @@ app.service('Session', function($window) {
     this.isDirty = function() {
         return $window.sessionStorage.dirty;    
     };
+    this.isPublic = function() {
+        return $window.sessionStorage.isPublic;  
+    };
+    this.setPublic = function(ispublic) {
+        $window.sessionStorage.isPublic = ispublic;  
+    }; 
 });
 
 app.service('Resource', function($http, $resource, Server) {

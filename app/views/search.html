@@ -24,36 +24,56 @@
     <tabset>
     <tab heading="正在直播">
     <div>
-        <input type="text" ng-model="live_query" placeholder="Type sth. to filter..."></input>
+        <input type="text" ng-model="live_query" placeholder="过滤一下"></input>
     </div>
         <div class="span3 thumbnail" style="margin-left:5px;margin-bottom:30px;" ng-repeat="live in lives | filter : {'livename' : live_query}">
             <a href="#/castroom/{{live.username}}">
             <img class="swap2" style="height:160px; width:220px;" ng-src="images/utils/play.png">
             <img style="height:160px; width:220px;" ng-src="images/catagory/{{ live.thumbnail }}">
             </a>
-            <h6 class="muted">{{ live.livename }}</h6>
-            <p></p>
+            <div class="row-fluid">
+            <div class="span6" style="">
+                <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis" class="span12">
+                {{ live.livename }}
+                </span>
+            </div>
+            <div class="span3">
+                <i class="icon-eye-open"></i>{{ live.attention }}
+            </div>
+            <div class="span3">
+                <i class="icon-fire"></i>{{ live.rating }}
+            </div>
+        </div>
         </div>
     </tab>
     <tab heading="晒果用户">
     <div>
         <div>
-        <input type="text" ng-model="user_query" placeholder="Type sth. to filter..."></input>
+        <input type="text" ng-model="user_query" placeholder="过滤一下"></input>
         </div>
-        <div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" ng-repeat="user in users | filter : {'username' : user_query}">
+        <div class="thumbnail media span3" style="cursor:pointer;margin-left:5px;margin-bottom:30px;" ng-click="goToCastroom(user)" ng-repeat="user in users | filter : {'username' : user_query} | orderBy : 'status' : true">
+            <a class="pull-left">
             <img style="height:80px;width:80px;" ng-src="images/caster/{{ user.thumbnail }}">
-            <h6 class="">{{ user.username }}</h6>
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">{{ user.username }}
+                </h4>
+                <div><i class="icon-thumbs-up"></i> {{ user.hotRate }}
+                    <i class="icon-eye-open"></i> {{ user.attention }}</div>
+                <span class="label label-primary" ng-if="user.status === 1">正在直播</span>
+                <a class="btn btn-small btn-success pull-right" ng-if="user.status === 1">进入</a>
+            </div>
         </div>
     </div>
     </tab>
     <tab heading="缓存视频">
     <div class="container">
     <div>
-        <input type="text" ng-model="cache_query" placeholder="Type sth. to filter..."></input>
+        <input type="text" ng-model="cache_query" placeholder="过滤一下"></input>
     </div>
     <div class="thumbnail span3" style="margin-left:5px;margin-bottom:30px;" ng-repeat="video in cachedVideos | filter : {'videoname' : cache_query}">
             <img class="swap2" style="height:160px; width:220px;" ng-src="images/utils/play.png">
-            <img style="height:160px; width:220px;" ng-src="images/{{ video.thumbnail }}.jpg">
+            <img style="height:160px; width:220px;" ng-src="images/catagory/{{ video.thumbnail }}">
             <h6 class="">{{ video.videoname }}</h6>
             <h6 class="muted">{{ video.duration.seconds }}</h6>
         </div>

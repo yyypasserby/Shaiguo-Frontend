@@ -26,7 +26,7 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
         });
     };
     $scope.signup = function() {
-        RegisterService.setUser({username: "", password: "", email: ""});
+        RegisterService.setUser({username: '', password: '', email: ''});
         $location.path('/join');
         $modalInstance.dismiss();  
     };
@@ -37,7 +37,7 @@ var UserLoginInstanceCtrl = function($scope, $modalInstance, $rootScope, AuthSer
 
 
 var app = angular.module('livesApp')
-.controller('NavbarCtrl', function($scope, $modal, $location, Resource, AuthService, AUTH_EVENTS, SearchService, $rootScope) {
+.controller('NavbarCtrl', function($scope, $modal, $location, Resource, AuthService, Session, AUTH_EVENTS, SearchService, $rootScope) {
     $rootScope.openLoginModal = function() {
         var modalInstance = $modal.open({
             templateUrl: 'UserLogin.html',
@@ -82,10 +82,22 @@ var app = angular.module('livesApp')
     };
     $scope.$on(AUTH_EVENTS.logoutSuccess, function() {
         $scope.isAuth = AuthService.isAuthenticated();
+        $scope.remainUps = null;
     });
 
+    $scope.remainUps = Session.getUser().remainUps;
     $scope.$on(AUTH_EVENTS.loginSuccess, function() {
         $scope.isAuth = AuthService.isAuthenticated();
+        $scope.remainUps = Session.getUser().remainUps;
+        console.log('User Login');
+        console.log(Session.getUser());
+    });
+
+    $rootScope.$on('addOneClicked', function(e, d) {
+        if(AuthService.isAuthenticated()) {
+            $scope.remainUps -= 1;
+            Session.remainUpsUsed();
+        }
     });
 
     $scope.search = {content : '', category : ''};
@@ -109,6 +121,7 @@ app.directive('navItem', function($location) {
         });
     };
 });
+
 
 
 

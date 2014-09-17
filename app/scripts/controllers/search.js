@@ -1,23 +1,27 @@
 'use strict';
 
 var app = angular.module('livesApp')
-.controller('SearchCtrl', function($scope, Resource, SearchService, $routeParams) {
+.controller('SearchCtrl', function($scope, Resource, SearchService, $routeParams, $location) {
     var pageLoader = {};
     pageLoader.load = function() {
+        
         $scope.lives = SearchService.searchLives();
         $scope.users = SearchService.searchUsers();
         $scope.cachedVideos = SearchService.searchCachedVideos();
     };
-    $scope.isLoad = false;
-    if(SearchService.isSearchAvailable()) {
-        $scope.isLoad = true;
-        pageLoader.load();    
-    }
+    $scope.isLoad = true;
+    pageLoader.load();    
     $scope.$on('searchPageReload', function() {
         console.log('page reloaded');
         $scope.isLoad = true;
         pageLoader.load(); 
     });
+
+    $scope.goToCastroom = function(user) {
+        if(user.status === 1) {
+            $location.path('/castroom/' + user.username);    
+        }  
+    };
 });
 
 app.service('SearchService', function(Resource, TagService) {
@@ -28,7 +32,9 @@ app.service('SearchService', function(Resource, TagService) {
     this.isSearchAvailable = function() {
         return !(this.key === null || typeof this.key === 'undefined');    
     };
-
+    this.setSearchType = function(index) {
+        this.index = index;  
+    };
     this.searchResource = Resource.getResource('search/:category');
     this.searchLives = function() {
         return this.searchResource.query({category: 'live', content: this.key}, function(res) {

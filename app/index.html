@@ -32,17 +32,17 @@
                         </li>
                         <li nav-item="#/"><a href="#/">首页</a></li>
                         <li nav-item="#/personal"><a href="#/personal">我的晒果</a></li>
-                        <li nav-item="#/search"><a href="#/search">搜索</a></li>
-                        <li nav-item="#/castroom"><a href="#/castroom/lebi170">直播间</a></li>
                     </ul>
                     <div class="pull-right form-search" style="margin-top:21px">
                         <div class="input-append" style="height:25px;">
                             <input type="text" ng-model="searchContent" style="height:15px" class="search-query" placeholder="你想看啥？" typeahead="result.searchResult as result for result in getPreSearch($viewValue)" ui-keypress="{13:'getSearch()'}" typeahead-template-url="searchTemplate.html"></input>
                             <button class="btn" style="height:25px;padding:2px 10px" type="submit" ng-click="getSearch()">Go!</button>
+
                         </div>
-                        <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-click="openNotificationCenter()" ng-show="isAuth">
-                        <i class="icon-bell icon-white"></i>
-                        </a>
+                        <span ng-show="isAuth" class="btn btn-primary btn-small" style="margin-left:20px;margin-top:0px;">
+                            <i class="icon-thumbs-up"></i>
+                            {{ remainUps }}
+                        </span>
                         <a class="btn btn-small btn-primary" style="margin-left:20px;margin-top:0px;" ng-show="isAuth" ng-click="logOut()">
                         <i class="icon-off icon-white"></i>
                         <span>登出</span>
@@ -51,14 +51,11 @@
                         <i class="icon-user icon-white"></i>
                         <span>登录</span>
                         </a>
-
                     </div>
                 </div>
             </div>
-            <div style="height:0px;background-color:#fff">
-            </div>
         </div>
-        <div style="height:65px">
+        <div style="height:55px">
         </div>
         <div id="ngView" style="" ng-view=""></div>
 
@@ -119,8 +116,12 @@
     <script src="scripts/controllers/category.js"></script>
     <script src="scripts/controllers/join.js"></script>
     <script src="scripts/controllers/favor.js"></script>
+    <script src="scripts/controllers/usercenter.js"></script>
     <script src="scripts/utils.js"></script>
+    <script src="scripts/jquery.zclip.min.js"></script>
     <!-- endbuild -->
+    <script>
+    </script>
     <script type="text/ng-template" id="UserLogin.html">
         <div class="modal-body">
             <div class="modal-header">
@@ -128,14 +129,14 @@
                 <a class="btn btn-success pull-right" ng-click="signup()">注册</a>
             </div>
             <dl class="dl-horizontal">
-                <dt class="lead" style="margin-bottom:0px">Username</dt>
+                <dt class="lead" style="margin-bottom:0px">用户名</dt>
                 <dd>
                 <span>
                     <input type="text" ng-model="user.username" placeholder="" ng-minlength=6 ng-maxlength=20>
                     </input>
                 </span>
                 </dd>
-                <dt class="lead" style="margin-bottom:0px">Password</dt>
+                <dt class="lead" style="margin-bottom:0px">密码</dt>
                 <dd>
                 <span class="control-group">
                     <input type="password" ng-model="user.password" placeholder="" ng-minlength=6 ng-maxlength=20  ui-keypress="{13:'signIn()'}" >

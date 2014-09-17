@@ -1,10 +1,14 @@
 'use strict';
 
 var app = angular.module('livesApp')
-.controller('CastroomCtrl', function ($scope, Resource, $routeParams, Session) {
+.controller('CastroomCtrl', function ($scope, Resource, $routeParams, Session, AuthService, AUTH_EVENTS, $location) {
     var castername = $routeParams.username;
     $scope.chatpool = [];
     $scope.saySth = function($event) {
+        if(AuthService.isAuthenticated() === false) {
+            $scope.$emit('needToLogin');
+            return;
+        }
         if($scope.chatContent === '') {
             return;
         }
@@ -28,9 +32,21 @@ var app = angular.module('livesApp')
         console.log($scope.chatpool);
         $scope.$broadcast('ChatpoolChanged');
     };
+
+    $scope.jumpAnchor = function(anchor) {
+        $location.path('/castroom/' + anchor);    
+    }
    
     var casterResource = Resource.getResource('user/username/:username');
     casterResource.get({username: castername}, function(user) {
+        if(user.userId === 0) {
+            if(AuthService.isAuthenticated()) {
+                $location.path('/personal');    
+            }
+            else {
+                $location.path('/');    
+            }
+        }
         if(user.thumbnail === null) {
             user.thumbnail = 'default.png';
         }
@@ -41,7 +57,31 @@ var app = angular.module('livesApp')
     var liveResource = Resource.getResource('casting/:username');
     liveResource.get({username: castername}, function(live) {
         $scope.live = live;
+        if(live.liveId === 0) {
+            live.livename = castername + "的直播间";
+            live.isCasting = 'false';    
+        }
+        else {
+            live.isCasting = 'true';    
+        }
         $scope.$broadcast('LiveLoadFinish', live);
+    });
+    $scope.$on(AUTH_EVENTS.loginSuccess, function() {
+        $scope.$broadcast('CasterLoadFinish', $scope.caster); 
+    });
+    $scope.$on('addOneClicked', function($event) {
+        var message = Session.getUser().username;
+        message += "给了主播一个赞!";
+        var content = {};
+        content.username = "系统消息:"
+        content.content = message;
+        content.time = dateFormat('yyyy-MM-dd hh:mm:ss');
+        console.log(content);
+        $scope.chatpool.push(content);
+        sendChatMessage(angular.toJson(content));
+        
+        $scope.$broadcast('ChatpoolChanged');
+        $event.preventDefault();
     });
 });
 
@@ -79,6 +119,7 @@ app.directive('subscribeBtn', function(Resource, Session, AuthService) {
                             ele.html('已订阅');
                         } 
                     });
+                ele.unbind('click');
                 ele.bind('click', function() {
                     if(scope.isDisabled) {return;}
                     var subscribeResource = Resource.getResource('subscribe');
@@ -97,14 +138,30 @@ app.directive('subscribeBtn', function(Resource, Session, AuthService) {
     };
 });
 
-app.directive('addOneBtn', function() {
+app.directive('addOneBtn', function(AuthService, Session, Resource) {
     return {
         link: function(scope, ele, attrs) {
             scope.$on('LiveLoadFinish', function(e, d) {
                 console.log('loading lives');
                 console.log(d);
                 ele.bind('click', function() {
-                    scope.$emit('UserActionOccur', d); 
+                    if(AuthService.isAuthenticated() === false) {
+                        scope.$emit('needToLogin');
+                        return;
+                    }
+                    if(Session.getUser().remainUps <= 0) {
+                        return;    
+                    }
+                    var addOneResource = Resource.getResource('user/addOne');
+                    addOneResource.get({userId: Session.getUserId(), casterId: d.userId}, function(res) {
+                        if(res.result === 'failed') {
+                            console.log(res); 
+                        }
+                        else {
+                            scope.$emit('UserActionOccur', d); 
+                            scope.$emit('addOneClicked', d);
+                        }
+                    });
                 });
             });
         }
@@ -126,7 +183,8 @@ app.directive('livePlayer', function() {
         '<param name="quality" value="high" />' +
         '<param name="bgcolor" value="#fff" />' + 
         '<param name="allowScriptAccess" value="sameDomain" />' + 
-        '<embed src="flash/videoClient.swf?id=<?php echo(rand());?>&fileName=' + d.location + '&videoName = Game1&serverUrl=rtmfp://223.3.91.16/LivesServer" quality="high" bgcolor="#fff" width="800" height="520" name="videoClient" align="middle" play="true" loop="false" quality="high" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" allowFullScreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">' +
+        '<embed src="flash/videoClient.swf?id=<?php echo(rand());?>&fileName=' + d.location + 
+        '&videoName=Game1&isCasting=' + d.isCasting + '&serverUrl=rtmfp://223.3.91.16/LivesServer" quality="high" bgcolor="#fff" width="800" height="520" name="videoClient" align="middle" play="true" loop="false" quality="high" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" allowFullScreen="true" pluginspage="http://www.macromedia.com/go/getflashplayer">' +
         '</embed>' + 
         '</object>');
               //  }

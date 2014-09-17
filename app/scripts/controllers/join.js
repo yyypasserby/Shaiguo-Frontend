@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('livesApp')
-.controller('JoinCtrl', function($scope, $location, RegisterService, Resource) {
+.controller('JoinCtrl', function($scope, $location, RegisterService, REGISTER_ERROR, Resource) {
     $scope.user = {};
     var register = function() {
         var user = RegisterService.getUser();
@@ -35,7 +35,8 @@ var app = angular.module('livesApp')
             console.log(res);
             if(res.result === 'failure') {
                 $scope.error.result = true;
-                $scope.error.message = '你填写的信息可能有错';
+                console.log(res.object.errorMessage);
+                $scope.error.message = REGISTER_ERROR[res.object.errorMessage];
                 RegisterService.registerFinished();
             }
             else {
